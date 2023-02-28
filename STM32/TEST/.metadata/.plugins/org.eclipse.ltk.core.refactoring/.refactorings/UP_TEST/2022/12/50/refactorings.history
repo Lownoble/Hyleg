@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="将资源“UP_TEST/Core/icode/tmotor/Tmotor.c”重命名为“tmotor.c”" description="重命名资源“Tmotor.c”" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/icode/tmotor/Tmotor.c" name="tmotor.c" stamp="1670467127872" updateReferences="true"/>&#x0A;<refactoring comment="将资源“UP_TEST/Core/icode/tmotor/Tmotor.h”重命名为“tmotor.h”" description="重命名资源“Tmotor.h”" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/icode/tmotor/Tmotor.h" name="tmotor.h" stamp="1670467136038" updateReferences="true"/>
+</session>
