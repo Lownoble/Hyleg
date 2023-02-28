@@ -14,17 +14,23 @@
 ### 电机函数
 1. 电机使能
 ```
-    int motor_enable(int motor_address)
+int motor_enable(int motor_address)
 ```
 2. 电机失能
 ```
-    int motor_disable(int motor_address)
+int motor_disable(int motor_address)
 ```
-3. 电机控制代码
+3. 电机控制
 ```
-    int pack_TX(int motor_address, float p_des, float v_des, float kp, float kd, float t_ff)
+int pack_TX(int motor_address, float p_des, float v_des, float kp, float kd, float t_ff)
 ```
-    控制电机位置、速度、KP、KD、扭矩
 
+控制电机位置、速度、KP、KD、扭矩
+
+4. 电机接收
+```
+struct Tmotor unpack_RX(unsigned char rx_buf[6])
+```
+接收电机返回信息，存入Tmotor
 ## odroid
 
