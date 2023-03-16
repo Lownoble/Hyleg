@@ -16,9 +16,11 @@
 3. 磁力计采集
 
 #### 问题：
--[] 输出姿态角度不发生变化。
++ 输出姿态角度不发生变化。
 
 原因：STM32与MPU9250未完成通信，无法收到SPI的消息。
+    MPU9250读取数据均为0，可能是初始化未完成。
+
 
 ### 姿态解算
 
@@ -28,7 +30,7 @@
 ### CAN通讯
 1. CAN口发送函数
 ```
-    can_send(int motor_address,unsigned char* send_buf,int send_len)
+can_send(int motor_address,unsigned char* send_buf,int send_len)
 ```
 ### 电机函数
 1. 电机使能

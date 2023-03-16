@@ -1,0 +1,12 @@
+function [theta1,theta2] = IK(x,y)
+%Inverse Kinematics
+%逆运动学解算
+syms a b;
+equ = [x == 300*cos(a)-300*cos(pi/2-b),y == -300*sin(a)-300*sin(pi/2-b)];
+answ = solve(equ,[a,b]);
+if(0<double(answ.a)<pi)
+    
+theta1 = double(answ.a);
+theta2 = double(answ.b);
+
+end

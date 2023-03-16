@@ -1,0 +1,9 @@
+/*
+ * trajectory.c
+ *
+ *      Author: DZ
+ */
+
+
+int tra_cnt = 0;
+int stand_flag = 1;

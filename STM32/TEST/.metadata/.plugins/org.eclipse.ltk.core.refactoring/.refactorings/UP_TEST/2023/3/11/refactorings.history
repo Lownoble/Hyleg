@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="将资源“UP_TEST/Core/icode/trajectory/trajectory”重命名为“trajectory.h”" description="重命名资源“trajectory”" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/icode/trajectory/trajectory" name="trajectory.h" stamp="1678868346982" updateReferences="true"/>
+</session>

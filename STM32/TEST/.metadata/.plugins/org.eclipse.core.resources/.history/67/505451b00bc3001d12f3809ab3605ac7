@@ -1,0 +1,4 @@
+
+
+extern int tra_flag;
+extern float stand_trajectory;
