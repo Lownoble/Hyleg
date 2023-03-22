@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -O3 -O3 -DNDEBUG  -rdynamic CMakeFiles/moco_ml.dir/src/main.cpp.o  -o moco_ml  -lwiringPi 

@@ -1,0 +1,3 @@
+/home/corvin/QT/Line_Track/build/CMakeFiles/rebuild_cache.dir
+/home/corvin/QT/Line_Track/build/CMakeFiles/edit_cache.dir
+/home/corvin/QT/Line_Track/build/CMakeFiles/run.dir
