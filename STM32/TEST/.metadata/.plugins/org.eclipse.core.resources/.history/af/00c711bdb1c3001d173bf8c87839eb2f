@@ -1,6 +1,0 @@
-
-
-extern int tra_cnt;
-extern float stand_trajectory;
-extern int stand_flag;
-extern float mis;

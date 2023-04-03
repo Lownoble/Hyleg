@@ -1,9 +1,0 @@
-
-
-extern int tra_cnt;
-extern int stand_flag;
-static float stand_trajectory[5][2] = {{0.818280,	0.357726},
-								  {0.820901,	0.362802},
-								  { 0.823555,	0.367858},
-								  {0.826241,	0.372893},
-								  { 0.828959,	0.377908}};

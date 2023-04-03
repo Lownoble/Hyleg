@@ -1,5 +1,0 @@
-
-
-extern int tra_cnt;
-extern int stand_flag;
-extern float stand_trajectory[101][2];
