@@ -2,8 +2,8 @@ clc
 clear
 
 %% setting
-theta1 = 45/180*pi;
-theta2 = 30/180*pi;
+theta1 = 90/180*pi;
+theta2 = 90/180*pi;
 
 
 %% calculate
@@ -90,4 +90,9 @@ fid=fopen(['C.txt'],'w');%写入文件路径
   fprintf(fid,'%f},\r\n',swing_trajectory(i,2));
  end
 fclose(fid);
+%% 
+
+plot(stand_trajectory(:,1),stand_trajectory(:,2),'r');
+hold on 
+plot(swing_trajectory(:,1),swing_trajectory(:,2),'b');
 

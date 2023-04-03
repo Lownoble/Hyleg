@@ -15,3 +15,6 @@ for times = 0:100
     stand_trajectory = [stand_trajectory; stand_theta1,stand_theta2];
     swing_trajectory = [swing_trajectory; swing_theta1,swing_theta2];
 end
+
+%% 
+[A1,A2] = IK (0,-500)
