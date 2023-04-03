@@ -33,8 +33,8 @@ Core/icode/imu/imu.o: ../Core/icode/imu/imu.c ../Core/Inc/spi.h \
  ../Core/Inc/../icode/tmotor/tmotor.h ../Core/Inc/../icode/imu/imu.h \
  ../Core/Inc/../icode/mems.h ../Core/Inc/../icode/trajectory/trajectory.h \
  ../Core/icode/imu/imu.h \
- F:/DZ/Legged\ robot/Hyleg/STM32/UP_TEST/Math/gait_math.h \
- F:/DZ/Legged\ robot/Hyleg/STM32/UP_TEST/Math/base_struct.h
+ F:/DZ/Legged\ robot/UDroid/UDroid-Pihat/examples/TEST/UP_TEST/Math/gait_math.h \
+ F:/DZ/Legged\ robot/UDroid/UDroid-Pihat/examples/TEST/UP_TEST/Math/base_struct.h
 ../Core/Inc/spi.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -74,5 +74,5 @@ Core/icode/imu/imu.o: ../Core/icode/imu/imu.c ../Core/Inc/spi.h \
 ../Core/Inc/../icode/mems.h:
 ../Core/Inc/../icode/trajectory/trajectory.h:
 ../Core/icode/imu/imu.h:
-F:/DZ/Legged\ robot/Hyleg/STM32/UP_TEST/Math/gait_math.h:
-F:/DZ/Legged\ robot/Hyleg/STM32/UP_TEST/Math/base_struct.h:
+F:/DZ/Legged\ robot/UDroid/UDroid-Pihat/examples/TEST/UP_TEST/Math/gait_math.h:
+F:/DZ/Legged\ robot/UDroid/UDroid-Pihat/examples/TEST/UP_TEST/Math/base_struct.h:

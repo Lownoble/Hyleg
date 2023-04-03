@@ -69,8 +69,8 @@ all: main-build
 main-build: UP_TEST.elf secondary-outputs
 
 # Tool invocations
-UP_TEST.elf UP_TEST.map: $(OBJS) $(USER_OBJS) F:\DZ\Legged\ robot\Hyleg\STM32\UP_TEST\STM32F405RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "UP_TEST.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\DZ\Legged robot\Hyleg\STM32\UP_TEST\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="UP_TEST.map" -Wl,--gc-sections -static -L"F:\DZ\Legged robot\Hyleg\STM32\UP_TEST\Math" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+UP_TEST.elf UP_TEST.map: $(OBJS) $(USER_OBJS) F:\DZ\Legged\ robot\UDroid\UDroid-Pihat\examples\TEST\UP_TEST\STM32F405RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "UP_TEST.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\DZ\Legged robot\UDroid\UDroid-Pihat\examples\TEST\UP_TEST\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="UP_TEST.map" -Wl,--gc-sections -static -L"F:\DZ\Legged robot\UDroid\UDroid-Pihat\examples\TEST\UP_TEST\Math" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
