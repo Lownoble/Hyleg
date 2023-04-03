@@ -32,13 +32,40 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <stdarg.h>
 #include "../icode/led/led.h"
 #include "../icode/tmotor/tmotor.h"
+#include "../icode/imu/imu.h"
+#include "../icode/mems.h"
+#include "../icode/trajectory/trajectory.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+extern Tmotor motor1;
+extern Tmotor motor2;
+extern Tmotor motor3;
+extern Tmotor motor4;
+extern Tmotor motor5;
 
+extern uint8_t  USART1_RX_BUF[200];
+extern uint8_t  USART1_RX_FLAG;
+extern uint32_t USART1_RX_CNT;
+extern uint8_t  USART1_RX_TEMP[1];
+extern uint8_t  USART1_TX_BUF[200];
+
+extern uint8_t CAN1_Rx_data[6];
+extern uint8_t CAN1_Tx_data[8];
+extern uint8_t CAN2_Rx_data[6];
+extern uint8_t CAN2_Tx_data[8];
+extern uint8_t CAN_FLAG;
+
+
+extern xyz_s16_t data_acc;
+extern xyz_s16_t data_g;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -59,12 +86,15 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Cylinder_Pin GPIO_PIN_0
+#define Cylinder_GPIO_Port GPIOC
 #define LED2_Pin GPIO_PIN_3
 #define LED2_GPIO_Port GPIOB
 #define LED1_Pin GPIO_PIN_4
 #define LED1_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
-
+void print_usart1(char *format, ...);
+void DmaPrintf(const char *format,...);
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

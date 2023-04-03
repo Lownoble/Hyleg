@@ -44,7 +44,7 @@ void MX_CAN1_Init(void)
 
   /* USER CODE BEGIN CAN1_Init 0 */
   HAL_StatusTypeDef 		HAL_Status;
-  CAN_FilterTypeDef 		CAN1_Filter; //CAN1æ»¤æ³¢ï¿????
+  CAN_FilterTypeDef 		CAN1_Filter; //CAN1æ»¤æ³¢ï¿????????
   uint32_t StdId = 0x01;
   uint32_t ExtId = 0x00;
   uint32_t DLC = 8;
@@ -71,11 +71,11 @@ void MX_CAN1_Init(void)
   }
   /* USER CODE BEGIN CAN1_Init 2 */
   //Tx_Init
-  CAN1_TX.StdId  			 			 = 	StdId;   		 //11ï¿????     æ ‡å‡†æ ‡è¯†ï¿????
-  CAN1_TX.ExtId    					  	 = 	ExtId;   		 //29ï¿????     æ‰©å±•æ ‡è¯†ï¿????
-  CAN1_TX.IDE      						 = 	CAN_ID_STD;  	//1ï¿????        0:æ ‡å‡†ï¿???? 1:æ‹“å±•ï¿????
-  CAN1_TX.RTR      			  			 = 	CAN_RTR_DATA; 	 //1ï¿????   0:æ•°æ®ï¿???? 1:è¿œç¨‹ï¿????
-  CAN1_TX.DLC      				  		 = 	DLC;     	 	//4ï¿????   å‘ï¿½?ï¿½çš„æ•°æ®çš„é•¿ï¿????
+  CAN1_TX.StdId  			 			 = 	StdId;   		 //11ï¿????????     æ ‡å‡†æ ‡è¯†ï¿????????
+  CAN1_TX.ExtId    					  	 = 	ExtId;   		 //29ï¿????????     æ‰©å±•æ ‡è¯†ï¿????????
+  CAN1_TX.IDE      						 = 	CAN_ID_STD;  	//1ï¿????????        0:æ ‡å‡†ï¿???????? 1:æ‹“å±•ï¿????????
+  CAN1_TX.RTR      			  			 = 	CAN_RTR_DATA; 	 //1ï¿????????   0:æ•°æ®ï¿???????? 1:è¿œç¨‹ï¿????????
+  CAN1_TX.DLC      				  		 = 	DLC;     	 	//4ï¿????????   å‘ï¿½?ï¿½çš„æ•°æ®çš„é•¿ï¿????????
   CAN1_TX.TransmitGlobalTime    		 =  ENABLE;
 
   //Filter_Init
@@ -93,9 +93,9 @@ void MX_CAN1_Init(void)
   HAL_CAN_ConfigFilter(&hcan1,&CAN1_Filter);
   HAL_Status = HAL_CAN_Start(&hcan1);
   if(HAL_Status != HAL_OK){
-		printf("\n\rCAN start Failed!\n\r");
+	  DmaPrintf("\n\rCAN1 start Failed!\n\r");
   }
-  else	printf("\nCAN_Start Success!!");
+  else	DmaPrintf("\nCAN1 Start Success!!\n");
   HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
   /* USER CODE END CAN1_Init 2 */
 
@@ -106,7 +106,7 @@ void MX_CAN2_Init(void)
 
   /* USER CODE BEGIN CAN2_Init 0 */
 	HAL_StatusTypeDef 		HAL_Status;
-	CAN_FilterTypeDef 		CAN2_Filter; //CAN2æ»¤æ³¢ï¿???
+	CAN_FilterTypeDef 		CAN2_Filter; //CAN2æ»¤æ³¢ï¿???????
 	uint32_t StdId = 0x03;
 	uint32_t ExtId = 0x00;
 	uint32_t DLC = 8;
@@ -133,11 +133,11 @@ void MX_CAN2_Init(void)
   }
   /* USER CODE BEGIN CAN2_Init 2 */
   //Tx_Init
-  CAN2_TX.StdId  			 			 = 	StdId;   		 //11ï¿????     æ ‡å‡†æ ‡è¯†ï¿????
-  CAN2_TX.ExtId    					  	 = 	ExtId;   		 //29ï¿????     æ‰©å±•æ ‡è¯†ï¿????
-  CAN2_TX.IDE      						 = 	CAN_ID_STD;  	//1ï¿????        0:æ ‡å‡†ï¿???? 1:æ‹“å±•ï¿????
-  CAN2_TX.RTR      			  			 = 	CAN_RTR_DATA; 	 //1ï¿????   0:æ•°æ®ï¿???? 1:è¿œç¨‹ï¿????
-  CAN2_TX.DLC      				  		 = 	DLC;     	 	//4ï¿????   å‘ï¿½?ï¿½çš„æ•°æ®çš„é•¿ï¿????
+  CAN2_TX.StdId  			 			 = 	StdId;   		 //11ï¿????????     æ ‡å‡†æ ‡è¯†ï¿????????
+  CAN2_TX.ExtId    					  	 = 	ExtId;   		 //29ï¿????????     æ‰©å±•æ ‡è¯†ï¿????????
+  CAN2_TX.IDE      						 = 	CAN_ID_STD;  	//1ï¿????????        0:æ ‡å‡†ï¿???????? 1:æ‹“å±•ï¿????????
+  CAN2_TX.RTR      			  			 = 	CAN_RTR_DATA; 	 //1ï¿????????   0:æ•°æ®ï¿???????? 1:è¿œç¨‹ï¿????????
+  CAN2_TX.DLC      				  		 = 	DLC;     	 	//4ï¿????????   å‘ï¿½?ï¿½çš„æ•°æ®çš„é•¿ï¿????????
   CAN2_TX.TransmitGlobalTime    		 =  ENABLE;
 
   //Filter_Init
@@ -155,9 +155,9 @@ void MX_CAN2_Init(void)
   HAL_CAN_ConfigFilter(&hcan2,&CAN2_Filter);
   HAL_Status = HAL_CAN_Start(&hcan2);
   if(HAL_Status != HAL_OK){
-		printf("\n\rCAN2 start Failed!\n\r");
+	  DmaPrintf("\n\rCAN2 start Failed!\n\r");
   }
-  else	printf("\nCAN2 Start Success!!");
+  else	DmaPrintf("\nCAN2 Start Success!!");
   HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
   /* USER CODE END CAN2_Init 2 */
 
@@ -193,9 +193,9 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     /* CAN1 interrupt Init */
-    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 1, 0);
+    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
-    HAL_NVIC_SetPriority(CAN1_RX1_IRQn, 1, 0);
+    HAL_NVIC_SetPriority(CAN1_RX1_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(CAN1_RX1_IRQn);
   /* USER CODE BEGIN CAN1_MspInit 1 */
 
@@ -226,9 +226,9 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     /* CAN2 interrupt Init */
-    HAL_NVIC_SetPriority(CAN2_RX0_IRQn, 1, 0);
+    HAL_NVIC_SetPriority(CAN2_RX0_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(CAN2_RX0_IRQn);
-    HAL_NVIC_SetPriority(CAN2_RX1_IRQn, 1, 0);
+    HAL_NVIC_SetPriority(CAN2_RX1_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(CAN2_RX1_IRQn);
   /* USER CODE BEGIN CAN2_MspInit 1 */
 
@@ -299,13 +299,15 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 	{
 		HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &CAN1_RX, CAN1_Rx_data);
 		CAN_FLAG = 1;
-		printf("\nCAN_RX:");
-		for(int i=0; i<6; i++){
-			printf(" %x ", CAN1_Rx_data[i]);
-		}
+//		printf("\nCAN_RX:");
+//		for(int i=0; i<6; i++){
+//			printf(" %x ", CAN1_Rx_data[i]);
+//		}
+		motor_setdata(CAN1_Rx_data);
 		switch (CAN1_RX.StdId)
 		{
-
+//			case 1: motor1 = unpack_RX(CAN1_Rx_data); break;
+//			case 2: motor2 = unpack_RX(CAN1_Rx_data); break;
 			default:
 			{
 				break;
@@ -318,6 +320,8 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 	else if(hcan == &hcan2)
 	{
 		HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &CAN2_RX, CAN2_Rx_data);
+		CAN_FLAG = 1;
+		motor_setdata(CAN2_Rx_data);
 		switch (CAN2_RX.StdId)
 		{
 
@@ -330,7 +334,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 	}
 }
 
-//CANå‘é?å‡½æ•?
+//CANå‘ï¿½??
 int CAN_TxMeg( uint8_t ID, uint8_t *pData, uint16_t Len)
 {
 	HAL_StatusTypeDef 	HAL_RetVal;

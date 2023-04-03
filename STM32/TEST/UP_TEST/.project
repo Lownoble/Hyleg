@@ -29,4 +29,11 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Drivers/CMSIS/DSP</name>
+			<type>2</type>
+			<locationURI>PARENT-5-PROJECT_LOC/Hyleg/STM32/TEST/UP_TEST/Drivers/CMSIS/DSP</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

@@ -18,7 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "can.h"
+#include "dma.h"
+#include "spi.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -44,41 +47,40 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-extern uint8_t  USART1_RX_BUF[200];
-extern uint8_t  USART1_RX_FLAG;
-extern uint32_t USART1_RX_CNT;
-extern uint8_t  USART1_RX_TEMP[1];
 
-extern uint8_t CAN1_Rx_data[8];
-extern uint8_t CAN1_Tx_data[8];
-extern uint8_t CAN2_Rx_data[8];
-extern uint8_t CAN2_Tx_data[8];
-extern uint8_t CAN_FLAG;
-
-extern Tmotor motor1;
-extern Tmotor motor2;
-extern Tmotor motor3;
-extern Tmotor motor4;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#ifdef __GNUC__
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#endif
-PUTCHAR_PROTOTYPE
+//#ifdef __GNUC__
+//#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+//#else
+//#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+//#endif
+//PUTCHAR_PROTOTYPE
+//{
+//	HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
+//	return ch;
+//}
+
+void DmaPrintf(const char *format,...)
 {
-	HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
-	return ch;
+	uint16_t len;
+	va_list args;
+	va_start(args,format);
+	len = vsnprintf((char*)USART1_TX_BUF,sizeof(USART1_TX_BUF)+1,(char*)format,args);
+	va_end(args);
+	HAL_UART_Transmit_DMA(&huart1, USART1_TX_BUF, len);
 }
+
+
 /* USER CODE END 0 */
 
 /**
@@ -109,66 +111,53 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART1_UART_Init();
   MX_CAN1_Init();
   MX_CAN2_Init();
+  MX_SPI3_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Receive_IT(&huart1,USART1_RX_TEMP, sizeof(USART1_RX_TEMP));
+  HAL_Delay(100);
+  DS33_Init();
+  HAL_Delay(100);
+  icm20602_init();
+  HAL_UART_Receive_IT(&huart1,USART1_RX_TEMP, sizeof(USART1_RX_TEMP)); //�??启接收中�??
+  motor_init();
 
-  int flag = 0;
-  int led = 1;
-  uint8_t ID = 1;
-	motor_enable(ID);
 
   /* USER CODE END 2 */
 
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(led){
-		flag=!flag;
-		LEDRGB_RED(flag);
-		LEDRGB_BLUE(!flag);
-	  }
 
+	  /*
+	  LSM6_readAcc(1);
+	  LSM6_readGyro(1);
+	  printf("\nAcc: x:%d y:%d z:%d\n",data_acc.x,data_acc.y,data_acc.z);
+	  printf("\nGyro: x:%d y:%d z:%d\n",data_g.x,data_g.y,data_g.z);
+	  printf("\nAcc: x:%d y:%d z:%d\n",lis3mdl.Acc_I16.x,lis3mdl.Acc_I16.y,lis3mdl.Acc_I16.z);
+	  printf("\nGyro: x:%d y:%d z:%d\n",lis3mdl.Gyro_I16.x,lis3mdl.Gyro_I16.y,lis3mdl.Gyro_I16.z);
 
+	  icm20602_get_accel_adc();
+	  icm20602_get_gyro_adc();
+	  printf("\nAcc: x:%d y:%d z:%d\n",data_acc.x,data_acc.y,data_acc.z);
+	  printf("\nGyro: x:%d y:%d z:%d\n",data_g.x,data_g.y,data_g.z);
+	  printf("\nAcc: x:%d y:%d z:%d\n",lis3mdl.Acc_I16.x,lis3mdl.Acc_I16.y,lis3mdl.Acc_I16.z);
+	  printf("\nGyro: x:%d y:%d z:%d\n",lis3mdl.Gyro_I16.x,lis3mdl.Gyro_I16.y,lis3mdl.Gyro_I16.z);
+	*/
 //	CAN_TxMeg(ID, TxData,8);
 
-	HAL_Delay(1000);
 
-	if( USART1_RX_FLAG){
-//		printf("\nUART1: ");
-//		HAL_UART_Transmit(&huart1, USART1_RX_BUF, USART1_RX_CNT, 0xff);
-
-		if(USART1_RX_BUF[0]=='E'){
-			motor_disable(ID);
-		}
-		if(USART1_RX_BUF[0]=='E'){
-			motor_disable(ID);
-		}
-		if(USART1_RX_BUF[0]=='P'){
-			int position = USART1_RX_BUF[1] - '0';
-			pack_TX(ID, position, 0.1, 1, 0.2, 0);
-		}
-
-		for( int i = 0; i<USART1_RX_CNT; i ++){
-			USART1_RX_BUF[i] = 0;
-		}
-
-		USART1_RX_CNT = 0;
-		USART1_RX_FLAG = 0;
-	}
-	if(CAN_FLAG){
-		motor_setdata(CAN_FLAG, CAN1_Rx_data);
-
-		printf("\nID:%d positon:%f velocity:%f current:%f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
-//		printf("\nCAN_RX:");
-//		for(int i=0; i<6; i++){
-//			printf(" %x ", CAN1_Rx_data[i]);
-//		}
-		CAN_FLAG = 0;
-	}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -224,6 +213,27 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM1 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM1) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

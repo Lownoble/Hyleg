@@ -24,16 +24,22 @@ typedef struct Tmotor
 	float position;
 	float velocity;
 	float current;
+	float p_des;
+	float v_des;
+	float kp;
+	float kd;
+	float t_ff;
 }Tmotor;
 
 
 int can_send(int motor_address,unsigned char* send_buf,int send_len);
 int motor_enable(int motor_address);
 int motor_disable(int motor_address);
-
+int motor_init();
 int float_to_uint(float x, float x_min, float x_max, unsigned int bits);
 float uint_to_float(int x_int, float x_min, float x_max, int bits);
 int pack_TX(int motor_address, float p_des, float v_des, float kp, float kd, float t_ff);
 struct Tmotor unpack_RX(unsigned char rx_buf[6]);
-void motor_setdata(int motor_address, unsigned char rx_buf[6]);
+void motor_setdata(unsigned char rx_buf[6]);
+void motor_control();
 #endif

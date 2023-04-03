@@ -23,7 +23,14 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
+Core/icode/imu \
 Core/icode/led \
 Core/icode/tmotor \
+Core/icode/trajectory \
 Drivers/STM32F4xx_HAL_Driver/Src \
+Math \
+Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS \
+Middlewares/Third_Party/FreeRTOS/Source \
+Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F \
+Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang \
 
