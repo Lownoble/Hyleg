@@ -1,16 +1,10 @@
-13:18:16 **** Incremental Build of configuration Debug for project UP_TEST ****
+11:36:19 **** Incremental Build of configuration Debug for project UP_TEST ****
 make -j4 all 
-arm-none-eabi-gcc -o "UP_TEST.elf" @"objects.list"   -mcpu=cortex-m4 -T"F:\DZ\Legged robot\UDroid\UDroid-Pihat\examples\TEST\UP_TEST\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="UP_TEST.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: UP_TEST.elf
- 
 arm-none-eabi-size   UP_TEST.elf 
-arm-none-eabi-objdump -h -S  UP_TEST.elf  > "UP_TEST.list"
    text	   data	    bss	    dec	    hex	filename
-  41080	    488	   2136	  43704	   aab8	UP_TEST.elf
+  57276	   2116	  19684	  79076	  134e4	UP_TEST.elf
 Finished building: default.size.stdout
  
-Finished building: UP_TEST.list
- 
 
-13:18:22 Build Finished. 0 errors, 0 warnings. (took 5s.740ms)
+11:36:20 Build Finished. 0 errors, 0 warnings. (took 486ms)
 
