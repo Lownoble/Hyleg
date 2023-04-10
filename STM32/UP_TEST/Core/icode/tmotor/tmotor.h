@@ -31,9 +31,12 @@ typedef struct Tmotor
 	float t_ff;
 }Tmotor;
 
+extern int motor_FLAG;
+
 
 int can_send(int motor_address,unsigned char* send_buf,int send_len);
 int motor_enable(int motor_address);
+void motor_enable_all();
 int motor_disable(int motor_address);
 int motor_init();
 int float_to_uint(float x, float x_min, float x_max, unsigned int bits);
@@ -42,4 +45,6 @@ int pack_TX(int motor_address, float p_des, float v_des, float kp, float kd, flo
 struct Tmotor unpack_RX(unsigned char rx_buf[6]);
 void motor_setdata(unsigned char rx_buf[6]);
 void motor_control();
+
+
 #endif

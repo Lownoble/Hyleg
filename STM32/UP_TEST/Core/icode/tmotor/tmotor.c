@@ -8,6 +8,7 @@ Tmotor motor2;
 Tmotor motor3;
 Tmotor motor4;
 Tmotor motor5;
+
 /**
  * [串口发送封装函数]
  * @param    ptr_can                 [串口设备文件描述符指针]
@@ -51,7 +52,7 @@ int motor_enable(int motor_address)
 	send_buf[5] = 0xFF;
 	send_buf[6] = 0xFF;
 	send_buf[7] = 0xFC;
-	DmaPrintf("Motor enable\n");
+	//DmaPrintf("Motor enable\n");
 	if(can_send(motor_address,send_buf,8))
 	{
 		return 1;
@@ -59,6 +60,28 @@ int motor_enable(int motor_address)
 	else
 	{
 		return 0;
+	}
+}
+
+void motor_enable_all()
+{
+	motor1.ID = 1; motor1.kp = 0; motor1.kd = 0.5;
+	motor2.ID = 2; motor2.kp = 0; motor2.kd = 0.5;
+	motor3.ID = 3; motor3.kp = 0; motor3.kd = 0.5;
+	motor4.ID = 4; motor4.kp = 0; motor4.kd = 0.5;
+	pack_TX(motor2.ID, motor2.p_des, motor2.v_des, motor2.kp, motor2.kd, motor2.t_ff);
+	motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
+	//	//设置运动PID
+	for(int i = 0; i<20; i++)
+	{
+		motor1.kp = motor1.kp+i;
+		motor2.kp = motor2.kp+i;
+		motor3.kp = motor3.kp+i;
+		motor4.kp = motor4.kp+i;
+		DmaPrintf("%d\n",i);
+		HAL_Delay(100);
+		pack_TX(motor2.ID, motor2.p_des, motor2.v_des, motor2.kp, motor2.kd, motor2.t_ff);
+		//motor_control();
 	}
 }
 
@@ -83,7 +106,8 @@ int motor_disable(int motor_address)
 	send_buf[5] = 0xFF;
 	send_buf[6] = 0xFF;
 	send_buf[7] = 0xFD;
-	DmaPrintf("Motor disable\n");
+	//DmaPrintf("Motor disable\n");
+	pack_TX(motor_address, 0, 0, 1, 1, 0);
 	if(can_send(motor_address,send_buf,8))
 	{
 		return 1;
@@ -134,47 +158,55 @@ int motor_init()
 	HAL_Delay(100);
 	//设置零点
 	DmaPrintf("Waiting set zero...(Y/N)\n");
-	while(USART1_RX_FLAG == 0){
+	while(USART1_RX_FLAG == 0){}
+	if(USART1_RX_BUF[0]=='Y'){
+		motor_setzero(1);motor_setzero(2);motor_setzero(3);motor_setzero(4);
+		DmaPrintf("Set zero success!\n");
 	}
-	motor_setzero(1);motor_setzero(2);motor_setzero(3);motor_setzero(4);
-	DmaPrintf("Set zero success!\n");
 	USART1_RX_CNT = 0;
 	USART1_RX_FLAG = 0;
+	USART1_RX_BUF[0] = 0;
 
-	//减去初始化角度
-	for (int i = 0; i < (sizeof(stand_trajectory)/2); i++) {
-		stand_trajectory[i][0] -= INIT_ANGLE1;
-		stand_trajectory[i][1] -= INIT_ANGLE2;
-		swing_trajectory[i][0] -= INIT_ANGLE1;
-		swing_trajectory[i][1] -= INIT_ANGLE2;
-	}
+
+	//运动轨迹生成
+	trajectory(500,100, 100, 100);
 
 	//设置初始化PID
-	motor1.ID = 1; motor1.kp = 1.0; motor1.kd = 0.5;
-	motor2.ID = 2; motor2.kp = 1.0; motor2.kd = 0.5;
-	motor3.ID = 3; motor3.kp = 1.0; motor3.kd = 0.5;
-	motor4.ID = 4; motor4.kp = 1.0; motor4.kd = 0.5;
+	motor1.ID = 1; motor1.enable_flag = 0; motor1.kp = 0.2; motor1.kd = 0.5;
+	motor2.ID = 2; motor2.enable_flag = 0; motor2.kp = 0.2; motor2.kd = 0.5;
+	motor3.ID = 3; motor3.enable_flag = 0; motor3.kp = 0.2; motor3.kd = 0.5;
+	motor4.ID = 4; motor4.enable_flag = 0; motor4.kp = 0.2; motor4.kd = 0.5;
 	HAL_Delay(100);
 
 	//使能电机运动至初始位置
+	DmaPrintf("Ready to start...(Y/N)\n");
+	while(USART1_RX_BUF[0]!='Y'){}
+	USART1_RX_CNT = 0;
+	USART1_RX_FLAG = 0;
+	USART1_RX_BUF[0] = 0;
+	HAL_Delay(100);
+
 	motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
 	motor1.p_des = stand_trajectory[tra_cnt][0];
 	motor2.p_des = stand_trajectory[tra_cnt][1];
 	motor3.p_des = swing_trajectory[tra_cnt][0];
 	motor4.p_des = swing_trajectory[tra_cnt][1];
+
 	motor_control();
-	HAL_Delay(100);
-	//设置运动PID
-	for(int i = 0; i<10; i++)
+	//	//设置运动PID
+	for(int i = 0; i<20; i++)
 	{
-		motor1.ID = 1; motor1.kp = motor1.kp+i; motor1.kd = 0.5;
-		motor2.ID = 2; motor2.kp = motor2.kp+i; motor2.kd = 0.5;
-		motor3.ID = 3; motor3.kp = motor3.kp+i; motor3.kd = 0.5;
-		motor4.ID = 4; motor4.kp = motor4.kp+i; motor4.kd = 0.5;
+		motor1.kp = motor1.kp+i;
+		motor2.kp = motor2.kp+i;
+		motor3.kp = motor3.kp+i;
+		motor4.kp = motor4.kp+i;
 		DmaPrintf("%d\n",i);
 		HAL_Delay(100);
 		motor_control();
 	}
+
+	DmaPrintf("INIT DOWN");
+	HAL_Delay(100);
 
 
 	return 1;

@@ -1,5 +1,5 @@
 ################################################################################
-# Automatically-generated file. Do not edit!
+# 自动生成的文件。不要编辑！
 # Toolchain: GNU Tools for STM32 (10.3-2021.10)
 ################################################################################
 
@@ -62,29 +62,29 @@ OBJDUMP_LIST += \
 UP_TEST.list \
 
 
-# All Target
+# 所有目标
 all: main-build
 
-# Main-build Target
+# 主构建目标
 main-build: UP_TEST.elf secondary-outputs
 
-# Tool invocations
-UP_TEST.elf UP_TEST.map: $(OBJS) $(USER_OBJS) F:\DZ\Legged\ robot\UDroid\UDroid-Pihat\examples\TEST\UP_TEST\STM32F405RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "UP_TEST.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\DZ\Legged robot\UDroid\UDroid-Pihat\examples\TEST\UP_TEST\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="UP_TEST.map" -Wl,--gc-sections -static -L"F:\DZ\Legged robot\UDroid\UDroid-Pihat\examples\TEST\UP_TEST\Math" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-	@echo 'Finished building target: $@'
+# 工具调用
+UP_TEST.elf UP_TEST.map: $(OBJS) $(USER_OBJS) F:\Lab\Legged\ robots\Hyleg\STM32\UP_TEST\STM32F405RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "UP_TEST.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"F:\Lab\Legged robots\Hyleg\STM32\UP_TEST\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="UP_TEST.map" -Wl,--gc-sections -static -L"F:\Lab\Legged robots\Hyleg\STM32\UP_TEST\Math" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+	@echo '已结束构建目标： $@'
 	@echo ' '
 
 default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-size  $(EXECUTABLES)
-	@echo 'Finished building: $@'
+	@echo '已结束构建： $@'
 	@echo ' '
 
 UP_TEST.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "UP_TEST.list"
-	@echo 'Finished building: $@'
+	@echo '已结束构建： $@'
 	@echo ' '
 
-# Other Targets
+# 其他目标
 clean:
 	-$(RM) UP_TEST.elf UP_TEST.list UP_TEST.map default.size.stdout
 	-@echo ' '

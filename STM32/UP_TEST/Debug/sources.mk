@@ -1,5 +1,5 @@
 ################################################################################
-# Automatically-generated file. Do not edit!
+# 自动生成的文件。不要编辑！
 # Toolchain: GNU Tools for STM32 (10.3-2021.10)
 ################################################################################
 
@@ -9,6 +9,7 @@ S_SRCS :=
 C_SRCS := 
 S_UPPER_SRCS := 
 O_SRCS := 
+CYCLO_FILES := 
 SIZE_OUTPUT := 
 OBJDUMP_LIST := 
 SU_FILES := 

@@ -214,36 +214,45 @@ void UART_Task(void const * argument)
   for(;;)
   {
 	  if(CAN_FLAG){
-//		  HAL_Delay(100);
-//		  DmaPrintf("Motor:%d position:%.2f velocity:%.2f current:%.2f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
-//		  HAL_Delay(100);
-//		  DmaPrintf("Motor:%d position:%f---%f velocity:%f current:%f\n",motor2.ID,motor2.position,motor2.p_des,motor2.velocity,motor2.current);
-//		  HAL_Delay(100);
-//		  DmaPrintf("Motor:%d position:%f velocity:%f current:%f\n",motor3.ID,motor3.position,motor3.velocity,motor3.current);
-//		  HAL_Delay(100);
-//		  DmaPrintf("Motor:%d position:%f velocity:%f current:%f\n\n\n",motor4.ID,motor4.position,motor4.velocity,motor4.current);
-		  HAL_Delay(2);
-		  DmaPrintf("%d %.2f %.2f %.2f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
-		  HAL_Delay(2);
-		  DmaPrintf("%d %.2f %.2f %.2f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
-		  HAL_Delay(2);
-		  DmaPrintf("%d %.2f %.2f %.2f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
-		  HAL_Delay(2);
-		  DmaPrintf("%d %.2f %.2f %.2f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
+		  HAL_Delay(100);
+		  DmaPrintf("Motor:%d position:%.2f velocity:%.2f current:%.2f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
+		  HAL_Delay(100);
+		  DmaPrintf("Motor:%d position:%.2f velocity:%.2f current:%.2f\n",motor2.ID,motor2.position,motor2.velocity,motor2.current);
+		  HAL_Delay(100);
+		  DmaPrintf("Motor:%d position:%.2f velocity:%.2f current:%.2f\n",motor3.ID,motor3.position,motor3.velocity,motor3.current);
+		  HAL_Delay(100);
+		  DmaPrintf("Motor:%d position:%.2f velocity:%.2f current:%.2f\n\n\n",motor4.ID,motor4.position,motor4.velocity,motor4.current);
+//		  HAL_Delay(2);
+//		  DmaPrintf("%d %.2f %.2f %.2f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
+//		  HAL_Delay(2);
+//		  DmaPrintf("%d %.2f %.2f %.2f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
+//		  HAL_Delay(2);
+//		  DmaPrintf("%d %.2f %.2f %.2f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
+//		  HAL_Delay(2);
+//		  DmaPrintf("%d %.2f %.2f %.2f\n",motor1.ID,motor1.position,motor1.velocity,motor1.current);
 		  CAN_FLAG = 0;
 	  }
 
 		if( USART1_RX_FLAG){
 			HAL_Delay(100);
 			if(USART1_RX_BUF[0]=='E'){
-				motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
+				motor_enable_all();
 			}
 			if(USART1_RX_BUF[0]=='D'){
 				motor_disable(1);motor_disable(2);motor_disable(3);motor_disable(4);
 			}
+			if(USART1_RX_BUF[0]=='Z'){
+				motor_setzero(1);motor_setzero(2);motor_setzero(3);motor_setzero(4);
+			}
 			if(USART1_RX_BUF[0]=='P'){
-				int position = USART1_RX_BUF[1] - '0';
-				pack_TX(1, position, 0, 5, 0.5, 0);
+				int position = (USART1_RX_BUF[1] - '0')*10 + (USART1_RX_BUF[2] - '0');
+				DmaPrintf("position:%d",position);
+				pack_TX(2, (float)position/180*3.14, 0, 5, 1, 0);
+			}
+			if(USART1_RX_BUF[0]=='T'){
+				int count = (USART1_RX_BUF[1] - '0')*10 + (USART1_RX_BUF[2] - '0');
+				pack_TX(1, stand_trajectory[count][0], 0, 5, 1, 0);
+				pack_TX(2, stand_trajectory[count][0], 0, 5, 1, 0);
 			}
 
 			for( int i = 0; i<USART1_RX_CNT; i ++){
@@ -295,7 +304,7 @@ void GAIT_Task(void const * argument)
 			  swing_flag = 0;
 		  }
 	  }
-
+	  //pack_TX(motor2.ID, motor2.p_des, motor2.v_des, motor2.kp, motor2.kd, motor2.t_ff);
       osDelay(10);
   }
   /* USER CODE END GAIT_Task */

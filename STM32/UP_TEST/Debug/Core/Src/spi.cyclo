@@ -1,0 +1,17 @@
+spi.c:31:6:MX_SPI2_Init	2
+spi.c:62:6:MX_SPI3_Init	2
+spi.c:94:6:HAL_SPI_MspInit	3
+spi.c:153:6:HAL_SPI_MspDeInit	3
+spi.c:204:9:Spi_RW	2
+spi.c:221:6:SPI_Receive	2
+spi.c:229:6:SPI_CS	11
+spi.c:288:9:SPI_Send_Byte	1
+spi.c:295:13:setDataInt_spi	1
+spi.c:303:13:setDataFloat_spi	1
+spi.c:313:14:floatFromData_spi	1
+spi.c:325:14:floatFromData_spi_int	1
+spi.c:333:13:charFromData_spi	1
+spi.c:340:12:intFromData_spi	1
+spi.c:352:6:slave_send	2
+spi.c:376:6:slave_rx	6
+spi.c:417:6:HAL_SPI_TxRxCpltCallback	4
