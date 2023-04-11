@@ -1,0 +1,7 @@
+../Core/Src/freertos.c:76:6:vApplicationGetIdleTaskMemory	24	static
+../Core/Src/freertos.c:90:6:MX_FREERTOS_Init	160	static
+../Core/Src/freertos.c:145:6:StartDefaultTask	16	static
+../Core/Src/freertos.c:163:6:LED_Task	24	static
+../Core/Src/freertos.c:190:6:CAN_Task	16	static
+../Core/Src/freertos.c:210:6:UART_Task	72	static
+../Core/Src/freertos.c:277:6:GAIT_Task	16	static
