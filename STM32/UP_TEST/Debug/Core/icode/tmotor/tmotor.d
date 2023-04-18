@@ -32,8 +32,9 @@ Core/icode/tmotor/tmotor.o: ../Core/icode/tmotor/tmotor.c \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/../icode/led/led.h ../Core/Inc/../icode/tmotor/tmotor.h \
  ../Core/Inc/../icode/imu/imu.h ../Core/Inc/../icode/mems.h \
- ../Core/Inc/../icode/trajectory/trajectory.h ../Core/Inc/usart.h \
- ../Core/Inc/main.h ../Core/Inc/can.h
+ ../Core/Inc/../icode/trajectory/trajectory.h \
+ ../Core/Inc/../icode/gait/gait.h ../Core/Inc/usart.h ../Core/Inc/main.h \
+ ../Core/Inc/can.h
 ../Core/icode/tmotor/tmotor.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -71,6 +72,7 @@ Core/icode/tmotor/tmotor.o: ../Core/icode/tmotor/tmotor.c \
 ../Core/Inc/../icode/imu/imu.h:
 ../Core/Inc/../icode/mems.h:
 ../Core/Inc/../icode/trajectory/trajectory.h:
+../Core/Inc/../icode/gait/gait.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
 ../Core/Inc/can.h:

@@ -31,7 +31,8 @@ Core/Src/dma.o: ../Core/Src/dma.c ../Core/Inc/dma.h ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/../icode/led/led.h ../Core/Inc/main.h \
  ../Core/Inc/../icode/tmotor/tmotor.h ../Core/Inc/../icode/imu/imu.h \
- ../Core/Inc/../icode/mems.h ../Core/Inc/../icode/trajectory/trajectory.h
+ ../Core/Inc/../icode/mems.h ../Core/Inc/../icode/trajectory/trajectory.h \
+ ../Core/Inc/../icode/gait/gait.h
 ../Core/Inc/dma.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -70,3 +71,4 @@ Core/Src/dma.o: ../Core/Src/dma.c ../Core/Inc/dma.h ../Core/Inc/main.h \
 ../Core/Inc/../icode/imu/imu.h:
 ../Core/Inc/../icode/mems.h:
 ../Core/Inc/../icode/trajectory/trajectory.h:
+../Core/Inc/../icode/gait/gait.h:

@@ -29,8 +29,10 @@ typedef struct Tmotor
 	float kp;
 	float kd;
 	float t_ff;
+	int limit_flag;
 }Tmotor;
 
+extern Tmotor motor[5];
 extern int motor_FLAG;
 
 
@@ -45,6 +47,6 @@ int pack_TX(int motor_address, float p_des, float v_des, float kp, float kd, flo
 struct Tmotor unpack_RX(unsigned char rx_buf[6]);
 void motor_setdata(unsigned char rx_buf[6]);
 void motor_control();
-
+int motor_setdes(Tmotor motor, float point);
 
 #endif

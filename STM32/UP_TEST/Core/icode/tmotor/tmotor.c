@@ -3,11 +3,7 @@
 #include "usart.h"
 #include "can.h"
 
-Tmotor motor1;
-Tmotor motor2;
-Tmotor motor3;
-Tmotor motor4;
-Tmotor motor5;
+Tmotor motor[5];
 
 /**
  * [串口发送封装函数]
@@ -65,22 +61,21 @@ int motor_enable(int motor_address)
 
 void motor_enable_all()
 {
-	motor1.ID = 1; motor1.kp = 0; motor1.kd = 0.5;
-	motor2.ID = 2; motor2.kp = 0; motor2.kd = 0.5;
-	motor3.ID = 3; motor3.kp = 0; motor3.kd = 0.5;
-	motor4.ID = 4; motor4.kp = 0; motor4.kd = 0.5;
-	pack_TX(motor2.ID, motor2.p_des, motor2.v_des, motor2.kp, motor2.kd, motor2.t_ff);
+	motor[1].ID = 1; motor[1].kp = 0; motor[1].kd = 0.5;
+	motor[2].ID = 2; motor[2].kp = 0; motor[2].kd = 0.5;
+	motor[3].ID = 3; motor[3].kp = 0; motor[3].kd = 0.5;
+	motor[4].ID = 4; motor[4].kp = 0; motor[4].kd = 0.5;
 	motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
 	//	//设置运动PID
 	for(int i = 0; i<20; i++)
 	{
-		motor1.kp = motor1.kp+i;
-		motor2.kp = motor2.kp+i;
-		motor3.kp = motor3.kp+i;
-		motor4.kp = motor4.kp+i;
-		DmaPrintf("%d\n",i);
+		motor[1].kp = motor[1].kp+i;
+		motor[2].kp = motor[2].kp+i;
+		motor[3].kp = motor[3].kp+i;
+		motor[4].kp = motor[4].kp+i;
+		DmaPrintf("%d\n",20-i);
 		HAL_Delay(100);
-		pack_TX(motor2.ID, motor2.p_des, motor2.v_des, motor2.kp, motor2.kd, motor2.t_ff);
+		pack_TX(motor[2].ID, motor[2].p_des, motor[2].v_des, motor[2].kp, motor[2].kd, motor[2].t_ff);
 		//motor_control();
 	}
 }
@@ -169,13 +164,18 @@ int motor_init()
 
 
 	//运动轨迹生成
-	trajectory(500,100, 100, 100);
+	Leg_left.H=500; Leg_left.HF=100; Leg_left.LF=100; Leg_left.LB=100;
+	Leg_right.H=500; Leg_right.HF=100; Leg_right.LF=100; Leg_right.LB=100;
+	//trajectory(Leg_left.H,Leg_left.HF,Leg_left.LF,Leg_left.LB);
+	//trajectory(Leg_right.H,Leg_right.HF,Leg_right.LF,Leg_right.LB);
+	trajectory_circle(450, 50);
+	//trajectory_square(500, 100, 50);
 
 	//设置初始化PID
-	motor1.ID = 1; motor1.enable_flag = 0; motor1.kp = 0.2; motor1.kd = 0.5;
-	motor2.ID = 2; motor2.enable_flag = 0; motor2.kp = 0.2; motor2.kd = 0.5;
-	motor3.ID = 3; motor3.enable_flag = 0; motor3.kp = 0.2; motor3.kd = 0.5;
-	motor4.ID = 4; motor4.enable_flag = 0; motor4.kp = 0.2; motor4.kd = 0.5;
+	motor[1].ID = 1; motor[1].kp = 0.2; motor[1].kd = 0.5;
+	motor[2].ID = 2; motor[2].kp = 0.2; motor[2].kd = 0.5;
+	motor[3].ID = 3; motor[3].kp = 0.2; motor[3].kd = 0.5;
+	motor[4].ID = 4; motor[4].kp = 0.2; motor[4].kd = 0.5;
 	HAL_Delay(100);
 
 	//使能电机运动至初始位置
@@ -187,20 +187,20 @@ int motor_init()
 	HAL_Delay(100);
 
 	motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
-	motor1.p_des = stand_trajectory[tra_cnt][0];
-	motor2.p_des = stand_trajectory[tra_cnt][1];
-	motor3.p_des = swing_trajectory[tra_cnt][0];
-	motor4.p_des = swing_trajectory[tra_cnt][1];
+	motor[1].p_des = stand_trajectory[Leg_left.count][0];
+	motor[2].p_des = stand_trajectory[Leg_left.count][1];
+	motor[3].p_des = swing_trajectory[Leg_right.count][0];
+	motor[4].p_des = swing_trajectory[Leg_right.count][1];
 
 	motor_control();
 	//	//设置运动PID
 	for(int i = 0; i<20; i++)
 	{
-		motor1.kp = motor1.kp+i;
-		motor2.kp = motor2.kp+i;
-		motor3.kp = motor3.kp+i;
-		motor4.kp = motor4.kp+i;
-		DmaPrintf("%d\n",i);
+		motor[1].kp = motor[1].kp+i;
+		motor[2].kp = motor[2].kp+i;
+		motor[3].kp = motor[3].kp+i;
+		motor[4].kp = motor[4].kp+i;
+		DmaPrintf("%d\n",20-i);
 		HAL_Delay(100);
 		motor_control();
 	}
@@ -297,39 +297,45 @@ void motor_setdata(unsigned char rx_buf[6])
 {
 	struct Tmotor reply;
 	reply = unpack_RX(rx_buf);
-//	if(reply.ID == 2)
-//	{
-//		motor2 = reply;
-//	}
-	switch (reply.ID)
-	{
-	case 1:
-		motor1.position = reply.position;
-		motor1.velocity = reply.velocity;
-		motor1.current = reply.current;
-		break;
-	case 2:
-		motor2.position = reply.position;
-		motor2.velocity = reply.velocity;
-		motor2.current = reply.current;
-		break;
-	case 3:
-		motor3.position = reply.position;
-		motor3.velocity = reply.velocity;
-		motor3.current = reply.current;
-		break;
-	case 4:
-		motor4.position = reply.position;
-		motor4.velocity = reply.velocity;
-		motor4.current = reply.current;
-		break;
-	}
+
+	motor[reply.ID].position = reply.position;
+	motor[reply.ID].velocity = reply.velocity;
+	motor[reply.ID].current = reply.current;
+
 }
 
-void motor_control(){
-	pack_TX(motor1.ID, motor1.p_des, motor1.v_des, motor1.kp, motor1.kd, motor1.t_ff);
-	pack_TX(motor2.ID, motor2.p_des, motor2.v_des, motor2.kp, motor2.kd, motor2.t_ff);
-	pack_TX(motor3.ID, motor3.p_des, motor3.v_des, motor3.kp, motor3.kd, motor3.t_ff);
-	pack_TX(motor4.ID, motor4.p_des, motor4.v_des, motor4.kp, motor4.kd, motor4.t_ff);
+void motor_control()
+{
+	pack_TX(motor[1].ID, motor[1].p_des, motor[1].v_des, motor[1].kp, motor[1].kd, motor[1].t_ff);
+	pack_TX(motor[2].ID, motor[2].p_des, motor[2].v_des, motor[2].kp, motor[2].kd, motor[2].t_ff);
+	pack_TX(motor[3].ID, motor[3].p_des, motor[3].v_des, motor[3].kp, motor[3].kd, motor[3].t_ff);
+	pack_TX(motor[4].ID, motor[4].p_des, motor[4].v_des, motor[4].kp, motor[4].kd, motor[4].t_ff);
+}
+
+int motor_setdes(Tmotor M, float point)
+{
+	//位置限位
+	switch(M.ID){
+	case 1:
+	case 3:
+		if(point < (-1.2-INIT_ANGLE1) ||point > (1.3-INIT_ANGLE1))	return 1;
+		break;
+	case 2:
+	case 4:
+		if(point < (0.1-INIT_ANGLE2) ||point > (1.8-INIT_ANGLE2))	return 1;
+		break;
+	}
+
+	//速度限位
+	if( (M.p_des-point) > V_LIMIT){
+		motor[M.ID].p_des -= V_LIMIT;
+		return 2;
+	}
+	if( (point-M.p_des) > V_LIMIT){
+		motor[M.ID].p_des += V_LIMIT;
+		return 2;
+	}
+	motor[M.ID].p_des = point;
+	return 0;
 }
 

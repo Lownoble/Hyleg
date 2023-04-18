@@ -41,6 +41,7 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Core/Inc/../icode/led/led.h ../Core/Inc/../icode/tmotor/tmotor.h \
  ../Core/Inc/../icode/imu/imu.h ../Core/Inc/../icode/mems.h \
  ../Core/Inc/../icode/trajectory/trajectory.h \
+ ../Core/Inc/../icode/gait/gait.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
@@ -95,6 +96,7 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Core/Inc/../icode/imu/imu.h:
 ../Core/Inc/../icode/mems.h:
 ../Core/Inc/../icode/trajectory/trajectory.h:
+../Core/Inc/../icode/gait/gait.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:

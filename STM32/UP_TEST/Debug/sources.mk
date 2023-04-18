@@ -24,6 +24,7 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
+Core/icode/gait \
 Core/icode/imu \
 Core/icode/led \
 Core/icode/tmotor \

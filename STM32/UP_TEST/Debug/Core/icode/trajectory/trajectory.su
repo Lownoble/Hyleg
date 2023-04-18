@@ -1,3 +1,5 @@
-../Core/icode/trajectory/trajectory.c:15:8:FK	40	static
-../Core/icode/trajectory/trajectory.c:31:8:IK	80	static
-../Core/icode/trajectory/trajectory.c:48:6:trajectory	112	static
+../Core/icode/trajectory/trajectory.c:19:8:FK	40	static
+../Core/icode/trajectory/trajectory.c:36:8:IK	80	static
+../Core/icode/trajectory/trajectory.c:53:6:trajectory	112	static
+../Core/icode/trajectory/trajectory.c:81:6:trajectory_circle	104	static
+../Core/icode/trajectory/trajectory.c:106:6:trajectory_square	104	static

@@ -2,26 +2,35 @@ clc
 clear
 
 %% setting
-theta1 = 90/180*pi;
-theta2 = 90/180*pi;
+theta1 = 45/180*pi;
+theta2 = 45/180*pi;
 
 
 %% calculate
-hip_x = -60 * cos(pi/2 - theta2);
-hip_y = -60 * sin(pi/2 - theta2);
+hip_x = 60 * cos( theta2);
+hip_y = -60 * sin(theta2);
 
-knee_x = 300 * cos(theta1);
-knee_y = -300 * sin(theta1);
+knee_x = -300 * sin(theta1);
+knee_y = -300 * cos(theta1);
 
 foot_x = knee_x + 5*hip_x;
 foot_y = knee_y + 5*hip_y;
 
+
 Cylinder_len = 2*60*cos(theta2) + 2*60*cos(pi/2-theta1);
 
+axis equal
+plot([0,knee_x],[0,knee_y],'r','LineWidth',3);
+hold on 
+plot([knee_x,foot_x],[knee_y,foot_y],'r','LineWidth',3);
+hold on 
+xlim([-300 300])
+ylim([-500 100])
 
 %% trajectory
 load("stand_trajectory.mat");
 load("swing_trajectory.mat");
+
 % H = 400;
 % LF = 100;
 % LB = 100;
@@ -51,10 +60,10 @@ for i = 1:101
     stand_theta2 = stand_trajectory(i,2);
     swing_theta1 = swing_trajectory(i,1);
     swing_theta2 = swing_trajectory(i,2);
-    stand_knee_trajectory = [stand_knee_trajectory; 300*cos(stand_theta1),-300*sin(stand_theta1)];
-    swing_knee_trajectory = [swing_knee_trajectory; 300*cos(swing_theta1),-300*sin(swing_theta1)];
-    stand_foot_trajectory = [stand_foot_trajectory; 300*cos(stand_theta1)-300*cos(pi/2-stand_theta2),-300*sin(stand_theta1)-300*sin(pi/2-stand_theta2)];
-    swing_foot_trajectory = [swing_foot_trajectory; 300*cos(swing_theta1)-300*cos(pi/2-swing_theta2),-300*sin(swing_theta1)-300*sin(pi/2-swing_theta2)];
+    stand_knee_trajectory = [stand_knee_trajectory; -300*sin(stand_theta1),-300*cos(stand_theta1)];
+    swing_knee_trajectory = [swing_knee_trajectory; -300*sin(swing_theta1),-300*cos(swing_theta1)];
+    stand_foot_trajectory = [stand_foot_trajectory; -300*sin(stand_theta1)+300*cos(stand_theta2),-300*cos(stand_theta1)-300*sin(stand_theta2)];
+    swing_foot_trajectory = [swing_foot_trajectory; -300*sin(swing_theta1)+300*cos(swing_theta2),-300*cos(swing_theta1)-300*sin(swing_theta2)];
     figure(1)
     plot(stand_knee_trajectory(:,1),stand_knee_trajectory(:,2),'r','LineWidth',3);
     hold on
@@ -92,7 +101,12 @@ fid=fopen(['C.txt'],'w');%写入文件路径
 fclose(fid);
 %% 
 
-plot(stand_trajectory(:,1),stand_trajectory(:,2),'r');
-hold on 
-plot(swing_trajectory(:,1),swing_trajectory(:,2),'b');
+syms syms a b x y;
+equ = [x == -300*sin(a)+300*cos(b),y == -300*cos(a)-300*sin(b)];
+answ = solve(equ,[a,b]);
+
+
+
+
+
 

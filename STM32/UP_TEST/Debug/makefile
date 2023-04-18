@@ -19,6 +19,7 @@ RM := rm -rf
 -include Core/icode/tmotor/subdir.mk
 -include Core/icode/led/subdir.mk
 -include Core/icode/imu/subdir.mk
+-include Core/icode/gait/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk

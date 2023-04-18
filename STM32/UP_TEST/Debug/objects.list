@@ -12,6 +12,7 @@
 "./Core/Src/system_stm32f4xx.o"
 "./Core/Src/usart.o"
 "./Core/Startup/startup_stm32f405rgtx.o"
+"./Core/icode/gait/gait.o"
 "./Core/icode/imu/imu.o"
 "./Core/icode/led/led.o"
 "./Core/icode/tmotor/tmotor.o"

@@ -41,15 +41,11 @@ extern "C" {
 #include "../icode/imu/imu.h"
 #include "../icode/mems.h"
 #include "../icode/trajectory/trajectory.h"
+#include "../icode/gait/gait.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-extern Tmotor motor1;
-extern Tmotor motor2;
-extern Tmotor motor3;
-extern Tmotor motor4;
-extern Tmotor motor5;
 
 extern uint8_t  USART1_RX_BUF[200];
 extern uint8_t  USART1_RX_FLAG;
