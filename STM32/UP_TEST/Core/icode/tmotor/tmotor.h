@@ -17,6 +17,8 @@
 #define KD_MIN 	0
 #define KD_MAX 	5
 
+#define ENABLE_MOTOR  1
+
 
 typedef struct Tmotor
 {
@@ -40,6 +42,7 @@ int can_send(int motor_address,unsigned char* send_buf,int send_len);
 int motor_enable(int motor_address);
 void motor_enable_all();
 int motor_disable(int motor_address);
+int motor_setzero(int motor_address);
 int motor_init();
 int float_to_uint(float x, float x_min, float x_max, unsigned int bits);
 float uint_to_float(int x_int, float x_min, float x_max, int bits);
@@ -48,5 +51,6 @@ struct Tmotor unpack_RX(unsigned char rx_buf[6]);
 void motor_setdata(unsigned char rx_buf[6]);
 void motor_control();
 int motor_setdes(Tmotor motor, float point);
+int motor_limit(int ID, float p, float des_p);
 
 #endif

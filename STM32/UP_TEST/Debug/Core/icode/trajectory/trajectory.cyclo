@@ -1,5 +1,7 @@
 trajectory.c:19:8:FK	1
 trajectory.c:36:8:IK	1
-trajectory.c:53:6:trajectory	3
-trajectory.c:81:6:trajectory_circle	2
-trajectory.c:106:6:trajectory_square	3
+trajectory.c:57:6:trajectory	3
+trajectory.c:86:6:trajectory_left	6
+trajectory.c:129:6:trajectory_right	6
+trajectory.c:170:6:trajectory_circle	2
+trajectory.c:195:6:trajectory_square	3

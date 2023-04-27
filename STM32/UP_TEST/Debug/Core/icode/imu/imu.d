@@ -29,10 +29,11 @@ Core/icode/imu/imu.o: ../Core/icode/imu/imu.c ../Core/Inc/spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/../icode/led/led.h ../Core/Inc/main.h \
  ../Core/Inc/../icode/tmotor/tmotor.h ../Core/Inc/../icode/imu/imu.h \
- ../Core/Inc/../icode/mems.h ../Core/Inc/../icode/trajectory/trajectory.h \
- ../Core/Inc/../icode/gait/gait.h ../Core/icode/imu/imu.h \
+ ../Core/Inc/main.h ../Core/Inc/../icode/mems.h \
+ ../Core/Inc/../icode/trajectory/trajectory.h \
+ ../Core/Inc/../icode/gait/gait.h \
+ ../Core/Inc/../icode/trajectory/trajectory.h ../Core/icode/imu/imu.h \
  F:/Lab/Legged\ robots/Hyleg/STM32/UP_TEST/Math/gait_math.h \
  F:/Lab/Legged\ robots/Hyleg/STM32/UP_TEST/Math/base_struct.h
 ../Core/Inc/spi.h:
@@ -67,13 +68,13 @@ Core/icode/imu/imu.o: ../Core/icode/imu/imu.c ../Core/Inc/spi.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Inc/../icode/led/led.h:
-../Core/Inc/main.h:
 ../Core/Inc/../icode/tmotor/tmotor.h:
 ../Core/Inc/../icode/imu/imu.h:
+../Core/Inc/main.h:
 ../Core/Inc/../icode/mems.h:
 ../Core/Inc/../icode/trajectory/trajectory.h:
 ../Core/Inc/../icode/gait/gait.h:
+../Core/Inc/../icode/trajectory/trajectory.h:
 ../Core/icode/imu/imu.h:
 F:/Lab/Legged\ robots/Hyleg/STM32/UP_TEST/Math/gait_math.h:
 F:/Lab/Legged\ robots/Hyleg/STM32/UP_TEST/Math/base_struct.h:

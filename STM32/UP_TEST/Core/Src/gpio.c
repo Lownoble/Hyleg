@@ -51,17 +51,17 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(Cylinder_GPIO_Port, Cylinder_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, Cylinder_L_Pin|Cylinder_R_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LED2_Pin|LED1_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = Cylinder_Pin;
+  /*Configure GPIO pins : PCPin PCPin */
+  GPIO_InitStruct.Pin = Cylinder_L_Pin|Cylinder_R_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(Cylinder_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PBPin PBPin */
   GPIO_InitStruct.Pin = LED2_Pin|LED1_Pin;
@@ -73,5 +73,39 @@ void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 2 */
+
+void LEDRGB_RED(uint8_t on)
+{
+	if(!on)
+	HAL_GPIO_WritePin(GPIOB,LED2_Pin,GPIO_PIN_RESET);
+	else
+	HAL_GPIO_WritePin(GPIOB,LED2_Pin,GPIO_PIN_SET);
+}
+
+void LEDRGB_BLUE(uint8_t on)
+{
+	if(!on)
+	HAL_GPIO_WritePin(GPIOB,LED1_Pin,GPIO_PIN_RESET);
+	else
+	HAL_GPIO_WritePin(GPIOB,LED1_Pin,GPIO_PIN_SET);
+}
+
+void Cylinder_L(uint8_t on)
+{
+	if(!on)
+	HAL_GPIO_WritePin(GPIOC,Cylinder_L_Pin,GPIO_PIN_RESET);
+	else
+	HAL_GPIO_WritePin(GPIOC,Cylinder_L_Pin,GPIO_PIN_SET);
+}
+
+
+void Cylinder_R(uint8_t on)
+{
+	if(!on)
+	HAL_GPIO_WritePin(GPIOC,Cylinder_R_Pin,GPIO_PIN_RESET);
+	else
+	HAL_GPIO_WritePin(GPIOC,Cylinder_R_Pin,GPIO_PIN_SET);
+}
+
 
 /* USER CODE END 2 */

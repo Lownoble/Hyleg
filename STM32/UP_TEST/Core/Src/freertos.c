@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usart.h"
+#include "gpio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -126,7 +127,7 @@ void MX_FREERTOS_Init(void) {
   UARTHandle = osThreadCreate(osThread(UART), NULL);
 
   /* definition and creation of GAIT */
-  osThreadDef(GAIT, GAIT_Task, osPriorityIdle, 0, 256);
+  osThreadDef(GAIT, GAIT_Task, osPriorityIdle, 0, 128);
   GAITHandle = osThreadCreate(osThread(GAIT), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -163,17 +164,15 @@ void StartDefaultTask(void const * argument)
 void LED_Task(void const * argument)
 {
   /* USER CODE BEGIN LED_Task */
-
 	int led = 1;
-	int flag = 0;
+	int led_flag = 0;
   /* Infinite loop */
   for(;;)
   {
 	  if(led){
-		flag=!flag;
-		LEDRGB_RED(flag);
-		LEDRGB_BLUE(!flag);
-		Cylinder(flag);
+		led_flag=!led_flag;
+		LEDRGB_RED(led_flag);
+		LEDRGB_BLUE(!led_flag);
 	  }
 	  osDelay(5000);
   }
@@ -210,6 +209,8 @@ void CAN_Task(void const * argument)
 void UART_Task(void const * argument)
 {
   /* USER CODE BEGIN UART_Task */
+	int CL_flag = 0;
+	int CR_flag = 0;
   /* Infinite loop */
   for(;;)
   {
@@ -223,13 +224,13 @@ void UART_Task(void const * argument)
 //		  HAL_Delay(100);
 //		  DmaPrintf("Motor:%d position:%.2f velocity:%.2f current:%.2f\n\n\n",motor[4].ID,motor[4].position,motor[4].velocity,motor[4].current);
 //		  HAL_Delay(2);
-//		  DmaPrintf("%d %.2f %.2f %.2f\n",motor[1].ID,motor[1].position,motor[1].velocity,motor[1].current);
-//		  HAL_Delay(2);
-//		  DmaPrintf("%d %.2f %.2f %.2f\n",motor[1].ID,motor[1].position,motor[1].velocity,motor[1].current);
-//		  HAL_Delay(2);
-//		  DmaPrintf("%d %.2f %.2f %.2f\n",motor[1].ID,motor[1].position,motor[1].velocity,motor[1].current);
-//		  HAL_Delay(2);
-//		  DmaPrintf("%d %.2f %.2f %.2f\n",motor[1].ID,motor[1].position,motor[1].velocity,motor[1].current);
+		  DmaPrintf("%d %.3f %.3f %.3f\t",motor[1].ID,motor[1].position,motor[1].velocity,motor[1].current);
+		  HAL_Delay(2);
+		  DmaPrintf("%d %.3f %.3f %.3f\t",motor[2].ID,motor[2].position,motor[2].velocity,motor[2].current);
+		  HAL_Delay(2);
+		  DmaPrintf("%d %.2f %.2f %.2f\t",motor[3].ID,motor[3].position,motor[3].velocity,motor[3].current);
+		  HAL_Delay(2);
+		  DmaPrintf("%d %.2f %.2f %.2f\n",motor[4].ID,motor[4].position,motor[4].velocity,motor[4].current);
 		  CAN_FLAG = 0;
 	  }
 
@@ -247,12 +248,20 @@ void UART_Task(void const * argument)
 			if(USART1_RX_BUF[0]=='P'){
 				int position = (USART1_RX_BUF[1] - '0')*10 + (USART1_RX_BUF[2] - '0');
 				DmaPrintf("position:%d",position);
-				pack_TX(2, (float)position/180*3.14, 0, 5, 1, 0);
+				motor[1].limit_flag = motor_setdes(motor[1], (float)position/180*PI+INIT_ANGLE_L1);
 			}
 			if(USART1_RX_BUF[0]=='T'){
 				int count = (USART1_RX_BUF[1] - '0')*10 + (USART1_RX_BUF[2] - '0');
 				pack_TX(1, stand_trajectory[count][0], 0, 5, 1, 0);
 				pack_TX(2, stand_trajectory[count][0], 0, 5, 1, 0);
+			}
+			if(USART1_RX_BUF[0]=='L'){
+				CL_flag = !CL_flag;
+				Cylinder_L(CL_flag);
+			}
+			if(USART1_RX_BUF[0]=='R'){
+				CR_flag = !CR_flag;
+				Cylinder_R(CR_flag);
 			}
 
 			for( int i = 0; i<USART1_RX_CNT; i ++){
@@ -262,7 +271,7 @@ void UART_Task(void const * argument)
 			USART1_RX_FLAG = 0;
 		}
 
-	  osDelay(2);
+	  osDelay(100);
   }
   /* USER CODE END UART_Task */
 }
@@ -277,33 +286,25 @@ void UART_Task(void const * argument)
 void GAIT_Task(void const * argument)
 {
   /* USER CODE BEGIN GAIT_Task */
+//	int CL_flag = 0;
+//	int CR_falg = 0;
   /* Infinite loop */
   for(;;)
   {
-//	  int aaa = motor_setdes(motor[1], test_trajectory[test_cnt]);
-//	  if(aaa == 1)		DmaPrintf("position limits\n");
-//	  if(aaa == 2)		DmaPrintf("velocity limits\n");
-//	  HAL_Delay(10);
-//	  test_cnt ++;
-//	  DmaPrintf("p_des:%f test_trajectory:%f\n",motor[1].p_des,test_trajectory[test_cnt]);
-//
-//	  if(test_cnt == 10){
-//	  		test_cnt = 0;
-//	  }
-
+	  //左腿规划
 	  if(Leg_left.stand_flag){
-		  motor[1].limit_flag = motor_setdes(motor[1], stand_trajectory[Leg_left.count][0]);
-		  motor[2].limit_flag = motor_setdes(motor[2], stand_trajectory[Leg_left.count][1]);
+		  motor[1].limit_flag = motor_setdes(motor[1], Leg_left.stand_trajectory[Leg_left.count][0]);
+		  motor[2].limit_flag = motor_setdes(motor[2], Leg_left.stand_trajectory[Leg_left.count][1]);
 		  Leg_left.count ++;
-		  if(Leg_left.count == 100){
+		  if(Leg_left.count == (int)(100*BOTH_RATIO)){
 			  Leg_left.count = 0;
 			  Leg_left.stand_flag = 0;
 			  Leg_left.swing_flag = 1;
 		  }
 	  }
 	  if(Leg_left.swing_flag){
-		  motor[1].limit_flag = motor_setdes(motor[1], swing_trajectory[Leg_left.count][0]);
-		  motor[2].limit_flag = motor_setdes(motor[2], swing_trajectory[Leg_left.count][1]);
+		  motor[1].limit_flag = motor_setdes(motor[1], Leg_left.swing_trajectory[Leg_left.count][0]);
+		  motor[2].limit_flag = motor_setdes(motor[2], Leg_left.swing_trajectory[Leg_left.count][1]);
 		  Leg_left.count ++;
 		  if(Leg_left.count == 100){
 			  Leg_left.count = 0;
@@ -311,10 +312,32 @@ void GAIT_Task(void const * argument)
 			  Leg_left.swing_flag = 0;
 		  }
 	  }
-	  if(motor[1].limit_flag == 1 || motor[2].limit_flag == 1 )		DmaPrintf("position limits\n");
-	  if(motor[1].limit_flag == 2 || motor[2].limit_flag == 2 )		DmaPrintf("velocity limits\n");
+	  //右腿规划
+	  if(Leg_right.stand_flag){
+		  motor[3].limit_flag = motor_setdes(motor[3], Leg_right.stand_trajectory[Leg_right.count][0]);
+		  motor[4].limit_flag = motor_setdes(motor[4], Leg_right.stand_trajectory[Leg_right.count][1]);
+		  Leg_right.count ++;
+		  if(Leg_right.count == (int)(100*BOTH_RATIO)){
+			  Leg_right.count = 0;
+			  Leg_right.stand_flag = 0;
+			  Leg_right.swing_flag = 1;
+		  }
+	  }
+	  if(Leg_right.swing_flag){
+		  motor[3].limit_flag = motor_setdes(motor[3], Leg_right.swing_trajectory[Leg_right.count][0]);
+		  motor[4].limit_flag = motor_setdes(motor[4], Leg_right.swing_trajectory[Leg_right.count][1]);
+		  Leg_right.count ++;
+		  if(Leg_right.count == 100){
+			  Leg_right.count = 0;
+			  Leg_right.stand_flag = 1;
+			  Leg_right.swing_flag = 0;
+		  }
+	  }
+	  if(motor[1].limit_flag == 1 || motor[2].limit_flag == 1 )		DmaPrintf("left position limits\n");
+	  if(motor[1].limit_flag == 2 || motor[2].limit_flag == 2 )		DmaPrintf("left velocity limits\n");
+//	  if(motor[3].limit_flag == 1 || motor[4].limit_flag == 1 )		DmaPrintf("right position limits\n");
+//	  if(motor[3].limit_flag == 2 || motor[4].limit_flag == 2 )		DmaPrintf("right velocity limits\n");
 
-	  //pack_TX(motor[2].ID, motor[2].p_des, motor[2].v_des, motor[2].kp, motor[2].kd, motor[2].t_ff);
       osDelay(10);
   }
   /* USER CODE END GAIT_Task */

@@ -1,1 +1,5 @@
 ../Core/Src/gpio.c:42:6:MX_GPIO_Init	48	static
+../Core/Src/gpio.c:77:6:LEDRGB_RED	16	static
+../Core/Src/gpio.c:85:6:LEDRGB_BLUE	16	static
+../Core/Src/gpio.c:93:6:Cylinder_L	16	static
+../Core/Src/gpio.c:102:6:Cylinder_R	16	static

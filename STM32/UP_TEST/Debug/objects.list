@@ -14,7 +14,6 @@
 "./Core/Startup/startup_stm32f405rgtx.o"
 "./Core/icode/gait/gait.o"
 "./Core/icode/imu/imu.o"
-"./Core/icode/led/led.o"
 "./Core/icode/tmotor/tmotor.o"
 "./Core/icode/trajectory/trajectory.o"
 "./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o"

@@ -4,6 +4,8 @@
 
 #ifndef ICODE_GAIT_GAIT_H_
 #define ICODE_GAIT_GAIT_H_
+#include "../icode/trajectory/trajectory.h"
+
 
 typedef struct Leg
 {
@@ -16,7 +18,7 @@ typedef struct Leg
 	float LF;
 	float LB;
 	float v;
-	float stand_trajectory[100][2];
+	float stand_trajectory[200][2];
 	float swing_trajectory[100][2];
 }Leg;
 

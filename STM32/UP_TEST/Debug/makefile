@@ -17,7 +17,6 @@ RM := rm -rf
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/icode/trajectory/subdir.mk
 -include Core/icode/tmotor/subdir.mk
--include Core/icode/led/subdir.mk
 -include Core/icode/imu/subdir.mk
 -include Core/icode/gait/subdir.mk
 -include Core/Startup/subdir.mk

@@ -187,7 +187,7 @@ typedef int8_t  s8;
 #define MODE_FAST_WAY 1
 #define NMODE_FAST_WAY 0
 
-#define PI 3.14159267
+//#define PI 3.14159267
 #define RAD_TO_DEG 180/PI
 #define DEG_TO_RAD PI/180
 

@@ -34,6 +34,23 @@ extern "C" {
 
 /* USER CODE BEGIN Private defines */
 
+#define LED2_Pin GPIO_PIN_3
+#define LED2_GPIO_Port GPIOB
+#define LED1_Pin GPIO_PIN_4
+#define LED1_GPIO_Port GPIOB
+
+
+void LEDRGB_RED(uint8_t on);
+void LEDRGB_BLUE(uint8_t on);
+
+#define Cylinder_L_Pin GPIO_PIN_0
+#define Cylinder_R_Pin GPIO_PIN_1
+#define Cylinder_GPIO_Port GPIOC
+
+
+void Cylinder_L(uint8_t on);
+void Cylinder_R(uint8_t on);
+
 /* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);

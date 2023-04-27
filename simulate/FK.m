@@ -1,7 +1,10 @@
 function [x,y] = FK(theta1,theta2)
 %Forword Kinematics
 %
-hip_x = 60 * cos( theta2);
+% hip_x = -60 * sin(theta1-theta2);
+% hip_y = -60 * cos(theta1-theta2);
+
+hip_x = 60 * cos(theta2);
 hip_y = -60 * sin(theta2);
 
 knee_x = -300 * sin(theta1);

@@ -49,6 +49,7 @@ int motor_enable(int motor_address)
 	send_buf[6] = 0xFF;
 	send_buf[7] = 0xFC;
 	//DmaPrintf("Motor enable\n");
+	HAL_Delay(10);
 	if(can_send(motor_address,send_buf,8))
 	{
 		return 1;
@@ -75,8 +76,7 @@ void motor_enable_all()
 		motor[4].kp = motor[4].kp+i;
 		DmaPrintf("%d\n",20-i);
 		HAL_Delay(100);
-		pack_TX(motor[2].ID, motor[2].p_des, motor[2].v_des, motor[2].kp, motor[2].kd, motor[2].t_ff);
-		//motor_control();
+		motor_control();
 	}
 }
 
@@ -102,6 +102,7 @@ int motor_disable(int motor_address)
 	send_buf[6] = 0xFF;
 	send_buf[7] = 0xFD;
 	//DmaPrintf("Motor disable\n");
+	HAL_Delay(10);
 	pack_TX(motor_address, 0, 0, 1, 1, 0);
 	if(can_send(motor_address,send_buf,8))
 	{
@@ -135,6 +136,7 @@ int motor_setzero(int motor_address)
 	send_buf[6] = 0xFF;
 	send_buf[7] = 0xFE;
 	DmaPrintf("Motor set zero\n");
+	HAL_Delay(10);
 	if(can_send(motor_address,send_buf,8))
 	{
 		return 1;
@@ -152,11 +154,12 @@ int motor_init()
 	motor_disable(1);motor_disable(2);motor_disable(3);motor_disable(4);
 	HAL_Delay(100);
 	//设置零点
-	DmaPrintf("Waiting set zero...(Y/N)\n");
+	DmaPrintf("Waiting set zero...(Z/N)\n");
 	while(USART1_RX_FLAG == 0){}
-	if(USART1_RX_BUF[0]=='Y'){
+	if(USART1_RX_BUF[0]=='Z'){
 		motor_setzero(1);motor_setzero(2);motor_setzero(3);motor_setzero(4);
 		DmaPrintf("Set zero success!\n");
+		HAL_Delay(100);
 	}
 	USART1_RX_CNT = 0;
 	USART1_RX_FLAG = 0;
@@ -164,11 +167,20 @@ int motor_init()
 
 
 	//运动轨迹生成
-	Leg_left.H=500; Leg_left.HF=100; Leg_left.LF=100; Leg_left.LB=100;
-	Leg_right.H=500; Leg_right.HF=100; Leg_right.LF=100; Leg_right.LB=100;
-	//trajectory(Leg_left.H,Leg_left.HF,Leg_left.LF,Leg_left.LB);
-	//trajectory(Leg_right.H,Leg_right.HF,Leg_right.LF,Leg_right.LB);
-	trajectory_circle(450, 50);
+//	Leg_left.count=0; Leg_left.stand_flag=0; Leg_left.swing_flag=1;
+//	Leg_right.count=0; Leg_right.stand_flag=1; Leg_right.swing_flag=0;
+//	Leg_left.H=500; Leg_left.HF=100; Leg_left.LF=100; Leg_left.LB=0;
+//	Leg_right.H=500; Leg_right.HF=100; Leg_right.LF=0; Leg_right.LB=100;
+
+	Leg_left.count=(int)(100*(BOTH_RATIO-1)/2); Leg_left.stand_flag=1; Leg_left.swing_flag=0;
+	Leg_right.count=100+(int)(100*(BOTH_RATIO-1)/2); Leg_right.stand_flag=1; Leg_right.swing_flag=0;
+	Leg_left.H=540; Leg_left.HF=80; Leg_left.LF=100; Leg_left.LB=100;
+	Leg_right.H=540; Leg_right.HF=80; Leg_right.LF=100; Leg_right.LB=100;
+
+
+	trajectory_left(Leg_left.H,Leg_left.HF,Leg_left.LF,Leg_left.LB);
+	trajectory_right(Leg_right.H,Leg_right.HF,Leg_right.LF,Leg_right.LB);
+	//trajectory_circle(450, 50);
 	//trajectory_square(500, 100, 50);
 
 	//设置初始化PID
@@ -184,13 +196,14 @@ int motor_init()
 	USART1_RX_CNT = 0;
 	USART1_RX_FLAG = 0;
 	USART1_RX_BUF[0] = 0;
+	USART1_RX_BUF[1] = 0;
 	HAL_Delay(100);
 
 	motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
-	motor[1].p_des = stand_trajectory[Leg_left.count][0];
-	motor[2].p_des = stand_trajectory[Leg_left.count][1];
-	motor[3].p_des = swing_trajectory[Leg_right.count][0];
-	motor[4].p_des = swing_trajectory[Leg_right.count][1];
+	motor[1].p_des = Leg_left.stand_trajectory[Leg_left.count][0];
+	motor[2].p_des = Leg_left.stand_trajectory[Leg_left.count][1];
+	motor[3].p_des = Leg_right.stand_trajectory[Leg_right.count][0];
+	motor[4].p_des = Leg_right.stand_trajectory[Leg_right.count][1];
 
 	motor_control();
 	//	//设置运动PID
@@ -205,10 +218,18 @@ int motor_init()
 		motor_control();
 	}
 
-	DmaPrintf("INIT DOWN");
+	DmaPrintf("motor INIT DOWN\n");
 	HAL_Delay(100);
 
-
+//	DmaPrintf("Waiting to start...(Y/N)\n");
+//	while(USART1_RX_BUF[0]!='Y'){}
+//	USART1_RX_CNT = 0;
+//	USART1_RX_FLAG = 0;
+//	USART1_RX_BUF[0] = 0;
+//	USART1_RX_BUF[1] = 0;
+//	HAL_Delay(100);
+//	DmaPrintf("Starting\n");
+//	HAL_Delay(100);
 	return 1;
 }
 
@@ -297,7 +318,7 @@ void motor_setdata(unsigned char rx_buf[6])
 {
 	struct Tmotor reply;
 	reply = unpack_RX(rx_buf);
-
+	if(reply.ID == 8)	reply.ID = 4;
 	motor[reply.ID].position = reply.position;
 	motor[reply.ID].velocity = reply.velocity;
 	motor[reply.ID].current = reply.current;
@@ -306,23 +327,77 @@ void motor_setdata(unsigned char rx_buf[6])
 
 void motor_control()
 {
+	if(ENABLE_MOTOR){
 	pack_TX(motor[1].ID, motor[1].p_des, motor[1].v_des, motor[1].kp, motor[1].kd, motor[1].t_ff);
 	pack_TX(motor[2].ID, motor[2].p_des, motor[2].v_des, motor[2].kp, motor[2].kd, motor[2].t_ff);
 	pack_TX(motor[3].ID, motor[3].p_des, motor[3].v_des, motor[3].kp, motor[3].kd, motor[3].t_ff);
 	pack_TX(motor[4].ID, motor[4].p_des, motor[4].v_des, motor[4].kp, motor[4].kd, motor[4].t_ff);
+	}
 }
+
+int motor_limit(int ID, float p, float p_des){
+	//位置限位
+	switch(ID){
+	case 1:
+		if(p < (MIN_ANGLE_L1-INIT_ANGLE_L1) ||p > (MAX_ANGLE_L1-INIT_ANGLE_L1)){
+			DmaPrintf("1 position limit\n");
+			HAL_Delay(10);
+			return 1;
+		}
+		break;
+	case 2:
+		if(p < (MIN_ANGLE_L2-INIT_ANGLE_L2) ||p > (MAX_ANGLE_L2-INIT_ANGLE_L2)){
+			DmaPrintf("2 position limit\n");
+			HAL_Delay(10);
+			return 1;
+		}
+		break;
+	case 3:
+		if(p < (MIN_ANGLE_R1-INIT_ANGLE_R1) ||p > (MAX_ANGLE_R1-INIT_ANGLE_R1)){
+			DmaPrintf("3 position limit\n");
+			HAL_Delay(10);
+			return 1;
+		}
+		break;
+	case 4:
+		if(p < (MIN_ANGLE_R2-INIT_ANGLE_R2) ||p > (MAX_ANGLE_R2-INIT_ANGLE_R2)){
+			DmaPrintf("4 position limit\n");
+			HAL_Delay(10);
+			return 1;
+		}
+		break;
+	}
+	//速度限位
+	if( (p_des-p) > V_LIMIT){
+		DmaPrintf("velocity limit\n");
+		HAL_Delay(10);
+		return 2;
+	}
+	if( (p-p_des) > V_LIMIT){
+		DmaPrintf("velocity limit\n");
+		HAL_Delay(10);
+		return 2;
+	}
+	return 0;
+}
+
+
 
 int motor_setdes(Tmotor M, float point)
 {
 	//位置限位
 	switch(M.ID){
 	case 1:
-	case 3:
-		if(point < (-1.2-INIT_ANGLE1) ||point > (1.3-INIT_ANGLE1))	return 1;
+		if(point < (MIN_ANGLE_L1-INIT_ANGLE_L1) ||point > (MAX_ANGLE_L1-INIT_ANGLE_L1))	return 1;
 		break;
 	case 2:
+		if(point < (MIN_ANGLE_L2-INIT_ANGLE_L2) ||point > (MAX_ANGLE_L2-INIT_ANGLE_L2))	return 1;
+		break;
+	case 3:
+		if(point < (MIN_ANGLE_R1-INIT_ANGLE_R1) ||point > (MAX_ANGLE_R1-INIT_ANGLE_R1))	return 1;
+		break;
 	case 4:
-		if(point < (0.1-INIT_ANGLE2) ||point > (1.8-INIT_ANGLE2))	return 1;
+		if(point < (MIN_ANGLE_R2-INIT_ANGLE_R2) ||point > (MAX_ANGLE_R2-INIT_ANGLE_R2))	return 1;
 		break;
 	}
 

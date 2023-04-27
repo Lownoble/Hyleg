@@ -26,7 +26,6 @@ Core/Src \
 Core/Startup \
 Core/icode/gait \
 Core/icode/imu \
-Core/icode/led \
 Core/icode/tmotor \
 Core/icode/trajectory \
 Drivers/STM32F4xx_HAL_Driver/Src \
