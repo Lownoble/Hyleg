@@ -1,10 +1,13 @@
+clear
+clc
+
 INIT_ANGLE1= 45.0/180*pi;
 INIT_ANGLE2= 45.0/180*pi;
 
-H = 540;
-HF = 50;
-LF = 100;
-LB = 100;
+H = 450;
+HF =100;
+LF = 50;
+LB = 50;
 T = 100;
 Ts = 2;
 BOTH_RATIO = 1.2;
@@ -37,7 +40,7 @@ for i = 0:(T*BOTH_RATIO)
 %        end
 
     [stand_theta1,stand_theta2] = IK(stand_x,stand_y);
-    stand_trajectory = [stand_trajectory; stand_theta1-INIT_ANGLE1,stand_theta2-INIT_ANGLE2];
+    stand_trajectory = [stand_trajectory; stand_theta1,stand_theta2];
 end
 
 for i = 0:T
@@ -60,7 +63,7 @@ for i = 0:T
 %        end
 
     [swing_theta1,swing_theta2] = IK(swing_x,swing_y);
-    swing_trajectory = [swing_trajectory; swing_theta1-INIT_ANGLE1,swing_theta2-INIT_ANGLE2];
+    swing_trajectory = [swing_trajectory; swing_theta1,swing_theta2];
 end
 
 
@@ -124,4 +127,17 @@ for i = 0:T
     swing_trajectory = [swing_trajectory; swing_theta1,swing_theta2];
 end
 
+%% horizontal
+length = 100;
+for i = 0:T
+		stand_x = length*(1.0*i/T-0.5/pi*sin(2.0*pi*i/T)) - length/2;
+		stand_y = -H;
 
+		swing_x = length/2 - length*(1.0*i/T-0.5/pi*sin(2.0*pi*i/T));
+		swing_y = -H;
+
+    [stand_theta1,stand_theta2] = IK(stand_x,stand_y);
+    stand_trajectory = [stand_trajectory; stand_theta1,stand_theta2];
+     [swing_theta1,swing_theta2] = IK(swing_x,swing_y);
+    swing_trajectory = [swing_trajectory; swing_theta1,swing_theta2];
+end

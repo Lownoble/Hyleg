@@ -33,7 +33,7 @@ Core/Src/gpio.o: ../Core/Src/gpio.c ../Core/Inc/gpio.h ../Core/Inc/main.h \
  ../Core/Inc/main.h ../Core/Inc/../icode/mems.h \
  ../Core/Inc/../icode/trajectory/trajectory.h \
  ../Core/Inc/../icode/gait/gait.h \
- ../Core/Inc/../icode/trajectory/trajectory.h
+ ../Core/Inc/../icode/trajectory/trajectory.h ../Core/Inc/usart.h
 ../Core/Inc/gpio.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -73,3 +73,4 @@ Core/Src/gpio.o: ../Core/Src/gpio.c ../Core/Inc/gpio.h ../Core/Inc/main.h \
 ../Core/Inc/../icode/trajectory/trajectory.h:
 ../Core/Inc/../icode/gait/gait.h:
 ../Core/Inc/../icode/trajectory/trajectory.h:
+../Core/Inc/usart.h:

@@ -88,7 +88,8 @@ plot(square_data(:,9),square_data(:,10),'k');
 
 
 %% trajectory
-
+INIT_ANGLE1= 45.0/180*pi;
+INIT_ANGLE2= 38.3/180*pi;
 trajectory_data = textread('./DATA/trajectory1.txt');
 
 for i = 1: (length(trajectory_data))
@@ -107,7 +108,7 @@ for i = 1:(T*BOTH_RATIO)
     plot(stand_foot_trajectory(:,1),stand_foot_trajectory(:,2),'r','LineWidth',3);
     hold on
     xlim([-80 80])
-    ylim([-500 -380])
+    ylim([-460 -340])
 end
 
 for i = 1:T
@@ -120,7 +121,14 @@ for i = 1:T
 end
 
 figure(1)
-% plot(trajectory_data(:,9),trajectory_data(:,10),'k');
+plot(trajectory_data(:,9),trajectory_data(:,10),'k');
+
+figure(1)
+plot(trajectory_data(:,10),'k');
+hold on
+plot(trajectory_data(:,4)*100,'r');
+hold on
+plot(trajectory_data(:,8)*100,'g')
 
 %% TEST
 INIT_ANGLE1= 0.0/180*pi

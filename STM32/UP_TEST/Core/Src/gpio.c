@@ -22,7 +22,7 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "usart.h"
 /* USER CODE END 0 */
 
 /*----------------------------------------------------------------------------*/
@@ -93,18 +93,26 @@ void LEDRGB_BLUE(uint8_t on)
 void Cylinder_L(uint8_t on)
 {
 	if(!on)
+	{
 	HAL_GPIO_WritePin(GPIOC,Cylinder_L_Pin,GPIO_PIN_RESET);
+	}
 	else
+	{
 	HAL_GPIO_WritePin(GPIOC,Cylinder_L_Pin,GPIO_PIN_SET);
+	}
 }
 
 
 void Cylinder_R(uint8_t on)
 {
 	if(!on)
+	{
 	HAL_GPIO_WritePin(GPIOC,Cylinder_R_Pin,GPIO_PIN_RESET);
+	}
 	else
+	{
 	HAL_GPIO_WritePin(GPIOC,Cylinder_R_Pin,GPIO_PIN_SET);
+	}
 }
 
 

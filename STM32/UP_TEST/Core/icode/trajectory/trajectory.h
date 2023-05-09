@@ -13,7 +13,7 @@
 #define MAX_ANGLE_R2 0.74
 #define MIN_ANGLE_R2 -0.10
 
-#define V_LIMIT 0.03
+#define V_LIMIT 0.06
 #define BOTH_RATIO 1.2
 
 #define THETA1_1 0.7227
@@ -42,3 +42,8 @@ void trajectory_left(float H, float FH, float LF, float LB);
 void trajectory_right(float H, float FH, float LF, float LB);
 void trajectory_circle(float H, float R);
 void trajectory_square(float H, float square_length, float square_width);
+void trajectory_horizontal(float H, float length);
+void trajectory_vertiacal(float H, float width);
+void trajectory_offset();
+void trajectory_walk();
+void change_H();

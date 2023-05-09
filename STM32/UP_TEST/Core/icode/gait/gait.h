@@ -22,6 +22,9 @@ typedef struct Leg
 	float swing_trajectory[100][2];
 }Leg;
 
+extern int CL_flag;
+extern int CR_flag;
+
 extern Leg Leg_right;
 extern Leg Leg_left;
 

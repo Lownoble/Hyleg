@@ -2,6 +2,6 @@
 ../Core/Src/freertos.c:91:6:MX_FREERTOS_Init	160	static
 ../Core/Src/freertos.c:146:6:StartDefaultTask	16	static
 ../Core/Src/freertos.c:164:6:LED_Task	24	static
-../Core/Src/freertos.c:189:6:CAN_Task	16	static
-../Core/Src/freertos.c:209:6:UART_Task	88	static
-../Core/Src/freertos.c:286:6:GAIT_Task	56	static
+../Core/Src/freertos.c:190:6:CAN_Task	16	static
+../Core/Src/freertos.c:210:6:UART_Task	112	static
+../Core/Src/freertos.c:279:6:GAIT_Task	56	static

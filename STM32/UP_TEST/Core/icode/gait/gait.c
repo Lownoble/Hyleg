@@ -8,6 +8,9 @@
 Leg Leg_right;
 Leg Leg_left;
 
+int CL_flag = 0;
+int CR_flag = 0;
+
 void gait_init(){
 	for(int i=0;i<100;i++){
 		if(Leg_left.stand_flag){

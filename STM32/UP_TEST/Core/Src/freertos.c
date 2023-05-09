@@ -115,7 +115,7 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of LED */
-  osThreadDef(LED, LED_Task, osPriorityIdle, 0, 128);
+  osThreadDef(LED, LED_Task, osPriorityIdle, 0, 512);
   LEDHandle = osThreadCreate(osThread(LED), NULL);
 
   /* definition and creation of CAN */
@@ -174,7 +174,8 @@ void LED_Task(void const * argument)
 		LEDRGB_RED(led_flag);
 		LEDRGB_BLUE(!led_flag);
 	  }
-	  osDelay(5000);
+	  //change_H();
+	  osDelay(200);
   }
   /* USER CODE END LED_Task */
 }
@@ -215,22 +216,14 @@ void UART_Task(void const * argument)
   for(;;)
   {
 	  if(CAN_FLAG){
-//		  HAL_Delay(100);
-//		  DmaPrintf("Motor:%d position:%.2f velocity:%.2f current:%.2f\n",motor[1].ID,motor[1].position,motor[1].velocity,motor[1].current);
-//		  HAL_Delay(100);
-//		  DmaPrintf("Motor:%d position:%.2f velocity:%.2f current:%.2f\n",motor[2].ID,motor[2].position,motor[2].velocity,motor[2].current);
-//		  HAL_Delay(100);
-//		  DmaPrintf("Motor:%d position:%.2f velocity:%.2f current:%.2f\n",motor[3].ID,motor[3].position,motor[3].velocity,motor[3].current);
-//		  HAL_Delay(100);
-//		  DmaPrintf("Motor:%d position:%.2f velocity:%.2f current:%.2f\n\n\n",motor[4].ID,motor[4].position,motor[4].velocity,motor[4].current);
-//		  HAL_Delay(2);
-		  DmaPrintf("%d %.3f %.3f %.3f\t",motor[1].ID,motor[1].position,motor[1].velocity,motor[1].current);
-		  HAL_Delay(2);
-		  DmaPrintf("%d %.3f %.3f %.3f\t",motor[2].ID,motor[2].position,motor[2].velocity,motor[2].current);
-		  HAL_Delay(2);
-		  DmaPrintf("%d %.2f %.2f %.2f\t",motor[3].ID,motor[3].position,motor[3].velocity,motor[3].current);
-		  HAL_Delay(2);
-		  DmaPrintf("%d %.2f %.2f %.2f\n",motor[4].ID,motor[4].position,motor[4].velocity,motor[4].current);
+		  DmaPrintf("%d %d %d %.3f %.3f %.3f %.3f\t",Leg_left.count,Leg_left.stand_flag,motor[1].ID,motor[1].p_des,motor[1].position,motor[1].velocity,motor[1].current);
+		  HAL_Delay(3);
+		  DmaPrintf("%d %.3f %.3f %.3f %.3f\t",motor[2].ID,motor[2].p_des,motor[2].position,motor[2].velocity,motor[2].current);
+		  HAL_Delay(3);
+		  DmaPrintf("%d %.3f %.3f %.3f %.3f\t",motor[3].ID,motor[3].p_des,motor[3].position,motor[3].velocity,motor[3].current);
+		  HAL_Delay(3);
+		  DmaPrintf("%d %.3f %.3f %.3f %.3f\n",motor[4].ID,motor[4].p_des,motor[4].position,motor[4].velocity,motor[4].current);
+
 		  CAN_FLAG = 0;
 	  }
 
@@ -271,7 +264,7 @@ void UART_Task(void const * argument)
 			USART1_RX_FLAG = 0;
 		}
 
-	  osDelay(100);
+	  osDelay(3);
   }
   /* USER CODE END UART_Task */
 }
@@ -286,11 +279,11 @@ void UART_Task(void const * argument)
 void GAIT_Task(void const * argument)
 {
   /* USER CODE BEGIN GAIT_Task */
-//	int CL_flag = 0;
-//	int CR_falg = 0;
+
   /* Infinite loop */
   for(;;)
   {
+	  if(enable_flag){
 	  //左腿规划
 	  if(Leg_left.stand_flag){
 		  motor[1].limit_flag = motor_setdes(motor[1], Leg_left.stand_trajectory[Leg_left.count][0]);
@@ -300,6 +293,8 @@ void GAIT_Task(void const * argument)
 			  Leg_left.count = 0;
 			  Leg_left.stand_flag = 0;
 			  Leg_left.swing_flag = 1;
+			  CL_flag = 0;
+			  Cylinder_L(CL_flag);
 		  }
 	  }
 	  if(Leg_left.swing_flag){
@@ -310,6 +305,8 @@ void GAIT_Task(void const * argument)
 			  Leg_left.count = 0;
 			  Leg_left.stand_flag = 1;
 			  Leg_left.swing_flag = 0;
+			  CL_flag = 1;
+			  Cylinder_L(CL_flag);
 		  }
 	  }
 	  //右腿规划
@@ -321,6 +318,8 @@ void GAIT_Task(void const * argument)
 			  Leg_right.count = 0;
 			  Leg_right.stand_flag = 0;
 			  Leg_right.swing_flag = 1;
+			  CR_flag = 0;
+			  Cylinder_R(CR_flag);
 		  }
 	  }
 	  if(Leg_right.swing_flag){
@@ -331,14 +330,14 @@ void GAIT_Task(void const * argument)
 			  Leg_right.count = 0;
 			  Leg_right.stand_flag = 1;
 			  Leg_right.swing_flag = 0;
+			  CR_flag = 1;
+			  Cylinder_R(CR_flag);
 		  }
 	  }
-	  if(motor[1].limit_flag == 1 || motor[2].limit_flag == 1 )		DmaPrintf("left position limits\n");
-	  if(motor[1].limit_flag == 2 || motor[2].limit_flag == 2 )		DmaPrintf("left velocity limits\n");
-//	  if(motor[3].limit_flag == 1 || motor[4].limit_flag == 1 )		DmaPrintf("right position limits\n");
-//	  if(motor[3].limit_flag == 2 || motor[4].limit_flag == 2 )		DmaPrintf("right velocity limits\n");
-
-      osDelay(10);
+//	  HAL_Delay(10);
+//	  DmaPrintf("%d %d\n",Leg_left.count,Leg_right.count);
+	  }
+      osDelay(20);
   }
   /* USER CODE END GAIT_Task */
 }

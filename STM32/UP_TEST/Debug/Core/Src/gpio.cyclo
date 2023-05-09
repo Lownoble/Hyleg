@@ -2,4 +2,4 @@ gpio.c:42:6:MX_GPIO_Init	1
 gpio.c:77:6:LEDRGB_RED	2
 gpio.c:85:6:LEDRGB_BLUE	2
 gpio.c:93:6:Cylinder_L	2
-gpio.c:102:6:Cylinder_R	2
+gpio.c:106:6:Cylinder_R	2

@@ -4,6 +4,7 @@
 #include "can.h"
 
 Tmotor motor[5];
+int enable_flag = 0;
 
 /**
  * [串口发送封装函数]
@@ -39,6 +40,7 @@ int motor_enable(int motor_address)
 	{
 		return 0;
 	}
+	enable_flag = 1;
 	unsigned char send_buf[8]={0};
 	send_buf[0] = 0xFF;
 	send_buf[1] = 0xFF;
@@ -92,6 +94,9 @@ int motor_disable(int motor_address)
 
 		return 0;
 	}
+	CL_flag = 0;
+	CR_flag = 0;
+	enable_flag = 0;
 	unsigned char send_buf[8]={0};
 	send_buf[0] = 0xFF;
 	send_buf[1] = 0xFF;
@@ -101,7 +106,7 @@ int motor_disable(int motor_address)
 	send_buf[5] = 0xFF;
 	send_buf[6] = 0xFF;
 	send_buf[7] = 0xFD;
-	//DmaPrintf("Motor disable\n");
+	DmaPrintf("Motor disable\n");
 	HAL_Delay(10);
 	pack_TX(motor_address, 0, 0, 1, 1, 0);
 	if(can_send(motor_address,send_buf,8))
@@ -115,7 +120,7 @@ int motor_disable(int motor_address)
 }
 
 /**
- * [电机失能通信]
+ * [电机设置零点通信]
  * @param    motor_address     					  [驱动器地址]
  * @return                          			  [命令发送结果,1 为发送成功,0 为发送失败]
  */
@@ -123,7 +128,6 @@ int motor_setzero(int motor_address)
 {
 	if(motor_address <0 || motor_address >255)
 	{
-
 		return 0;
 	}
 	unsigned char send_buf[8]={0};
@@ -148,7 +152,10 @@ int motor_setzero(int motor_address)
 }
 
 
-
+/**
+ * [电机初始化通信]
+ * @return                          			  [命令发送结果,1 为发送成功,0 为发送失败]
+ */
 int motor_init()
 {
 	motor_disable(1);motor_disable(2);motor_disable(3);motor_disable(4);
@@ -172,16 +179,21 @@ int motor_init()
 //	Leg_left.H=500; Leg_left.HF=100; Leg_left.LF=100; Leg_left.LB=0;
 //	Leg_right.H=500; Leg_right.HF=100; Leg_right.LF=0; Leg_right.LB=100;
 
-	Leg_left.count=(int)(100*(BOTH_RATIO-1)/2); Leg_left.stand_flag=1; Leg_left.swing_flag=0;
-	Leg_right.count=100+(int)(100*(BOTH_RATIO-1)/2); Leg_right.stand_flag=1; Leg_right.swing_flag=0;
+	//Leg_left.count = 50;
+	Leg_left.count=0;
+	Leg_left.stand_flag=1; Leg_left.swing_flag=0;
+	//Leg_right.count = 50;
+	Leg_right.count=(int)((BOTH_RATIO+1)*100/2);
+	Leg_right.stand_flag=1; Leg_right.swing_flag=0;
 	Leg_left.H=540; Leg_left.HF=80; Leg_left.LF=100; Leg_left.LB=100;
 	Leg_right.H=540; Leg_right.HF=80; Leg_right.LF=100; Leg_right.LB=100;
 
 
-	trajectory_left(Leg_left.H,Leg_left.HF,Leg_left.LF,Leg_left.LB);
-	trajectory_right(Leg_right.H,Leg_right.HF,Leg_right.LF,Leg_right.LB);
+	trajectory_walk();
 	//trajectory_circle(450, 50);
 	//trajectory_square(500, 100, 50);
+	//trajectory_horizontal(540, 200);
+	//trajectory_vertiacal(540, 80);
 
 	//设置初始化PID
 	motor[1].ID = 1; motor[1].kp = 0.2; motor[1].kd = 0.5;
@@ -200,11 +212,22 @@ int motor_init()
 	HAL_Delay(100);
 
 	motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
-	motor[1].p_des = Leg_left.stand_trajectory[Leg_left.count][0];
-	motor[2].p_des = Leg_left.stand_trajectory[Leg_left.count][1];
-	motor[3].p_des = Leg_right.stand_trajectory[Leg_right.count][0];
-	motor[4].p_des = Leg_right.stand_trajectory[Leg_right.count][1];
-
+	if(Leg_left.stand_flag){
+		motor[1].p_des = Leg_left.stand_trajectory[Leg_left.count][0];
+		motor[2].p_des = Leg_left.stand_trajectory[Leg_left.count][1];
+	}
+	if(Leg_left.swing_flag){
+		motor[1].p_des = Leg_left.swing_trajectory[Leg_left.count][0];
+		motor[2].p_des = Leg_left.swing_trajectory[Leg_left.count][1];
+	}
+	if(Leg_right.stand_flag){
+		motor[3].p_des = Leg_right.stand_trajectory[Leg_right.count][0];
+		motor[4].p_des = Leg_right.stand_trajectory[Leg_right.count][1];
+	}
+	if(Leg_right.swing_flag){
+		motor[3].p_des = Leg_right.swing_trajectory[Leg_right.count][0];
+		motor[4].p_des = Leg_right.swing_trajectory[Leg_right.count][1];
+	}
 	motor_control();
 	//	//设置运动PID
 	for(int i = 0; i<20; i++)
@@ -232,6 +255,8 @@ int motor_init()
 //	HAL_Delay(100);
 	return 1;
 }
+
+
 
 
 
@@ -293,8 +318,7 @@ int pack_TX(int motor_address, float p_des, float v_des, float kp, float kd, flo
 
 /**
  * [接收代码]
- * @param    ptr_can                  [串口文件描述符的指针]
- * @param    motor_address       	  [驱动器地址]
+ * @param    rx_buf                   [接收字符串]
  * @return                            [命令发送结果,1 为发送成功,0 为发送失败]
  */
 struct Tmotor unpack_RX(unsigned char rx_buf[6])
@@ -314,6 +338,12 @@ struct Tmotor unpack_RX(unsigned char rx_buf[6])
 	return reply;
 }
 
+
+/**
+ * [设置数据]
+ * @param    rx_buf                   [接收字符串]
+ * @return                            [命令发送结果,1 为发送成功,0 为发送失败]
+ */
 void motor_setdata(unsigned char rx_buf[6])
 {
 	struct Tmotor reply;
@@ -325,6 +355,10 @@ void motor_setdata(unsigned char rx_buf[6])
 
 }
 
+
+/**
+ * [电机控制驱动]
+ */
 void motor_control()
 {
 	if(ENABLE_MOTOR){
@@ -335,6 +369,14 @@ void motor_control()
 	}
 }
 
+
+/**
+ * [电机限位]
+ * @param    ID				      	  [电机ID]
+ * @param    p				      	  [电机位置值]
+ * @param    p_des				      [电机期望位置值]
+ * @return                         	  [命令发送结果,0 为正常，1 为超出位置限位,2 为超出速度限位]
+ */
 int motor_limit(int ID, float p, float p_des){
 	//位置限位
 	switch(ID){
@@ -368,12 +410,7 @@ int motor_limit(int ID, float p, float p_des){
 		break;
 	}
 	//速度限位
-	if( (p_des-p) > V_LIMIT){
-		DmaPrintf("velocity limit\n");
-		HAL_Delay(10);
-		return 2;
-	}
-	if( (p-p_des) > V_LIMIT){
+	if( fabs(p_des-p) > V_LIMIT){
 		DmaPrintf("velocity limit\n");
 		HAL_Delay(10);
 		return 2;
@@ -382,35 +419,26 @@ int motor_limit(int ID, float p, float p_des){
 }
 
 
-
+/**
+ * [电机设置期望位置]
+ */
 int motor_setdes(Tmotor M, float point)
 {
 	//位置限位
-	switch(M.ID){
-	case 1:
-		if(point < (MIN_ANGLE_L1-INIT_ANGLE_L1) ||point > (MAX_ANGLE_L1-INIT_ANGLE_L1))	return 1;
-		break;
-	case 2:
-		if(point < (MIN_ANGLE_L2-INIT_ANGLE_L2) ||point > (MAX_ANGLE_L2-INIT_ANGLE_L2))	return 1;
-		break;
-	case 3:
-		if(point < (MIN_ANGLE_R1-INIT_ANGLE_R1) ||point > (MAX_ANGLE_R1-INIT_ANGLE_R1))	return 1;
-		break;
-	case 4:
-		if(point < (MIN_ANGLE_R2-INIT_ANGLE_R2) ||point > (MAX_ANGLE_R2-INIT_ANGLE_R2))	return 1;
-		break;
-	}
-
+	if(motor_limit(M.ID, point, M.p_des) == 1) return 1;
 	//速度限位
-	if( (M.p_des-point) > V_LIMIT){
-		motor[M.ID].p_des -= V_LIMIT;
-		return 2;
-	}
-	if( (point-M.p_des) > V_LIMIT){
-		motor[M.ID].p_des += V_LIMIT;
-		return 2;
+	if(motor_limit(M.ID, point, M.p_des) == 2){
+		if( (M.p_des-point) > V_LIMIT){
+			motor[M.ID].p_des -= V_LIMIT;
+			return 2;
+		}
+		if( (point-M.p_des) > V_LIMIT){
+			motor[M.ID].p_des += V_LIMIT;
+			return 2;
+		}
 	}
 	motor[M.ID].p_des = point;
 	return 0;
+
 }
 
