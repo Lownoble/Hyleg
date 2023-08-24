@@ -8,11 +8,11 @@ data3 = textread('./DATA/horizontal_0.3MPa_10kg.txt');
 data4 = textread('./DATA/horizontal_0.4MPa_10kg.txt');
 data5 = textread('./DATA/horizontal_0.5MPa_10kg.txt');
 
+INIT_ANGLE1= 45.0/180*pi;
+INIT_ANGLE2= 45.0/180*pi;
 
 %% 
 
-INIT_ANGLE1= 45.0/180*pi;
-INIT_ANGLE2= 45.0/180*pi;
 T = 132;
 H = 540;
 long = 200;
@@ -27,9 +27,9 @@ for i = 0:T
 		swing_y = -H;
 
     [stand_theta1,stand_theta2] = IK(stand_x,stand_y);
-    stand_trajectory = [stand_trajectory; stand_theta1-INIT_ANGLE1,stand_theta2-stand_theta1];
+    stand_trajectory = [stand_trajectory; stand_theta1-INIT_ANGLE1,stand_theta2-stand_theta1+INIT_ANGLE1-INIT_ANGLE2];
      [swing_theta1,swing_theta2] = IK(swing_x,swing_y);
-    swing_trajectory = [swing_trajectory; swing_theta1-INIT_ANGLE1,swing_theta2-swing_theta1];
+    swing_trajectory = [swing_trajectory; swing_theta1-INIT_ANGLE1,swing_theta2-swing_theta1+INIT_ANGLE1-INIT_ANGLE2];
 
 
 end
@@ -117,14 +117,13 @@ ylabel("角度(rad)")
 legend("理想","0kg","5kg","10kg")
 
 %% 轨迹
-INIT_ANGLE1= 45.0/180*pi;
-INIT_ANGLE2= 45.0/180*pi;
+
 trajectory1 = [];trajectory2 = [];trajectory3 = [];trajectory4 = [];trajectory5 = [];
 
 for i = 1: 700
 
-    [trajectory1(i,1),trajectory1(i,2)] = FK(data2(i,5)+INIT_ANGLE1,data2(i,10)+data1(i,5)+INIT_ANGLE1);
-    [trajectory1(i,3),trajectory1(i,4)] = FK(theta(i,1)+INIT_ANGLE1,theta(i,2)+theta(i,1)+INIT_ANGLE1);
+    [trajectory1(i,1),trajectory1(i,2)] = FK(data2(i,5)+INIT_ANGLE1,data2(i,10)+data2(i,5)+INIT_ANGLE2);
+    [trajectory1(i,3),trajectory1(i,4)] = FK(theta(i,1)+INIT_ANGLE1,theta(i,2)+theta(i,1)+INIT_ANGLE2);
 
 
 end
