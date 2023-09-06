@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -O3  -pthread -O3 -DNDEBUG  -rdynamic CMakeFiles/MAINCONTROL.dir/src/comm.c.o CMakeFiles/MAINCONTROL.dir/src/main.cpp.o CMakeFiles/MAINCONTROL.dir/src/spi.cpp.o CMakeFiles/MAINCONTROL.dir/src/sys_timer.cpp.o  -o MAINCONTROL 

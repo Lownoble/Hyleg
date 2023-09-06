@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -O3  -pthread -O3 -DNDEBUG  -rdynamic CMakeFiles/navigation_task.dir/src/main.cpp.o  -o ../build/navigation_task 
