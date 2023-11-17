@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/common/mathTypes.h
+Eigen/Dense
+-
+
+/home/odroid/MainControl/src/test.cpp
+common/mathTypes.h
+/home/odroid/MainControl/src/common/mathTypes.h
+

@@ -1,0 +1,1 @@
+/usr/bin/aarch64-linux-gnu-g++  -std=c++11 -O3  -pthread -O3 -DNDEBUG  -rdynamic CMakeFiles/test.dir/src/test.cpp.o  -o test 

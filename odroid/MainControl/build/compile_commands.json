@@ -1,0 +1,117 @@
+[
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/spi_test.dir/src/spi_test.cpp.o -c /home/odroid/MainControl/src/spi_test.cpp",
+  "file": "/home/odroid/MainControl/src/spi_test.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/test.dir/src/test.cpp.o -c /home/odroid/MainControl/src/test.cpp",
+  "file": "/home/odroid/MainControl/src/test.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/FSM/FSM.cpp.o -c /home/odroid/MainControl/src/FSM/FSM.cpp",
+  "file": "/home/odroid/MainControl/src/FSM/FSM.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/FSM/FSMState.cpp.o -c /home/odroid/MainControl/src/FSM/FSMState.cpp",
+  "file": "/home/odroid/MainControl/src/FSM/FSMState.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/FSM/State_FixedStand.cpp.o -c /home/odroid/MainControl/src/FSM/State_FixedStand.cpp",
+  "file": "/home/odroid/MainControl/src/FSM/State_FixedStand.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.o -c /home/odroid/MainControl/src/FSM/State_Passive.cpp",
+  "file": "/home/odroid/MainControl/src/FSM/State_Passive.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.o -c /home/odroid/MainControl/src/FSM/State_Walking.cpp",
+  "file": "/home/odroid/MainControl/src/FSM/State_Walking.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/Gait/FeetEndCal.cpp.o -c /home/odroid/MainControl/src/Gait/FeetEndCal.cpp",
+  "file": "/home/odroid/MainControl/src/Gait/FeetEndCal.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/Gait/GaitGenerator.cpp.o -c /home/odroid/MainControl/src/Gait/GaitGenerator.cpp",
+  "file": "/home/odroid/MainControl/src/Gait/GaitGenerator.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/Gait/WaveGenerator.cpp.o -c /home/odroid/MainControl/src/Gait/WaveGenerator.cpp",
+  "file": "/home/odroid/MainControl/src/Gait/WaveGenerator.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-gcc -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/SPI/comm.c.o   -c /home/odroid/MainControl/src/SPI/comm.c",
+  "file": "/home/odroid/MainControl/src/SPI/comm.c"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.o -c /home/odroid/MainControl/src/SPI/spi.cpp",
+  "file": "/home/odroid/MainControl/src/SPI/spi.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.o -c /home/odroid/MainControl/src/SPI/sys_timer.cpp",
+  "file": "/home/odroid/MainControl/src/SPI/sys_timer.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.o -c /home/odroid/MainControl/src/common/HyLeg.cpp",
+  "file": "/home/odroid/MainControl/src/common/HyLeg.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/common/HylegRobot.cpp.o -c /home/odroid/MainControl/src/common/HylegRobot.cpp",
+  "file": "/home/odroid/MainControl/src/common/HylegRobot.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/control/BalanceCtrl.cpp.o -c /home/odroid/MainControl/src/control/BalanceCtrl.cpp",
+  "file": "/home/odroid/MainControl/src/control/BalanceCtrl.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/control/ControlFrame.cpp.o -c /home/odroid/MainControl/src/control/ControlFrame.cpp",
+  "file": "/home/odroid/MainControl/src/control/ControlFrame.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/control/Estimator.cpp.o -c /home/odroid/MainControl/src/control/Estimator.cpp",
+  "file": "/home/odroid/MainControl/src/control/Estimator.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/interface/IOSDK.cpp.o -c /home/odroid/MainControl/src/interface/IOSDK.cpp",
+  "file": "/home/odroid/MainControl/src/interface/IOSDK.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/interface/KeyBoard.cpp.o -c /home/odroid/MainControl/src/interface/KeyBoard.cpp",
+  "file": "/home/odroid/MainControl/src/interface/KeyBoard.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/main.cpp.o -c /home/odroid/MainControl/src/main.cpp",
+  "file": "/home/odroid/MainControl/src/main.cpp"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/quadProgpp/Array.cc.o -c /home/odroid/MainControl/src/quadProgpp/Array.cc",
+  "file": "/home/odroid/MainControl/src/quadProgpp/Array.cc"
+},
+{
+  "directory": "/home/odroid/MainControl/build",
+  "command": "/usr/bin/aarch64-linux-gnu-g++  -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8  -std=c++11 -O3  -pthread -O3 -DNDEBUG   -o CMakeFiles/MAINCONTROL.dir/src/quadProgpp/QuadProg++.cc.o -c /home/odroid/MainControl/src/quadProgpp/QuadProg++.cc",
+  "file": "/home/odroid/MainControl/src/quadProgpp/QuadProg++.cc"
+}
+]

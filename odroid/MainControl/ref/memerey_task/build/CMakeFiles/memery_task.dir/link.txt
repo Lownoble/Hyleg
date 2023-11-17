@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++11 -O3 -O3 -DNDEBUG  -rdynamic CMakeFiles/memery_task.dir/src/comm.c.o CMakeFiles/memery_task.dir/src/main.cpp.o CMakeFiles/memery_task.dir/src/sys_timer.cpp.o  -o memery_task 

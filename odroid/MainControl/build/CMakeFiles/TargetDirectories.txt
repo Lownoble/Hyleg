@@ -1,0 +1,5 @@
+/home/odroid/MainControl/build/CMakeFiles/spi_test.dir
+/home/odroid/MainControl/build/CMakeFiles/edit_cache.dir
+/home/odroid/MainControl/build/CMakeFiles/test.dir
+/home/odroid/MainControl/build/CMakeFiles/rebuild_cache.dir
+/home/odroid/MainControl/build/CMakeFiles/MAINCONTROL.dir
