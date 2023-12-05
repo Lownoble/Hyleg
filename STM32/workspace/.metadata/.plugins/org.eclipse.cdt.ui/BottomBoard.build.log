@@ -1,0 +1,24 @@
+20:39:29 **** Incremental Build of configuration Debug for project BottomBoard ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F405xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:117:13: warning: unused variable 'tmp_num' [-Wunused-variable]
+  117 |         int tmp_num = 0;
+      |             ^~~~~~~
+../Core/Src/main.c:116:14: warning: unused variable 'tm_buf' [-Wunused-variable]
+  116 |         char tm_buf[100];
+      |              ^~~~~~
+arm-none-eabi-gcc -o "BottomBoard.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Lab\Legged_robots\Hyleg\STM32\workspace\BottomBoard\STM32F405RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BottomBoard.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
+гд???????????гд??????????? BottomBoard.elf
+ 
+arm-none-eabi-size   BottomBoard.elf 
+arm-none-eabi-objdump -h -S  BottomBoard.elf  > "BottomBoard.list"
+   text	   data	    bss	    dec	    hex	filename
+  46288	    476	   5060	  51824	   ca70	BottomBoard.elf
+гд???????????гд????? default.size.stdout
+ 
+гд???????????гд????? BottomBoard.list
+ 
+
+20:39:30 Build Finished. 0 errors, 2 warnings. (took 1s.138ms)
+

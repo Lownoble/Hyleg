@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="删除资源“Udroid/Udroid.ioc”" deleteContents="false" description="删除资源“Udroid/Udroid.ioc”" element1="/Udroid/Udroid.ioc" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1680503568544"/>&#x0A;<refactoring comment="删除资源“Udroid”" deleteContents="true" description="删除资源“Udroid”" element1="/Udroid" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1680504626372"/>
+</session>
