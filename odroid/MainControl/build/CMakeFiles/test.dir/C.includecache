@@ -6,25 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/odroid/MainControl/src/spidev_test.c
-stdint.h
--
-unistd.h
--
+../inc/SPI/comm.h
 stdio.h
 -
-stdlib.h
+sys/types.h
 -
-string.h
+sys/ipc.h
 -
-getopt.h
+sys/shm.h
 -
-fcntl.h
--
-sys/ioctl.h
--
-linux/types.h
--
-linux/spi/spidev.h
--
+
+/home/odroid/MainControl/src/SPI/comm.c
+SPI/comm.h
+/home/odroid/MainControl/src/SPI/SPI/comm.h
 

@@ -5,7 +5,7 @@
 #include "message/LowlevelState.h"
 #include "interface/IOInterface.h"
 #include "interface/CmdPanel.h"
- #include "common/HylegRobot.h"
+#include "common/HylegRobot.h"
 #include "Gait/WaveGenerator.h"
 #include "control/Estimator.h"
 #include "control/BalanceCtrl.h"
@@ -55,6 +55,7 @@ public:
 
     double dt;
     bool *running;
+    double H;
     CtrlPlatform ctrlPlatform;
 
     void sendRecv(){

@@ -11,6 +11,7 @@
 		"commands" : 
 		[
 			"add_executable",
+			"target_link_libraries",
 			"add_definitions",
 			"include_directories"
 		],
@@ -26,25 +27,37 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 60,
+				"line" : 74,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 32,
-				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 18,
+				"line" : 80,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 46,
+				"line" : 33,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 19,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 47,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 50,
 				"parent" : 0
 			}
 		]
@@ -55,32 +68,40 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-std=c++11 -O3  -pthread -O3 -DNDEBUG  "
+					"fragment" : "-std=c++14 -O3  -pthread -O3 -DNDEBUG  "
 				}
 			],
 			"defines" : 
 			[
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"define" : "COMPILE_WITH_REAL_ROBOT"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 4,
 					"define" : "ROBOT_TYPE_Hy"
+				},
+				{
+					"backtrace" : 5,
+					"define" : "_GLIBCXX_USE_CXX11_ABI=0"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 4,
+					"backtrace" : 6,
 					"path" : "/home/odroid/MainControl/./build"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 6,
 					"path" : "/home/odroid/MainControl/./inc"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 6,
+					"path" : "/home/odroid/MainControl/./serial/include"
+				},
+				{
+					"backtrace" : 6,
 					"path" : "/usr/include/python3.8"
 				}
 			],
@@ -95,7 +116,7 @@
 				5,
 				6,
 				7,
-				9,
+				8,
 				10,
 				11,
 				12,
@@ -106,7 +127,9 @@
 				17,
 				18,
 				19,
-				20
+				20,
+				21,
+				22
 			]
 		},
 		{
@@ -119,34 +142,49 @@
 			"defines" : 
 			[
 				{
-					"backtrace" : 2,
+					"backtrace" : 3,
 					"define" : "COMPILE_WITH_REAL_ROBOT"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 4,
 					"define" : "ROBOT_TYPE_Hy"
+				},
+				{
+					"backtrace" : 5,
+					"define" : "_GLIBCXX_USE_CXX11_ABI=0"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 4,
+					"backtrace" : 6,
 					"path" : "/home/odroid/MainControl/./build"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 6,
 					"path" : "/home/odroid/MainControl/./inc"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 6,
+					"path" : "/home/odroid/MainControl/./serial/include"
+				},
+				{
+					"backtrace" : 6,
 					"path" : "/usr/include/python3.8"
 				}
 			],
 			"language" : "C",
 			"sourceIndexes" : 
 			[
-				8
+				9
 			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "serial::@5b5608eb28142aacc1b4"
 		}
 	],
 	"id" : "MAINCONTROL::@6890427a1f51a3e7e1df",
@@ -155,12 +193,25 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-std=c++11 -O3  -pthread -O3 -DNDEBUG",
+				"fragment" : "-std=c++14 -O3  -pthread -O3 -DNDEBUG",
 				"role" : "flags"
 			},
 			{
 				"fragment" : "-rdynamic",
 				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "libserial.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lrt",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
@@ -198,7 +249,9 @@
 				17,
 				18,
 				19,
-				20
+				20,
+				21,
+				22
 			]
 		}
 	],
@@ -220,6 +273,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/FSM/State_FixedStand.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/FSM/State_Horizon.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -268,6 +327,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/SPI/sys_timer.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/UART/uart_communicate.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

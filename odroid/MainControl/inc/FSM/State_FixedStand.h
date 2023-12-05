@@ -20,7 +20,7 @@ private:
     float _startPos[4];
     float _duration = 1000;
     float _percent = 0;
-    float _targetKp  = 30;
+    float _targetKp  = 200;
     float _startKp[4];
 };
 

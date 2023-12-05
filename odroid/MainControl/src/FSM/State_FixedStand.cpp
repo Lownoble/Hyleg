@@ -20,7 +20,7 @@ void State_FixedStand::enter(){
         _startPos[i] = _lowState->motorState[i].q;
         _startKp[i] = _lowCmd->motorCmd[i].Kp;
     }
-    getTargetPos(0.00,-0.54,0.00,-0.54);
+    getTargetPos(0.00,-_ctrlComp->H,0.00,-_ctrlComp->H);
     _ctrlComp -> setAllStance();
 }
 
@@ -48,7 +48,7 @@ FSMStateName State_FixedStand::checkChange(){
         return FSMStateName::WALKING;
     }
     else if(_lowState->userCmd == UserCommand::L1_X){
-        return FSMStateName::BALANCETEST;
+        return FSMStateName::HORIZONAL;
     }
     else if(_lowState->userCmd == UserCommand::L1_A){
         return FSMStateName::SWINGTEST;

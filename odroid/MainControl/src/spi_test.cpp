@@ -29,15 +29,122 @@ static void pabort(const char *s)
 	perror(s);
 	abort();
 }
- 
+
 static const char *device = "/dev/spidev0.0";
 static uint8_t mode;
 static uint8_t bits = 8;
-static uint32_t speed = 50000;
+static uint32_t speed = 1000000;
 static uint16_t delay;
- 
+
+#define SPI_BUF_SIZE 256 
+uint8_t spi_tx_buf[SPI_BUF_SIZE] = {0};
+uint8_t spi_rx_buf[SPI_BUF_SIZE] = {0};
+int spi_tx_cnt = 0;
+int spi_rx_cnt = 0;
+
+static void setDataInt_spi(int i)
+{
+	spi_tx_buf[spi_tx_cnt++] = ((i << 24) >> 24);
+	spi_tx_buf[spi_tx_cnt++] = ((i << 16) >> 24);
+	spi_tx_buf[spi_tx_cnt++] = ((i << 8) >> 24);
+	spi_tx_buf[spi_tx_cnt++] = (i >> 24);
+}
+
+static void setDataFloat_spi(float f)
+{
+	int i = *(int *)&f;
+	spi_tx_buf[spi_tx_cnt++] = ((i << 24) >> 24);
+	spi_tx_buf[spi_tx_cnt++] = ((i << 16) >> 24);
+	spi_tx_buf[spi_tx_cnt++] = ((i << 8) >> 24);
+	spi_tx_buf[spi_tx_cnt++] = (i >> 24);
+}
+
+static float floatFromData_spi(unsigned char *data, int *anal_cnt)
+{
+	int i = 0x00;
+	i |= (*(data + *anal_cnt + 3) << 24);
+	i |= (*(data + *anal_cnt + 2) << 16);
+	i |= (*(data + *anal_cnt + 1) << 8);
+	i |= (*(data + *anal_cnt + 0));
+
+	*anal_cnt += 4;
+	return *(float *)&i;
+}
+
+static char charFromData_spi(unsigned char *data, int *anal_cnt)
+{
+	int temp = *anal_cnt;
+	*anal_cnt += 1;
+	return *(data + temp);
+}
+
+static int intFromData_spi(unsigned char *data, int *anal_cnt)
+{
+	int i = 0x00;
+	i |= (*(data + *anal_cnt + 3) << 24);
+	i |= (*(data + *anal_cnt + 2) << 16);
+	i |= (*(data + *anal_cnt + 1) << 8);
+	i |= (*(data + *anal_cnt + 0));
+	*anal_cnt += 4;
+	return i;
+}
+
+
+void can_board_send(int sel)//发送到单片机
+{
+	int i;
+	static float t_temp = 0;
+	char id = 0;
+	char sum_t = 0, _cnt = 0;
+	spi_tx_cnt = 0;
+
+	spi_tx_buf[spi_tx_cnt++] = 0xFA;
+	spi_tx_buf[spi_tx_cnt++] = 0xFF;
+	spi_tx_buf[spi_tx_cnt++] = sel;
+	spi_tx_buf[spi_tx_cnt++] = 0;
+
+	switch (sel)
+	{
+	case 0:
+		setDataInt_spi(0);
+		setDataFloat_spi(3.14);
+		setDataFloat_spi(2.22);
+		setDataFloat_spi(38.15);
+		setDataFloat_spi(38.15);
+		setDataFloat_spi(38.15);
+		break;
+
+
+	case 98:// FA FF 62 08 0F 01 00 00 9C 00 00 00 0F 00 00
+		setDataInt_spi(271); 
+		setDataInt_spi(156); 
+		break;
+
+	default:
+		for (int id = 0; id < 4; id++)
+		{
+			setDataFloat_spi(0); 
+			setDataFloat_spi(0);
+			setDataFloat_spi(0);
+			setDataFloat_spi(0);
+		}
+		break;
+	}
+
+	spi_tx_buf[3] = (spi_tx_cnt)-4;
+	for (i = 0; i < spi_tx_cnt; i++)
+		sum_t += spi_tx_buf[i];
+	spi_tx_buf[spi_tx_cnt++] = sum_t;
+
+	for(int i=0;i<3;i++){
+		spi_tx_buf[spi_tx_cnt++] = 0;
+	}
+
+}
+
 static void transfer(int fd)
 {
+	can_board_send(0);
 	int ret;
 	uint8_t tx[] = {
 		0xfa, 0xff, 0x04, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x15, 0x00, 0x00, 0x00,
@@ -46,9 +153,9 @@ static void transfer(int fd)
 	struct spi_ioc_transfer tr;
 	
 	memset(&tr, 0, sizeof(tr));
-	tr.tx_buf = (unsigned long)tx;
+	tr.tx_buf = (unsigned long)spi_tx_buf;
 	tr.rx_buf = (unsigned long)rx;
-	tr.len = ARRAY_SIZE(tx);
+	tr.len = spi_tx_cnt;
 	tr.delay_usecs = delay;
 	tr.speed_hz = speed;
 	tr.bits_per_word = bits;
@@ -58,7 +165,7 @@ static void transfer(int fd)
 	if (ret < 1)
 		pabort("can't send spi message");
  
-	for (ret = 0; ret < ARRAY_SIZE(tx); ret++) {
+	for (ret = 0; ret < spi_tx_cnt; ret++) {
 		printf("%.2X ", rx[ret]);
 	}
 	puts("");
@@ -196,10 +303,10 @@ int main(int argc, char *argv[])
 	printf("spi mode: %d\n", mode);
 	printf("bits per word: %d\n", bits);
 	printf("max speed: %d Hz (%d KHz)\n", speed, speed/1000);
- 
+
 	while(1){
 		transfer(fd);
-
+		usleep(500);
 	}
 
  

@@ -1,25 +1,16 @@
 #include "SPI/spi.h"
 
 SPI _spi;
-//_spi.SPIInit();
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-#define MEM_SPI 1111
-
-static void transfer(int fd);
-static void pabort(const char *s);
-static const char *device = "/dev/spidev0.0";
 
 static uint8_t mode = 0;
 static uint8_t bits = 8;
-static uint32_t speed = 50000;
+static uint32_t speed = 1000000;
 static uint16_t delay = 0;
 static uint8_t cs = 0;
 
 using namespace std;
-
-_SPI_RX spi_rx;
-_SPI_TX spi_tx;
 
 uint8_t spi_tx_buf[SPI_BUF_SIZE] = {0};
 uint8_t spi_rx_buf[SPI_BUF_SIZE] = {0};
@@ -28,14 +19,49 @@ int spi_rx_cnt = 0;
 int extra_len[2] = {3,3};
 int rx_wrong = 0;
 
-char tx[SPI_BUF_SIZE] = {};
-char rx[ARRAY_SIZE(tx)] = {};
-
 
 static void pabort(const char *s)
 {
 	perror(s);
 	abort();
+}
+
+int spi_init()
+{
+	static const char *device = "/dev/spidev0.0";
+	int ret = 0;
+	int fd;
+	fd = open(device, O_RDWR);
+	if (fd < 0)
+		pabort("can't open device");
+	//设置模式
+	ret = ioctl(fd, SPI_IOC_WR_MODE, &mode); 
+	if (ret == -1)
+		pabort("can't set spi mode");
+	ret = ioctl(fd, SPI_IOC_RD_MODE, &mode); 
+	if (ret == -1)
+		pabort("can't get spi mode");
+	//设置一次多少位
+	ret = ioctl(fd, SPI_IOC_WR_BITS_PER_WORD, &bits); 
+	if (ret == -1)
+		pabort("can't set bits per word");
+	ret = ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &bits); 
+	if (ret == -1)
+		pabort("can't get bits per word");
+	//设置最大速度
+	ret = ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &speed); 
+	if (ret == -1)
+		pabort("can't set max speed hz");
+	ret = ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &speed); 
+	if (ret == -1)
+		pabort("can't get max speed hz");
+
+    printf("spi fd:%d\n", fd);
+	printf("spi mode: %d\n", mode);
+	printf("bits per word: %d\n", bits);
+	printf("max speed: %d Hz (%d KHz)\n", speed, speed / 1000);
+
+	return fd;
 }
 
 static void setDataInt_spi(int i)
@@ -85,42 +111,6 @@ static int intFromData_spi(unsigned char *data, int *anal_cnt)
 	return i;
 }
 
-int spi_init()
-{
-	int ret = 0;
-	int fd;
-	fd = open(device, O_RDWR);
-	if (fd < 0)
-		pabort("can't open device");
-	//设置模式
-	ret = ioctl(fd, SPI_IOC_WR_MODE, &mode); 
-	if (ret == -1)
-		pabort("can't set spi mode");
-	ret = ioctl(fd, SPI_IOC_RD_MODE, &mode); 
-	if (ret == -1)
-		pabort("can't get spi mode");
-	//设置一次多少位
-	ret = ioctl(fd, SPI_IOC_WR_BITS_PER_WORD, &bits); 
-	if (ret == -1)
-		pabort("can't set bits per word");
-	ret = ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &bits); 
-	if (ret == -1)
-		pabort("can't get bits per word");
-	//设置最大速度
-	ret = ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &speed); 
-	if (ret == -1)
-		pabort("can't set max speed hz");
-	ret = ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &speed); 
-	if (ret == -1)
-		pabort("can't get max speed hz");
-
-    printf("spi fd:%d\n", fd);
-	printf("spi mode: %d\n", mode);
-	printf("bits per word: %d\n", bits);
-	printf("max speed: %d Hz (%d KHz)\n", speed, speed / 1000);
-
-	return fd;
-}
 
 void can_board_send(int sel)//发送到单片机
 {
@@ -141,6 +131,8 @@ void can_board_send(int sel)//发送到单片机
 		setDataInt_spi(0);
 		setDataFloat_spi(3.14);
 		setDataFloat_spi(2.22);
+		setDataFloat_spi(38.15);
+		setDataFloat_spi(38.15);
 		setDataFloat_spi(38.15);
 		break;
 	case 1:
@@ -192,7 +184,7 @@ void can_board_send(int sel)//发送到单片机
 		sum_t += spi_tx_buf[i];
 	spi_tx_buf[spi_tx_cnt++] = sum_t;
 
-	for(int i=0;i<extra_len[rx_wrong];i++){
+	for(int i=0;i<3;i++){
 		spi_tx_buf[spi_tx_cnt++] = 0;
 	}
 
@@ -278,6 +270,8 @@ void transfer(int fd, int sel)//发送
 
 	can_board_send(sel);
 
+	char rx[ARRAY_SIZE(spi_tx_buf)] = {};
+
 	struct spi_ioc_transfer tr;
 	memset(&tr, 0, sizeof(tr));
 	tr = {
@@ -296,22 +290,22 @@ void transfer(int fd, int sel)//发送
 		pabort("can't send spi message");
 	else
 	{
-		if(rx[0]!=0xff && rx_wrong==0){
-			int i = 0;
-			rx_wrong = 1;
-			while(rx[i] != 0xff)
-			{
-				i++;
-			}
-			extra_len[1] = 3+i;
-		}
-		else rx_wrong = 0;
+		// if(rx[0]!=0xff && rx_wrong==0){
+		// 	int i = 0;
+		// 	rx_wrong = 1;
+		// 	while(rx[i] != 0xff)
+		// 	{
+		// 		i++;
+		// 	}
+		// 	extra_len[1] = 3+i;
+		// }
+		// else rx_wrong = 0;
 
-		// printf("RX:");
-		// for (int i = 0; i < spi_tx_cnt; i++)	printf("%02x ",rx[i]);
-		// printf("\nTX:");
-		// for (int i = 0; i < spi_tx_cnt; i++) printf("%02x ",spi_tx_buf[i]);
-		// printf("\n\n");
+		printf("RX:");
+		for (int i = 0; i < spi_tx_cnt; i++)	printf("%02x ",rx[i]);
+		printf("\nTX:");
+		for (int i = 0; i < spi_tx_cnt; i++) printf("%02x ",spi_tx_buf[i]);
+		printf("\n\n");
 
 		for (int i = 0; i < spi_tx_cnt; i++)
 		{
@@ -340,7 +334,7 @@ void transfer(int fd, int sel)//发送
 				state = 4;
 				spi_rx_buf[3] = data;
 				_data_len2 = data;
-				_data_cnt2 = 0;                            
+				_data_cnt2 = 0;                     
 			}
 			else if (state == 4 && _data_len2 > 0)
 			{
@@ -354,7 +348,6 @@ void transfer(int fd, int sel)//发送
 				//printf("5");
 				state = 0;
 				spi_rx_buf[4 + _data_cnt2] = data;
-				spi_rx_cnt = 4;
 				slave_rx(spi_rx_buf, _data_cnt2 + 5);
 			}
 			else

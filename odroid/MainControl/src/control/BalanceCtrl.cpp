@@ -26,7 +26,7 @@ BalanceCtrl::BalanceCtrl(BipedalRobot *robModel){
     w << 10, 10, 4, 10, 10, 4;
     u << 3, 3, 3, 3, 3, 3;
     _alpha = 0.001;
-    _beta  = 0.1;
+    _beta  = 0.6;
     _fricRatio = 0.4;
 
     s << 20, 20, 50, 450, 450, 450; 

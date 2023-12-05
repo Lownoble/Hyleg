@@ -7,6 +7,7 @@
 #include "FSM/State_Passive.h"
 // #include "FSM/State_FreeStand.h"
 #include "FSM/State_Walking.h"
+#include "FSM/State_Horizonal.h"
 // #include "FSM/State_BalanceTest.h"
 // #include "FSM/State_SwingTest.h"
 // #include "FSM/State_StepTest.h"
@@ -19,6 +20,7 @@ struct FSMStateList{
     State_FixedStand *fixedStand;
     // State_FreeStand *freeStand;
     State_Walking *walking;
+    State_Horizonal *horizonal;
     // State_BalanceTest *balanceTest;
     // State_SwingTest *swingTest;
     // State_StepTest *stepTest;
@@ -29,6 +31,7 @@ struct FSMStateList{
         delete fixedStand;
         // delete freeStand;
         delete walking;
+        delete horizonal;
         // delete balanceTest;
         // delete swingTest;
         // delete stepTest;

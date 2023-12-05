@@ -65,8 +65,9 @@ void State_Walking::run(){
 
     _userValue = _lowState->userValue;
     getUserCmd();
+    getTreadmileVel();
     calcCmd();
-    // printf("%.2f ",_vCmdGlobal(0));
+    printf("%f ",_userValue.lx);
 
     _gait->setGait(_vCmdGlobal(0), _gaitHeight);
     _gait->run(_posFeetGlobalGoal, _velFeetGlobalGoal);
@@ -74,12 +75,13 @@ void State_Walking::run(){
     calcTau();
     calcQQd();
 
-    printf("%f %f ",_posBody(0),_posBody(2));
-    printf("%f %f ",_velBody(0),_velBody(2));
-    printf("%f %f ",_posFeetGlobal(0,1),_posFeetGlobal(2,1));
+    // printf("%f %f ",_posBody(0),_posBody(2));
+    // printf("%f %f ",_velBody(0),_velBody(2));
+    // printf("%f %f ",_posFeetGlobalGoal(0,0),_posFeetGlobalGoal(2,0));
+    // printf("%f %f ",_velFeetGlobalGoal(0,0),_velFeetGlobalGoal(2,0));
     // printf("%f %f ",_posFeetGlobalGoal(0,1),_posFeetGlobalGoal(2,1));
-    printf("%f %f %f %f ",_qGoal(0),_qGoal(1),_qGoal(2),_qGoal(3));
-    printf("%f %f %f %f ",_qdGoal(0),_qdGoal(1),_qdGoal(2),_qdGoal(3));
+    // printf("%f %f %f %f ",_qGoal(0),_qGoal(1),_qGoal(2),_qGoal(3));
+    // printf("%f %f %f %f ",_qdGoal(0),_qdGoal(1),_qdGoal(2),_qdGoal(3));
 
     if(checkStepOrNot()){
         _ctrlComp->setStartWave();
@@ -95,7 +97,7 @@ void State_Walking::run(){
         if((*_contact)(i) == 0){
             _lowCmd->setSwingGain(i);
         }else{
-            // _lowCmd->setStableGain(i);
+            _lowCmd->setStableGain(i);
         }
     }
     printf("\n");
@@ -127,6 +129,13 @@ void State_Walking::getUserCmd(){
     _vCmdBody(2) = 0;
 }
 
+void State_Walking::getTreadmileVel(){
+    _vCmdBody(0) = invNormalize(_userValue.lx + treadmile.speed + treadmile.Kp*(treadmile.distance-treadmile.distance0), _vxLim(0), _vxLim(1));
+    _vCmdBody(1) = 0;
+    _vCmdBody(2) = 0;
+    printf("%f %f %f ",treadmile.Kp,_vCmdBody(0),_userValue.lx + treadmile.speed + treadmile.Kp*(treadmile.distance-treadmile.distance0));
+}
+
 void State_Walking::calcCmd(){
     /* Movement */
     _vCmdGlobal =  _vCmdBody;
@@ -147,13 +156,12 @@ void State_Walking::calcQQd(){
         _posFeet2BGoal.col(i) = _G2B_RotMat * (_posFeetGlobalGoal.col(i) - _posBody);
         _velFeet2BGoal.col(i) = _G2B_RotMat * (_velFeetGlobalGoal.col(i) - _velBody);
     }
+    _qGoal = _robModel->getQ(_posFeet2BGoal);
+    _qdGoal = _robModel->getQd(_posFeet2BGoal, _velFeet2BGoal);
     // printf("%f %f %f %f ",_posFeetGlobalGoal(0,0),_posFeetGlobalGoal(2,0),_posFeetGlobalGoal(1,0),_posFeetGlobalGoal(1,2));
     // printf("%f %f ",_posBody(0),_posBody(2));
     // printf("%f %f %f %f \n",_posFeet2BGoal(0,0),_posFeet2BGoal(2,0),_posFeet2BGoal(0,1),_posFeet2BGoal(2,1));
     // printf("%f %f %f %f ",_velFeet2BGoal(0,0),_velFeet2BGoal(2,0),_velFeet2BGoal(0,1),_velFeet2BGoal(2,1));
-    _qGoal = _robModel->getQ(_posFeet2BGoal);
-    _qdGoal = _robModel->getQd(_posFeet2BGoal, _velFeet2BGoal);
-
 }
 
 void State_Walking::calcTau(){
@@ -164,6 +172,7 @@ void State_Walking::calcTau(){
     // printf("vel: %f %f %f %f\n",_vCmdGlobal(0),_vCmdGlobal(2),_velBody(0),_velBody(2));
     // printf("Error: %f %f %f %f\n",_posError(0),_posError(2),_velError(0),_velError(2));
     _ddPcd = _Kpp * _posError + _Kdp * _velError;
+    _dWbd.setZero();
     //_dWbd  = _kpw*rotMatToExp(_Rd*_G2B_RotMat) + _Kdw * (_wCmdGlobal - _lowState->getGyroGlobal());
 
     _ddPcd(0) = saturation(_ddPcd(0), Vec2(-3, 3));
@@ -180,13 +189,13 @@ void State_Walking::calcTau(){
 
     for(int i=0;i<2;i++){
         if((*_contact)(i) == 0){
-            _forceFeetGlobal.col(i) = _KpSwing*(_posFeetGlobalGoal.col(i) - _posFeetGlobal.col(i)) + _KdSwing*(_velFeetGlobalGoal.col(i)-_velFeetGlobal.col(i));
+            _forceFeetGlobal.col(i) = - _KpSwing*(_posFeetGlobalGoal.col(i) - _posFeetGlobal.col(i)) + _KdSwing*(_velFeetGlobalGoal.col(i)-_velFeetGlobal.col(i));
         }
     }
 
-    for(int i=0;i<2;i++){
-        _forceFeetGlobal.col(i) = - _KpSwing*(_posFeetGlobalGoal.col(i) - _posFeetGlobal.col(i)) + _KdSwing*(_velFeetGlobalGoal.col(i)-_velFeetGlobal.col(i));
-    }
+    // for(int i=0;i<2;i++){
+    //     _forceFeetGlobal.col(i) = - _KpSwing*(_posFeetGlobalGoal.col(i) - _posFeetGlobal.col(i)) + _KdSwing*(_velFeetGlobalGoal.col(i)-_velFeetGlobal.col(i));
+    // }
 
     _forceFeetBody = _G2B_RotMat * _forceFeetGlobal;
     _q = Mat2ToVec4(_lowState->getQ());
@@ -195,7 +204,7 @@ void State_Walking::calcTau(){
     // for(int i=0;i<4;i++){
     //     _tau(i) = 0;
     // }
-    // printf("%d %d ",(*_contact)(0),(*_contact)(1));
-    // printf("%f %f %f %f ",_forceFeetBody(0,0),_forceFeetBody(2,0),_forceFeetBody(0,1),_forceFeetBody(2,1));
-    // printf("%f %f %f %f\n",_tau(0),_tau(1),_tau(2),_tau(3));
+    printf("%d %d ",(*_contact)(0),(*_contact)(1));
+    printf("%f %f %f %f ",_forceFeetBody(0,0),_forceFeetBody(2,0),_forceFeetBody(0,1),_forceFeetBody(2,1));
+    printf("%f %f %f %f",_tau(0),_tau(1),_tau(2),_tau(3));
 }

@@ -104,3 +104,7 @@ Vec32 Estimator::getPosFeet2BGlobal(){
     }
     return feet2BPos;
 }
+
+Vec3 Estimator::getRealPosition(){
+    return -_feetPosGlobalKine.col(1);
+}

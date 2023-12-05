@@ -79,7 +79,7 @@ Mat2 BipedalLeg::calcJaco(Vec2 q){
 
     jaco(0, 0) = -l1*c1 - l2*s1*c2 - l2*c1*s2;
     jaco(1, 0) = l1*s1 - l2*c1*c2 + l2*s1*s2;
-    jaco(0, 1) = -l2*c1*s1 - l2*s1*c2;
+    jaco(0, 1) = -l2*c1*s2 - l2*s1*c2;
     jaco(1, 1) = l2*s1*s2 - l2*c1*c2;
 
     return jaco;

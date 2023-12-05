@@ -5,13 +5,13 @@
 # compile CXX with /usr/bin/aarch64-linux-gnu-g++
 C_FLAGS = -O3 -DNDEBUG  
 
-C_DEFINES = -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy
+C_DEFINES = -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -D_GLIBCXX_USE_CXX11_ABI=0
 
-C_INCLUDES = -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8 
+C_INCLUDES = -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/home/odroid/MainControl/./serial/include -I/usr/include/python3.8 
 
-CXX_FLAGS = -std=c++11 -O3  -pthread -O3 -DNDEBUG  
+CXX_FLAGS = -std=c++14 -O3  -pthread -O3 -DNDEBUG  
 
-CXX_DEFINES = -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy
+CXX_DEFINES = -DCOMPILE_WITH_REAL_ROBOT -DROBOT_TYPE_Hy -D_GLIBCXX_USE_CXX11_ABI=0
 
-CXX_INCLUDES = -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/usr/include/python3.8 
+CXX_INCLUDES = -I/home/odroid/MainControl/./build -I/home/odroid/MainControl/./inc -I/home/odroid/MainControl/./serial/include -I/usr/include/python3.8 
 

@@ -57,9 +57,282 @@ include CMakeFiles/test.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/test.dir/flags.make
 
+CMakeFiles/test.dir/src/FSM/FSM.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/FSM/FSM.cpp.o: ../src/FSM/FSM.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test.dir/src/FSM/FSM.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/FSM/FSM.cpp.o -c /home/odroid/MainControl/src/FSM/FSM.cpp
+
+CMakeFiles/test.dir/src/FSM/FSM.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/FSM/FSM.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/FSM/FSM.cpp > CMakeFiles/test.dir/src/FSM/FSM.cpp.i
+
+CMakeFiles/test.dir/src/FSM/FSM.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/FSM/FSM.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/FSM/FSM.cpp -o CMakeFiles/test.dir/src/FSM/FSM.cpp.s
+
+CMakeFiles/test.dir/src/FSM/FSMState.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/FSM/FSMState.cpp.o: ../src/FSM/FSMState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test.dir/src/FSM/FSMState.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/FSM/FSMState.cpp.o -c /home/odroid/MainControl/src/FSM/FSMState.cpp
+
+CMakeFiles/test.dir/src/FSM/FSMState.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/FSM/FSMState.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/FSM/FSMState.cpp > CMakeFiles/test.dir/src/FSM/FSMState.cpp.i
+
+CMakeFiles/test.dir/src/FSM/FSMState.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/FSM/FSMState.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/FSM/FSMState.cpp -o CMakeFiles/test.dir/src/FSM/FSMState.cpp.s
+
+CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.o: ../src/FSM/State_FixedStand.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.o -c /home/odroid/MainControl/src/FSM/State_FixedStand.cpp
+
+CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/FSM/State_FixedStand.cpp > CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.i
+
+CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/FSM/State_FixedStand.cpp -o CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.s
+
+CMakeFiles/test.dir/src/FSM/State_Passive.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/FSM/State_Passive.cpp.o: ../src/FSM/State_Passive.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test.dir/src/FSM/State_Passive.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/FSM/State_Passive.cpp.o -c /home/odroid/MainControl/src/FSM/State_Passive.cpp
+
+CMakeFiles/test.dir/src/FSM/State_Passive.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/FSM/State_Passive.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/FSM/State_Passive.cpp > CMakeFiles/test.dir/src/FSM/State_Passive.cpp.i
+
+CMakeFiles/test.dir/src/FSM/State_Passive.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/FSM/State_Passive.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/FSM/State_Passive.cpp -o CMakeFiles/test.dir/src/FSM/State_Passive.cpp.s
+
+CMakeFiles/test.dir/src/FSM/State_Walking.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/FSM/State_Walking.cpp.o: ../src/FSM/State_Walking.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/test.dir/src/FSM/State_Walking.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/FSM/State_Walking.cpp.o -c /home/odroid/MainControl/src/FSM/State_Walking.cpp
+
+CMakeFiles/test.dir/src/FSM/State_Walking.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/FSM/State_Walking.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/FSM/State_Walking.cpp > CMakeFiles/test.dir/src/FSM/State_Walking.cpp.i
+
+CMakeFiles/test.dir/src/FSM/State_Walking.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/FSM/State_Walking.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/FSM/State_Walking.cpp -o CMakeFiles/test.dir/src/FSM/State_Walking.cpp.s
+
+CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.o: ../src/Gait/FeetEndCal.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.o -c /home/odroid/MainControl/src/Gait/FeetEndCal.cpp
+
+CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/Gait/FeetEndCal.cpp > CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.i
+
+CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/Gait/FeetEndCal.cpp -o CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.s
+
+CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.o: ../src/Gait/GaitGenerator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.o -c /home/odroid/MainControl/src/Gait/GaitGenerator.cpp
+
+CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/Gait/GaitGenerator.cpp > CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.i
+
+CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/Gait/GaitGenerator.cpp -o CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.s
+
+CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.o: ../src/Gait/WaveGenerator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.o -c /home/odroid/MainControl/src/Gait/WaveGenerator.cpp
+
+CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/Gait/WaveGenerator.cpp > CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.i
+
+CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/Gait/WaveGenerator.cpp -o CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.s
+
+CMakeFiles/test.dir/src/SPI/comm.c.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/SPI/comm.c.o: ../src/SPI/comm.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/test.dir/src/SPI/comm.c.o"
+	/usr/bin/aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/test.dir/src/SPI/comm.c.o   -c /home/odroid/MainControl/src/SPI/comm.c
+
+CMakeFiles/test.dir/src/SPI/comm.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/test.dir/src/SPI/comm.c.i"
+	/usr/bin/aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/odroid/MainControl/src/SPI/comm.c > CMakeFiles/test.dir/src/SPI/comm.c.i
+
+CMakeFiles/test.dir/src/SPI/comm.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/test.dir/src/SPI/comm.c.s"
+	/usr/bin/aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/odroid/MainControl/src/SPI/comm.c -o CMakeFiles/test.dir/src/SPI/comm.c.s
+
+CMakeFiles/test.dir/src/SPI/spi.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/SPI/spi.cpp.o: ../src/SPI/spi.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/test.dir/src/SPI/spi.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/SPI/spi.cpp.o -c /home/odroid/MainControl/src/SPI/spi.cpp
+
+CMakeFiles/test.dir/src/SPI/spi.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/SPI/spi.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/SPI/spi.cpp > CMakeFiles/test.dir/src/SPI/spi.cpp.i
+
+CMakeFiles/test.dir/src/SPI/spi.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/SPI/spi.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/SPI/spi.cpp -o CMakeFiles/test.dir/src/SPI/spi.cpp.s
+
+CMakeFiles/test.dir/src/SPI/sys_timer.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/SPI/sys_timer.cpp.o: ../src/SPI/sys_timer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/test.dir/src/SPI/sys_timer.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/SPI/sys_timer.cpp.o -c /home/odroid/MainControl/src/SPI/sys_timer.cpp
+
+CMakeFiles/test.dir/src/SPI/sys_timer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/SPI/sys_timer.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/SPI/sys_timer.cpp > CMakeFiles/test.dir/src/SPI/sys_timer.cpp.i
+
+CMakeFiles/test.dir/src/SPI/sys_timer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/SPI/sys_timer.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/SPI/sys_timer.cpp -o CMakeFiles/test.dir/src/SPI/sys_timer.cpp.s
+
+CMakeFiles/test.dir/src/UART/uart_communicate.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/UART/uart_communicate.cpp.o: ../src/UART/uart_communicate.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/test.dir/src/UART/uart_communicate.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/UART/uart_communicate.cpp.o -c /home/odroid/MainControl/src/UART/uart_communicate.cpp
+
+CMakeFiles/test.dir/src/UART/uart_communicate.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/UART/uart_communicate.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/UART/uart_communicate.cpp > CMakeFiles/test.dir/src/UART/uart_communicate.cpp.i
+
+CMakeFiles/test.dir/src/UART/uart_communicate.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/UART/uart_communicate.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/UART/uart_communicate.cpp -o CMakeFiles/test.dir/src/UART/uart_communicate.cpp.s
+
+CMakeFiles/test.dir/src/common/HyLeg.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/common/HyLeg.cpp.o: ../src/common/HyLeg.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/test.dir/src/common/HyLeg.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/common/HyLeg.cpp.o -c /home/odroid/MainControl/src/common/HyLeg.cpp
+
+CMakeFiles/test.dir/src/common/HyLeg.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/common/HyLeg.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/common/HyLeg.cpp > CMakeFiles/test.dir/src/common/HyLeg.cpp.i
+
+CMakeFiles/test.dir/src/common/HyLeg.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/common/HyLeg.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/common/HyLeg.cpp -o CMakeFiles/test.dir/src/common/HyLeg.cpp.s
+
+CMakeFiles/test.dir/src/common/HylegRobot.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/common/HylegRobot.cpp.o: ../src/common/HylegRobot.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/test.dir/src/common/HylegRobot.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/common/HylegRobot.cpp.o -c /home/odroid/MainControl/src/common/HylegRobot.cpp
+
+CMakeFiles/test.dir/src/common/HylegRobot.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/common/HylegRobot.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/common/HylegRobot.cpp > CMakeFiles/test.dir/src/common/HylegRobot.cpp.i
+
+CMakeFiles/test.dir/src/common/HylegRobot.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/common/HylegRobot.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/common/HylegRobot.cpp -o CMakeFiles/test.dir/src/common/HylegRobot.cpp.s
+
+CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.o: ../src/control/BalanceCtrl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.o -c /home/odroid/MainControl/src/control/BalanceCtrl.cpp
+
+CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/control/BalanceCtrl.cpp > CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.i
+
+CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/control/BalanceCtrl.cpp -o CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.s
+
+CMakeFiles/test.dir/src/control/ControlFrame.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/control/ControlFrame.cpp.o: ../src/control/ControlFrame.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/test.dir/src/control/ControlFrame.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/control/ControlFrame.cpp.o -c /home/odroid/MainControl/src/control/ControlFrame.cpp
+
+CMakeFiles/test.dir/src/control/ControlFrame.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/control/ControlFrame.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/control/ControlFrame.cpp > CMakeFiles/test.dir/src/control/ControlFrame.cpp.i
+
+CMakeFiles/test.dir/src/control/ControlFrame.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/control/ControlFrame.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/control/ControlFrame.cpp -o CMakeFiles/test.dir/src/control/ControlFrame.cpp.s
+
+CMakeFiles/test.dir/src/control/Estimator.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/control/Estimator.cpp.o: ../src/control/Estimator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/test.dir/src/control/Estimator.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/control/Estimator.cpp.o -c /home/odroid/MainControl/src/control/Estimator.cpp
+
+CMakeFiles/test.dir/src/control/Estimator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/control/Estimator.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/control/Estimator.cpp > CMakeFiles/test.dir/src/control/Estimator.cpp.i
+
+CMakeFiles/test.dir/src/control/Estimator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/control/Estimator.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/control/Estimator.cpp -o CMakeFiles/test.dir/src/control/Estimator.cpp.s
+
+CMakeFiles/test.dir/src/interface/IOSDK.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/interface/IOSDK.cpp.o: ../src/interface/IOSDK.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/test.dir/src/interface/IOSDK.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/interface/IOSDK.cpp.o -c /home/odroid/MainControl/src/interface/IOSDK.cpp
+
+CMakeFiles/test.dir/src/interface/IOSDK.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/interface/IOSDK.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/interface/IOSDK.cpp > CMakeFiles/test.dir/src/interface/IOSDK.cpp.i
+
+CMakeFiles/test.dir/src/interface/IOSDK.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/interface/IOSDK.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/interface/IOSDK.cpp -o CMakeFiles/test.dir/src/interface/IOSDK.cpp.s
+
+CMakeFiles/test.dir/src/interface/KeyBoard.cpp.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/interface/KeyBoard.cpp.o: ../src/interface/KeyBoard.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/test.dir/src/interface/KeyBoard.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/interface/KeyBoard.cpp.o -c /home/odroid/MainControl/src/interface/KeyBoard.cpp
+
+CMakeFiles/test.dir/src/interface/KeyBoard.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/interface/KeyBoard.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/interface/KeyBoard.cpp > CMakeFiles/test.dir/src/interface/KeyBoard.cpp.i
+
+CMakeFiles/test.dir/src/interface/KeyBoard.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/interface/KeyBoard.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/interface/KeyBoard.cpp -o CMakeFiles/test.dir/src/interface/KeyBoard.cpp.s
+
+CMakeFiles/test.dir/src/quadProgpp/Array.cc.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/quadProgpp/Array.cc.o: ../src/quadProgpp/Array.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/test.dir/src/quadProgpp/Array.cc.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/quadProgpp/Array.cc.o -c /home/odroid/MainControl/src/quadProgpp/Array.cc
+
+CMakeFiles/test.dir/src/quadProgpp/Array.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/quadProgpp/Array.cc.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/quadProgpp/Array.cc > CMakeFiles/test.dir/src/quadProgpp/Array.cc.i
+
+CMakeFiles/test.dir/src/quadProgpp/Array.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/quadProgpp/Array.cc.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/quadProgpp/Array.cc -o CMakeFiles/test.dir/src/quadProgpp/Array.cc.s
+
+CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.o: CMakeFiles/test.dir/flags.make
+CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.o: ../src/quadProgpp/QuadProg++.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.o -c /home/odroid/MainControl/src/quadProgpp/QuadProg++.cc
+
+CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/quadProgpp/QuadProg++.cc > CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.i
+
+CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/quadProgpp/QuadProg++.cc -o CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.s
+
 CMakeFiles/test.dir/src/test.cpp.o: CMakeFiles/test.dir/flags.make
 CMakeFiles/test.dir/src/test.cpp.o: ../src/test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test.dir/src/test.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/test.dir/src/test.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test.dir/src/test.cpp.o -c /home/odroid/MainControl/src/test.cpp
 
 CMakeFiles/test.dir/src/test.cpp.i: cmake_force
@@ -72,15 +345,57 @@ CMakeFiles/test.dir/src/test.cpp.s: cmake_force
 
 # Object files for target test
 test_OBJECTS = \
+"CMakeFiles/test.dir/src/FSM/FSM.cpp.o" \
+"CMakeFiles/test.dir/src/FSM/FSMState.cpp.o" \
+"CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.o" \
+"CMakeFiles/test.dir/src/FSM/State_Passive.cpp.o" \
+"CMakeFiles/test.dir/src/FSM/State_Walking.cpp.o" \
+"CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.o" \
+"CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.o" \
+"CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.o" \
+"CMakeFiles/test.dir/src/SPI/comm.c.o" \
+"CMakeFiles/test.dir/src/SPI/spi.cpp.o" \
+"CMakeFiles/test.dir/src/SPI/sys_timer.cpp.o" \
+"CMakeFiles/test.dir/src/UART/uart_communicate.cpp.o" \
+"CMakeFiles/test.dir/src/common/HyLeg.cpp.o" \
+"CMakeFiles/test.dir/src/common/HylegRobot.cpp.o" \
+"CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.o" \
+"CMakeFiles/test.dir/src/control/ControlFrame.cpp.o" \
+"CMakeFiles/test.dir/src/control/Estimator.cpp.o" \
+"CMakeFiles/test.dir/src/interface/IOSDK.cpp.o" \
+"CMakeFiles/test.dir/src/interface/KeyBoard.cpp.o" \
+"CMakeFiles/test.dir/src/quadProgpp/Array.cc.o" \
+"CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.o" \
 "CMakeFiles/test.dir/src/test.cpp.o"
 
 # External object files for target test
 test_EXTERNAL_OBJECTS =
 
+test: CMakeFiles/test.dir/src/FSM/FSM.cpp.o
+test: CMakeFiles/test.dir/src/FSM/FSMState.cpp.o
+test: CMakeFiles/test.dir/src/FSM/State_FixedStand.cpp.o
+test: CMakeFiles/test.dir/src/FSM/State_Passive.cpp.o
+test: CMakeFiles/test.dir/src/FSM/State_Walking.cpp.o
+test: CMakeFiles/test.dir/src/Gait/FeetEndCal.cpp.o
+test: CMakeFiles/test.dir/src/Gait/GaitGenerator.cpp.o
+test: CMakeFiles/test.dir/src/Gait/WaveGenerator.cpp.o
+test: CMakeFiles/test.dir/src/SPI/comm.c.o
+test: CMakeFiles/test.dir/src/SPI/spi.cpp.o
+test: CMakeFiles/test.dir/src/SPI/sys_timer.cpp.o
+test: CMakeFiles/test.dir/src/UART/uart_communicate.cpp.o
+test: CMakeFiles/test.dir/src/common/HyLeg.cpp.o
+test: CMakeFiles/test.dir/src/common/HylegRobot.cpp.o
+test: CMakeFiles/test.dir/src/control/BalanceCtrl.cpp.o
+test: CMakeFiles/test.dir/src/control/ControlFrame.cpp.o
+test: CMakeFiles/test.dir/src/control/Estimator.cpp.o
+test: CMakeFiles/test.dir/src/interface/IOSDK.cpp.o
+test: CMakeFiles/test.dir/src/interface/KeyBoard.cpp.o
+test: CMakeFiles/test.dir/src/quadProgpp/Array.cc.o
+test: CMakeFiles/test.dir/src/quadProgpp/QuadProg++.cc.o
 test: CMakeFiles/test.dir/src/test.cpp.o
 test: CMakeFiles/test.dir/build.make
 test: CMakeFiles/test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Linking CXX executable test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

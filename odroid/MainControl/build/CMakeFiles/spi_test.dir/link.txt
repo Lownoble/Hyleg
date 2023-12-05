@@ -1,1 +1,1 @@
-/usr/bin/aarch64-linux-gnu-g++  -std=c++11 -O3  -pthread -O3 -DNDEBUG  -rdynamic CMakeFiles/spi_test.dir/src/spi_test.cpp.o  -o spi_test 
+/usr/bin/aarch64-linux-gnu-g++  -std=c++14 -O3  -pthread -O3 -DNDEBUG  -rdynamic CMakeFiles/spi_test.dir/src/spi_test.cpp.o  -o spi_test 

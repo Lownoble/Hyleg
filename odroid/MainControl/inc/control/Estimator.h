@@ -23,6 +23,7 @@ public:
     Vec32 getFeetVel();
     Vec32 getPosFeet2BGlobal();
     void run();
+    Vec3 getRealPosition();
 
 #ifdef COMPILE_DEBUG
     PyPlot *_testPlot;

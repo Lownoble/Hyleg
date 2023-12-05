@@ -4,6 +4,7 @@
 #include "FSM/FSMState.h"
 #include "Gait/GaitGenerator.h"
 #include "control/BalanceCtrl.h"
+#include "UART/uart_communicate.h"
 
 class State_Walking : public FSMState{
 public:
@@ -19,6 +20,7 @@ private:
     void calcQQd();
     void calcCmd();
     virtual void getUserCmd();
+    void getTreadmileVel();
     void calcBalanceKp();
     bool checkStepOrNot();
 

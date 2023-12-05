@@ -3,7 +3,13 @@
         "comm.h": "c",
         "dense": "cpp",
         "eigenvalues": "cpp",
-        "core": "cpp"
+        "core": "cpp",
+        "iostream": "cpp",
+        "random": "cpp",
+        "atomic": "cpp",
+        "*.tcc": "cpp",
+        "fstream": "cpp",
+        "sstream": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

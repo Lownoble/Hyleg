@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "test"
+			"path" : "serial_example"
 		}
 	],
 	"backtrace" : 1,
@@ -11,11 +11,13 @@
 		"commands" : 
 		[
 			"add_executable",
-			"add_definitions",
+			"target_link_libraries",
+			"add_dependencies",
 			"include_directories"
 		],
 		"files" : 
 		[
+			"serial/CMakeLists.txt",
 			"CMakeLists.txt"
 		],
 		"nodes" : 
@@ -26,25 +28,34 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 61,
+				"line" : 60,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 32,
-				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 18,
+				"line" : 62,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 46,
+				"line" : 61,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 50,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 65,
 				"parent" : 0
 			}
 		]
@@ -55,33 +66,42 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-std=c++11 -O3  -pthread -O3 -DNDEBUG  "
+					"fragment" : "-std=c++11 -O3 -pthread -O3 -DNDEBUG  "
 				}
 			],
 			"defines" : 
 			[
 				{
-					"backtrace" : 2,
 					"define" : "COMPILE_WITH_REAL_ROBOT"
 				},
 				{
-					"backtrace" : 3,
 					"define" : "ROBOT_TYPE_Hy"
+				},
+				{
+					"define" : "_GLIBCXX_USE_CXX11_ABI=0"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"path" : "/home/odroid/MainControl/./build"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"path" : "/home/odroid/MainControl/./inc"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
+					"path" : "/home/odroid/MainControl/./serial/include"
+				},
+				{
+					"backtrace" : 5,
 					"path" : "/usr/include/python3.8"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/home/odroid/MainControl/serial/include"
 				}
 			],
 			"language" : "CXX",
@@ -91,28 +111,48 @@
 			]
 		}
 	],
-	"id" : "test::@6890427a1f51a3e7e1df",
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "serial::@5b5608eb28142aacc1b4"
+		}
+	],
+	"id" : "serial_example::@5b5608eb28142aacc1b4",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-std=c++11 -O3  -pthread -O3 -DNDEBUG",
+				"fragment" : "-std=c++11 -O3 -pthread -O3 -DNDEBUG",
 				"role" : "flags"
 			},
 			{
 				"fragment" : "-rdynamic",
 				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "../libserial.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lrt",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "test",
-	"nameOnDisk" : "test",
+	"name" : "serial_example",
+	"nameOnDisk" : "serial_example",
 	"paths" : 
 	{
-		"build" : ".",
-		"source" : "."
+		"build" : "output",
+		"source" : "serial"
 	},
 	"sourceGroups" : 
 	[
@@ -129,7 +169,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/test.cpp",
+			"path" : "serial/examples/serial_example.cc",
 			"sourceGroupIndex" : 0
 		}
 	],

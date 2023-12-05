@@ -124,19 +124,6 @@ spi_test/fast:
 .PHONY : spi_test/fast
 
 #=============================================================================
-# Target rules for targets named test
-
-# Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test
-.PHONY : test
-
-# fast build rule for target.
-test/fast:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-.PHONY : test/fast
-
-#=============================================================================
 # Target rules for targets named MAINCONTROL
 
 # Build rule for target.
@@ -148,6 +135,32 @@ MAINCONTROL: cmake_check_build_system
 MAINCONTROL/fast:
 	$(MAKE) -f CMakeFiles/MAINCONTROL.dir/build.make CMakeFiles/MAINCONTROL.dir/build
 .PHONY : MAINCONTROL/fast
+
+#=============================================================================
+# Target rules for targets named serial_example
+
+# Build rule for target.
+serial_example: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 serial_example
+.PHONY : serial_example
+
+# fast build rule for target.
+serial_example/fast:
+	$(MAKE) -f output/CMakeFiles/serial_example.dir/build.make output/CMakeFiles/serial_example.dir/build
+.PHONY : serial_example/fast
+
+#=============================================================================
+# Target rules for targets named serial
+
+# Build rule for target.
+serial: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 serial
+.PHONY : serial
+
+# fast build rule for target.
+serial/fast:
+	$(MAKE) -f output/CMakeFiles/serial.dir/build.make output/CMakeFiles/serial.dir/build
+.PHONY : serial/fast
 
 src/FSM/FSM.o: src/FSM/FSM.cpp.o
 
@@ -229,6 +242,33 @@ src/FSM/State_FixedStand.s: src/FSM/State_FixedStand.cpp.s
 src/FSM/State_FixedStand.cpp.s:
 	$(MAKE) -f CMakeFiles/MAINCONTROL.dir/build.make CMakeFiles/MAINCONTROL.dir/src/FSM/State_FixedStand.cpp.s
 .PHONY : src/FSM/State_FixedStand.cpp.s
+
+src/FSM/State_Horizon.o: src/FSM/State_Horizon.cpp.o
+
+.PHONY : src/FSM/State_Horizon.o
+
+# target to build an object file
+src/FSM/State_Horizon.cpp.o:
+	$(MAKE) -f CMakeFiles/MAINCONTROL.dir/build.make CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.o
+.PHONY : src/FSM/State_Horizon.cpp.o
+
+src/FSM/State_Horizon.i: src/FSM/State_Horizon.cpp.i
+
+.PHONY : src/FSM/State_Horizon.i
+
+# target to preprocess a source file
+src/FSM/State_Horizon.cpp.i:
+	$(MAKE) -f CMakeFiles/MAINCONTROL.dir/build.make CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.i
+.PHONY : src/FSM/State_Horizon.cpp.i
+
+src/FSM/State_Horizon.s: src/FSM/State_Horizon.cpp.s
+
+.PHONY : src/FSM/State_Horizon.s
+
+# target to generate assembly for a file
+src/FSM/State_Horizon.cpp.s:
+	$(MAKE) -f CMakeFiles/MAINCONTROL.dir/build.make CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.s
+.PHONY : src/FSM/State_Horizon.cpp.s
 
 src/FSM/State_Passive.o: src/FSM/State_Passive.cpp.o
 
@@ -445,6 +485,33 @@ src/SPI/sys_timer.s: src/SPI/sys_timer.cpp.s
 src/SPI/sys_timer.cpp.s:
 	$(MAKE) -f CMakeFiles/MAINCONTROL.dir/build.make CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.s
 .PHONY : src/SPI/sys_timer.cpp.s
+
+src/UART/uart_communicate.o: src/UART/uart_communicate.cpp.o
+
+.PHONY : src/UART/uart_communicate.o
+
+# target to build an object file
+src/UART/uart_communicate.cpp.o:
+	$(MAKE) -f CMakeFiles/MAINCONTROL.dir/build.make CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.o
+.PHONY : src/UART/uart_communicate.cpp.o
+
+src/UART/uart_communicate.i: src/UART/uart_communicate.cpp.i
+
+.PHONY : src/UART/uart_communicate.i
+
+# target to preprocess a source file
+src/UART/uart_communicate.cpp.i:
+	$(MAKE) -f CMakeFiles/MAINCONTROL.dir/build.make CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.i
+.PHONY : src/UART/uart_communicate.cpp.i
+
+src/UART/uart_communicate.s: src/UART/uart_communicate.cpp.s
+
+.PHONY : src/UART/uart_communicate.s
+
+# target to generate assembly for a file
+src/UART/uart_communicate.cpp.s:
+	$(MAKE) -f CMakeFiles/MAINCONTROL.dir/build.make CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.s
+.PHONY : src/UART/uart_communicate.cpp.s
 
 src/common/HyLeg.o: src/common/HyLeg.cpp.o
 
@@ -743,44 +810,18 @@ src/spi_test.cpp.s:
 	$(MAKE) -f CMakeFiles/spi_test.dir/build.make CMakeFiles/spi_test.dir/src/spi_test.cpp.s
 .PHONY : src/spi_test.cpp.s
 
-src/test.o: src/test.cpp.o
-
-.PHONY : src/test.o
-
-# target to build an object file
-src/test.cpp.o:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.o
-.PHONY : src/test.cpp.o
-
-src/test.i: src/test.cpp.i
-
-.PHONY : src/test.i
-
-# target to preprocess a source file
-src/test.cpp.i:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.i
-.PHONY : src/test.cpp.i
-
-src/test.s: src/test.cpp.s
-
-.PHONY : src/test.s
-
-# target to generate assembly for a file
-src/test.cpp.s:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.s
-.PHONY : src/test.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... spi_test"
 	@echo "... edit_cache"
-	@echo "... test"
+	@echo "... spi_test"
 	@echo "... rebuild_cache"
 	@echo "... MAINCONTROL"
+	@echo "... serial_example"
+	@echo "... serial"
 	@echo "... src/FSM/FSM.o"
 	@echo "... src/FSM/FSM.i"
 	@echo "... src/FSM/FSM.s"
@@ -790,6 +831,9 @@ help:
 	@echo "... src/FSM/State_FixedStand.o"
 	@echo "... src/FSM/State_FixedStand.i"
 	@echo "... src/FSM/State_FixedStand.s"
+	@echo "... src/FSM/State_Horizon.o"
+	@echo "... src/FSM/State_Horizon.i"
+	@echo "... src/FSM/State_Horizon.s"
 	@echo "... src/FSM/State_Passive.o"
 	@echo "... src/FSM/State_Passive.i"
 	@echo "... src/FSM/State_Passive.s"
@@ -814,6 +858,9 @@ help:
 	@echo "... src/SPI/sys_timer.o"
 	@echo "... src/SPI/sys_timer.i"
 	@echo "... src/SPI/sys_timer.s"
+	@echo "... src/UART/uart_communicate.o"
+	@echo "... src/UART/uart_communicate.i"
+	@echo "... src/UART/uart_communicate.s"
 	@echo "... src/common/HyLeg.o"
 	@echo "... src/common/HyLeg.i"
 	@echo "... src/common/HyLeg.s"
@@ -847,9 +894,6 @@ help:
 	@echo "... src/spi_test.o"
 	@echo "... src/spi_test.i"
 	@echo "... src/spi_test.s"
-	@echo "... src/test.o"
-	@echo "... src/test.i"
-	@echo "... src/test.s"
 .PHONY : help
 
 

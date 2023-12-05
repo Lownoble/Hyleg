@@ -54,6 +54,7 @@ enum class FSMStateName{
     FREESTAND,
     //TROTTING,
     WALKING,
+    HORIZONAL,
 #ifdef COMPILE_WITH_MOVE_BASE
     MOVE_BASE,
 #endif      //COMPILE_WITH_MOVE_BASE

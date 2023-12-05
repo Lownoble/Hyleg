@@ -18,7 +18,7 @@
 #include "message/LowlevelCmd.h"
 #include "message/LowlevelState.h"
 
-
+static void pabort(const char *s);
 int spi_init();
 void transfer(int fd, int sel);
 

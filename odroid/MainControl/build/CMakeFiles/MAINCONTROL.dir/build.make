@@ -96,9 +96,22 @@ CMakeFiles/MAINCONTROL.dir/src/FSM/State_FixedStand.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MAINCONTROL.dir/src/FSM/State_FixedStand.cpp.s"
 	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/FSM/State_FixedStand.cpp -o CMakeFiles/MAINCONTROL.dir/src/FSM/State_FixedStand.cpp.s
 
+CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
+CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.o: ../src/FSM/State_Horizon.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.o -c /home/odroid/MainControl/src/FSM/State_Horizon.cpp
+
+CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/FSM/State_Horizon.cpp > CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.i
+
+CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/FSM/State_Horizon.cpp -o CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.s
+
 CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.o: ../src/FSM/State_Passive.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.o -c /home/odroid/MainControl/src/FSM/State_Passive.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.i: cmake_force
@@ -111,7 +124,7 @@ CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.o: ../src/FSM/State_Walking.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.o -c /home/odroid/MainControl/src/FSM/State_Walking.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.i: cmake_force
@@ -124,7 +137,7 @@ CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/Gait/FeetEndCal.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/Gait/FeetEndCal.cpp.o: ../src/Gait/FeetEndCal.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/Gait/FeetEndCal.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/Gait/FeetEndCal.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/Gait/FeetEndCal.cpp.o -c /home/odroid/MainControl/src/Gait/FeetEndCal.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/Gait/FeetEndCal.cpp.i: cmake_force
@@ -137,7 +150,7 @@ CMakeFiles/MAINCONTROL.dir/src/Gait/FeetEndCal.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/Gait/GaitGenerator.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/Gait/GaitGenerator.cpp.o: ../src/Gait/GaitGenerator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/Gait/GaitGenerator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/Gait/GaitGenerator.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/Gait/GaitGenerator.cpp.o -c /home/odroid/MainControl/src/Gait/GaitGenerator.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/Gait/GaitGenerator.cpp.i: cmake_force
@@ -150,7 +163,7 @@ CMakeFiles/MAINCONTROL.dir/src/Gait/GaitGenerator.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/Gait/WaveGenerator.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/Gait/WaveGenerator.cpp.o: ../src/Gait/WaveGenerator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/Gait/WaveGenerator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/Gait/WaveGenerator.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/Gait/WaveGenerator.cpp.o -c /home/odroid/MainControl/src/Gait/WaveGenerator.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/Gait/WaveGenerator.cpp.i: cmake_force
@@ -163,7 +176,7 @@ CMakeFiles/MAINCONTROL.dir/src/Gait/WaveGenerator.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/SPI/comm.c.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/SPI/comm.c.o: ../src/SPI/comm.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/MAINCONTROL.dir/src/SPI/comm.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/MAINCONTROL.dir/src/SPI/comm.c.o"
 	/usr/bin/aarch64-linux-gnu-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/SPI/comm.c.o   -c /home/odroid/MainControl/src/SPI/comm.c
 
 CMakeFiles/MAINCONTROL.dir/src/SPI/comm.c.i: cmake_force
@@ -176,7 +189,7 @@ CMakeFiles/MAINCONTROL.dir/src/SPI/comm.c.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.o: ../src/SPI/spi.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.o -c /home/odroid/MainControl/src/SPI/spi.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.i: cmake_force
@@ -189,7 +202,7 @@ CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.o: ../src/SPI/sys_timer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.o -c /home/odroid/MainControl/src/SPI/sys_timer.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.i: cmake_force
@@ -200,9 +213,22 @@ CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.s"
 	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/SPI/sys_timer.cpp -o CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.s
 
+CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
+CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.o: ../src/UART/uart_communicate.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.o"
+	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.o -c /home/odroid/MainControl/src/UART/uart_communicate.cpp
+
+CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.i"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/odroid/MainControl/src/UART/uart_communicate.cpp > CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.i
+
+CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.s"
+	/usr/bin/aarch64-linux-gnu-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/odroid/MainControl/src/UART/uart_communicate.cpp -o CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.s
+
 CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.o: ../src/common/HyLeg.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.o -c /home/odroid/MainControl/src/common/HyLeg.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.i: cmake_force
@@ -215,7 +241,7 @@ CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/common/HylegRobot.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/common/HylegRobot.cpp.o: ../src/common/HylegRobot.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/common/HylegRobot.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/common/HylegRobot.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/common/HylegRobot.cpp.o -c /home/odroid/MainControl/src/common/HylegRobot.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/common/HylegRobot.cpp.i: cmake_force
@@ -228,7 +254,7 @@ CMakeFiles/MAINCONTROL.dir/src/common/HylegRobot.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/control/BalanceCtrl.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/control/BalanceCtrl.cpp.o: ../src/control/BalanceCtrl.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/control/BalanceCtrl.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/control/BalanceCtrl.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/control/BalanceCtrl.cpp.o -c /home/odroid/MainControl/src/control/BalanceCtrl.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/control/BalanceCtrl.cpp.i: cmake_force
@@ -241,7 +267,7 @@ CMakeFiles/MAINCONTROL.dir/src/control/BalanceCtrl.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/control/ControlFrame.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/control/ControlFrame.cpp.o: ../src/control/ControlFrame.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/control/ControlFrame.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/control/ControlFrame.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/control/ControlFrame.cpp.o -c /home/odroid/MainControl/src/control/ControlFrame.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/control/ControlFrame.cpp.i: cmake_force
@@ -254,7 +280,7 @@ CMakeFiles/MAINCONTROL.dir/src/control/ControlFrame.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/control/Estimator.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/control/Estimator.cpp.o: ../src/control/Estimator.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/control/Estimator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/control/Estimator.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/control/Estimator.cpp.o -c /home/odroid/MainControl/src/control/Estimator.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/control/Estimator.cpp.i: cmake_force
@@ -267,7 +293,7 @@ CMakeFiles/MAINCONTROL.dir/src/control/Estimator.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/interface/IOSDK.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/interface/IOSDK.cpp.o: ../src/interface/IOSDK.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/interface/IOSDK.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/interface/IOSDK.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/interface/IOSDK.cpp.o -c /home/odroid/MainControl/src/interface/IOSDK.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/interface/IOSDK.cpp.i: cmake_force
@@ -280,7 +306,7 @@ CMakeFiles/MAINCONTROL.dir/src/interface/IOSDK.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/interface/KeyBoard.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/interface/KeyBoard.cpp.o: ../src/interface/KeyBoard.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/interface/KeyBoard.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/interface/KeyBoard.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/interface/KeyBoard.cpp.o -c /home/odroid/MainControl/src/interface/KeyBoard.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/interface/KeyBoard.cpp.i: cmake_force
@@ -293,7 +319,7 @@ CMakeFiles/MAINCONTROL.dir/src/interface/KeyBoard.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/main.cpp.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/main.cpp.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/main.cpp.o -c /home/odroid/MainControl/src/main.cpp
 
 CMakeFiles/MAINCONTROL.dir/src/main.cpp.i: cmake_force
@@ -306,7 +332,7 @@ CMakeFiles/MAINCONTROL.dir/src/main.cpp.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/quadProgpp/Array.cc.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/quadProgpp/Array.cc.o: ../src/quadProgpp/Array.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/quadProgpp/Array.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/quadProgpp/Array.cc.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/quadProgpp/Array.cc.o -c /home/odroid/MainControl/src/quadProgpp/Array.cc
 
 CMakeFiles/MAINCONTROL.dir/src/quadProgpp/Array.cc.i: cmake_force
@@ -319,7 +345,7 @@ CMakeFiles/MAINCONTROL.dir/src/quadProgpp/Array.cc.s: cmake_force
 
 CMakeFiles/MAINCONTROL.dir/src/quadProgpp/QuadProg++.cc.o: CMakeFiles/MAINCONTROL.dir/flags.make
 CMakeFiles/MAINCONTROL.dir/src/quadProgpp/QuadProg++.cc.o: ../src/quadProgpp/QuadProg++.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/quadProgpp/QuadProg++.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/MAINCONTROL.dir/src/quadProgpp/QuadProg++.cc.o"
 	/usr/bin/aarch64-linux-gnu-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/MAINCONTROL.dir/src/quadProgpp/QuadProg++.cc.o -c /home/odroid/MainControl/src/quadProgpp/QuadProg++.cc
 
 CMakeFiles/MAINCONTROL.dir/src/quadProgpp/QuadProg++.cc.i: cmake_force
@@ -335,6 +361,7 @@ MAINCONTROL_OBJECTS = \
 "CMakeFiles/MAINCONTROL.dir/src/FSM/FSM.cpp.o" \
 "CMakeFiles/MAINCONTROL.dir/src/FSM/FSMState.cpp.o" \
 "CMakeFiles/MAINCONTROL.dir/src/FSM/State_FixedStand.cpp.o" \
+"CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.o" \
 "CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.o" \
 "CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.o" \
 "CMakeFiles/MAINCONTROL.dir/src/Gait/FeetEndCal.cpp.o" \
@@ -343,6 +370,7 @@ MAINCONTROL_OBJECTS = \
 "CMakeFiles/MAINCONTROL.dir/src/SPI/comm.c.o" \
 "CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.o" \
 "CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.o" \
+"CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.o" \
 "CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.o" \
 "CMakeFiles/MAINCONTROL.dir/src/common/HylegRobot.cpp.o" \
 "CMakeFiles/MAINCONTROL.dir/src/control/BalanceCtrl.cpp.o" \
@@ -360,6 +388,7 @@ MAINCONTROL_EXTERNAL_OBJECTS =
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/FSM/FSM.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/FSM/FSMState.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/FSM/State_FixedStand.cpp.o
+MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/Gait/FeetEndCal.cpp.o
@@ -368,6 +397,7 @@ MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/Gait/WaveGenerator.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/SPI/comm.c.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.o
+MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/common/HylegRobot.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/control/BalanceCtrl.cpp.o
@@ -379,8 +409,9 @@ MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/main.cpp.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/quadProgpp/Array.cc.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/src/quadProgpp/QuadProg++.cc.o
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/build.make
+MAINCONTROL: libserial.a
 MAINCONTROL: CMakeFiles/MAINCONTROL.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Linking CXX executable MAINCONTROL"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/odroid/MainControl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Linking CXX executable MAINCONTROL"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MAINCONTROL.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

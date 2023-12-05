@@ -26,25 +26,31 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 62,
+				"line" : 76,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 32,
+				"line" : 33,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 18,
+				"line" : 19,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 47,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 46,
+				"line" : 50,
 				"parent" : 0
 			}
 		]
@@ -55,7 +61,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-std=c++11 -O3  -pthread -O3 -DNDEBUG  "
+					"fragment" : "-std=c++14 -O3  -pthread -O3 -DNDEBUG  "
 				}
 			],
 			"defines" : 
@@ -67,20 +73,28 @@
 				{
 					"backtrace" : 3,
 					"define" : "ROBOT_TYPE_Hy"
+				},
+				{
+					"backtrace" : 4,
+					"define" : "_GLIBCXX_USE_CXX11_ABI=0"
 				}
 			],
 			"includes" : 
 			[
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"path" : "/home/odroid/MainControl/./build"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"path" : "/home/odroid/MainControl/./inc"
 				},
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
+					"path" : "/home/odroid/MainControl/./serial/include"
+				},
+				{
+					"backtrace" : 5,
 					"path" : "/usr/include/python3.8"
 				}
 			],
@@ -97,7 +111,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-std=c++11 -O3  -pthread -O3 -DNDEBUG",
+				"fragment" : "-std=c++14 -O3  -pthread -O3 -DNDEBUG",
 				"role" : "flags"
 			},
 			{

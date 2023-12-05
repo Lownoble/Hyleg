@@ -8,11 +8,13 @@ CMakeFiles/MAINCONTROL.dir/src/FSM/FSM.cpp.o
  ../inc/FSM/FSM.h
  ../inc/FSM/FSMState.h
  ../inc/FSM/State_FixedStand.h
+ ../inc/FSM/State_Horizonal.h
  ../inc/FSM/State_Passive.h
  ../inc/FSM/State_Walking.h
  ../inc/Gait/FeetEndCal.h
  ../inc/Gait/GaitGenerator.h
  ../inc/Gait/WaveGenerator.h
+ ../inc/UART/uart_communicate.h
  ../inc/common/HyLeg.h
  ../inc/common/HylegRobot.h
  ../inc/common/PyPlot.h
@@ -30,6 +32,8 @@ CMakeFiles/MAINCONTROL.dir/src/FSM/FSM.cpp.o
  ../inc/thirdParty/matplotlibcpp.h
  ../inc/thirdParty/quadProgpp/Array.hh
  ../inc/thirdParty/quadProgpp/QuadProg++.hh
+ ../serial/include/serial/serial.h
+ ../serial/include/serial/v8stdint.h
  /home/odroid/MainControl/src/FSM/FSM.cpp
  /usr/include/python3.8/Python.h
  /usr/include/python3.8/abstract.h
@@ -380,6 +384,130 @@ CMakeFiles/MAINCONTROL.dir/src/FSM/State_FixedStand.cpp.o
  /usr/include/python3.8/unicodeobject.h
  /usr/include/python3.8/warnings.h
  /usr/include/python3.8/weakrefobject.h
+CMakeFiles/MAINCONTROL.dir/src/FSM/State_Horizon.cpp.o
+ ../inc/FSM/FSMState.h
+ ../inc/FSM/State_Horizonal.h
+ ../inc/Gait/WaveGenerator.h
+ ../inc/common/HyLeg.h
+ ../inc/common/HylegRobot.h
+ ../inc/common/PyPlot.h
+ ../inc/common/enumClass.h
+ ../inc/common/mathTools.h
+ ../inc/common/mathTypes.h
+ ../inc/common/timeMarker.h
+ ../inc/control/BalanceCtrl.h
+ ../inc/control/CtrlComponents.h
+ ../inc/control/Estimator.h
+ ../inc/interface/CmdPanel.h
+ ../inc/interface/IOInterface.h
+ ../inc/message/LowlevelCmd.h
+ ../inc/message/LowlevelState.h
+ ../inc/thirdParty/matplotlibcpp.h
+ ../inc/thirdParty/quadProgpp/Array.hh
+ ../inc/thirdParty/quadProgpp/QuadProg++.hh
+ /home/odroid/MainControl/src/FSM/State_Horizon.cpp
+ /usr/include/python3.8/Python.h
+ /usr/include/python3.8/abstract.h
+ /usr/include/python3.8/bltinmodule.h
+ /usr/include/python3.8/boolobject.h
+ /usr/include/python3.8/bytearrayobject.h
+ /usr/include/python3.8/bytesobject.h
+ /usr/include/python3.8/cellobject.h
+ /usr/include/python3.8/ceval.h
+ /usr/include/python3.8/classobject.h
+ /usr/include/python3.8/code.h
+ /usr/include/python3.8/codecs.h
+ /usr/include/python3.8/compile.h
+ /usr/include/python3.8/complexobject.h
+ /usr/include/python3.8/context.h
+ /usr/include/python3.8/cpython/abstract.h
+ /usr/include/python3.8/cpython/dictobject.h
+ /usr/include/python3.8/cpython/fileobject.h
+ /usr/include/python3.8/cpython/initconfig.h
+ /usr/include/python3.8/cpython/object.h
+ /usr/include/python3.8/cpython/objimpl.h
+ /usr/include/python3.8/cpython/pyerrors.h
+ /usr/include/python3.8/cpython/pylifecycle.h
+ /usr/include/python3.8/cpython/pymem.h
+ /usr/include/python3.8/cpython/pystate.h
+ /usr/include/python3.8/cpython/sysmodule.h
+ /usr/include/python3.8/cpython/traceback.h
+ /usr/include/python3.8/cpython/tupleobject.h
+ /usr/include/python3.8/cpython/unicodeobject.h
+ /usr/include/python3.8/descrobject.h
+ /usr/include/python3.8/dictobject.h
+ /usr/include/python3.8/dtoa.h
+ /usr/include/python3.8/enumobject.h
+ /usr/include/python3.8/eval.h
+ /usr/include/python3.8/fileobject.h
+ /usr/include/python3.8/fileutils.h
+ /usr/include/python3.8/floatobject.h
+ /usr/include/python3.8/funcobject.h
+ /usr/include/python3.8/genobject.h
+ /usr/include/python3.8/import.h
+ /usr/include/python3.8/intrcheck.h
+ /usr/include/python3.8/iterobject.h
+ /usr/include/python3.8/listobject.h
+ /usr/include/python3.8/longintrepr.h
+ /usr/include/python3.8/longobject.h
+ /usr/include/python3.8/memoryobject.h
+ /usr/include/python3.8/methodobject.h
+ /usr/include/python3.8/modsupport.h
+ /usr/include/python3.8/moduleobject.h
+ /usr/include/python3.8/namespaceobject.h
+ /usr/include/python3.8/numpy/__multiarray_api.h
+ /usr/include/python3.8/numpy/_neighborhood_iterator_imp.h
+ /usr/include/python3.8/numpy/_numpyconfig.h
+ /usr/include/python3.8/numpy/arrayobject.h
+ /usr/include/python3.8/numpy/ndarrayobject.h
+ /usr/include/python3.8/numpy/ndarraytypes.h
+ /usr/include/python3.8/numpy/noprefix.h
+ /usr/include/python3.8/numpy/npy_1_7_deprecated_api.h
+ /usr/include/python3.8/numpy/npy_common.h
+ /usr/include/python3.8/numpy/npy_cpu.h
+ /usr/include/python3.8/numpy/npy_endian.h
+ /usr/include/python3.8/numpy/npy_interrupt.h
+ /usr/include/python3.8/numpy/numpyconfig.h
+ /usr/include/python3.8/numpy/old_defines.h
+ /usr/include/python3.8/numpy/utils.h
+ /usr/include/python3.8/object.h
+ /usr/include/python3.8/objimpl.h
+ /usr/include/python3.8/odictobject.h
+ /usr/include/python3.8/osmodule.h
+ /usr/include/python3.8/patchlevel.h
+ /usr/include/python3.8/picklebufobject.h
+ /usr/include/python3.8/pyarena.h
+ /usr/include/python3.8/pycapsule.h
+ /usr/include/python3.8/pyconfig.h
+ /usr/include/python3.8/pyctype.h
+ /usr/include/python3.8/pydebug.h
+ /usr/include/python3.8/pyerrors.h
+ /usr/include/python3.8/pyfpe.h
+ /usr/include/python3.8/pyhash.h
+ /usr/include/python3.8/pylifecycle.h
+ /usr/include/python3.8/pymacconfig.h
+ /usr/include/python3.8/pymacro.h
+ /usr/include/python3.8/pymath.h
+ /usr/include/python3.8/pymem.h
+ /usr/include/python3.8/pyport.h
+ /usr/include/python3.8/pystate.h
+ /usr/include/python3.8/pystrcmp.h
+ /usr/include/python3.8/pystrtod.h
+ /usr/include/python3.8/pythonrun.h
+ /usr/include/python3.8/pythread.h
+ /usr/include/python3.8/pytime.h
+ /usr/include/python3.8/rangeobject.h
+ /usr/include/python3.8/setobject.h
+ /usr/include/python3.8/sliceobject.h
+ /usr/include/python3.8/structseq.h
+ /usr/include/python3.8/sysmodule.h
+ /usr/include/python3.8/traceback.h
+ /usr/include/python3.8/tracemalloc.h
+ /usr/include/python3.8/tupleobject.h
+ /usr/include/python3.8/typeslots.h
+ /usr/include/python3.8/unicodeobject.h
+ /usr/include/python3.8/warnings.h
+ /usr/include/python3.8/weakrefobject.h
 CMakeFiles/MAINCONTROL.dir/src/FSM/State_Passive.cpp.o
  ../inc/FSM/FSMState.h
  ../inc/FSM/State_Passive.h
@@ -510,6 +638,7 @@ CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.o
  ../inc/Gait/FeetEndCal.h
  ../inc/Gait/GaitGenerator.h
  ../inc/Gait/WaveGenerator.h
+ ../inc/UART/uart_communicate.h
  ../inc/common/HyLeg.h
  ../inc/common/HylegRobot.h
  ../inc/common/PyPlot.h
@@ -527,6 +656,8 @@ CMakeFiles/MAINCONTROL.dir/src/FSM/State_Walking.cpp.o
  ../inc/thirdParty/matplotlibcpp.h
  ../inc/thirdParty/quadProgpp/Array.hh
  ../inc/thirdParty/quadProgpp/QuadProg++.hh
+ ../serial/include/serial/serial.h
+ ../serial/include/serial/v8stdint.h
  /home/odroid/MainControl/src/FSM/State_Walking.cpp
  /usr/include/python3.8/Python.h
  /usr/include/python3.8/abstract.h
@@ -1001,6 +1132,11 @@ CMakeFiles/MAINCONTROL.dir/src/SPI/spi.cpp.o
 CMakeFiles/MAINCONTROL.dir/src/SPI/sys_timer.cpp.o
  ../inc/SPI/sys_time.h
  /home/odroid/MainControl/src/SPI/sys_timer.cpp
+CMakeFiles/MAINCONTROL.dir/src/UART/uart_communicate.cpp.o
+ ../inc/UART/uart_communicate.h
+ ../serial/include/serial/serial.h
+ ../serial/include/serial/v8stdint.h
+ /home/odroid/MainControl/src/UART/uart_communicate.cpp
 CMakeFiles/MAINCONTROL.dir/src/common/HyLeg.cpp.o
  ../inc/common/HyLeg.h
  ../inc/common/enumClass.h
@@ -1136,11 +1272,13 @@ CMakeFiles/MAINCONTROL.dir/src/control/ControlFrame.cpp.o
  ../inc/FSM/FSM.h
  ../inc/FSM/FSMState.h
  ../inc/FSM/State_FixedStand.h
+ ../inc/FSM/State_Horizonal.h
  ../inc/FSM/State_Passive.h
  ../inc/FSM/State_Walking.h
  ../inc/Gait/FeetEndCal.h
  ../inc/Gait/GaitGenerator.h
  ../inc/Gait/WaveGenerator.h
+ ../inc/UART/uart_communicate.h
  ../inc/common/HyLeg.h
  ../inc/common/HylegRobot.h
  ../inc/common/PyPlot.h
@@ -1159,6 +1297,8 @@ CMakeFiles/MAINCONTROL.dir/src/control/ControlFrame.cpp.o
  ../inc/thirdParty/matplotlibcpp.h
  ../inc/thirdParty/quadProgpp/Array.hh
  ../inc/thirdParty/quadProgpp/QuadProg++.hh
+ ../serial/include/serial/serial.h
+ ../serial/include/serial/v8stdint.h
  /home/odroid/MainControl/src/control/ControlFrame.cpp
  /usr/include/python3.8/Python.h
  /usr/include/python3.8/abstract.h
@@ -1404,6 +1544,7 @@ CMakeFiles/MAINCONTROL.dir/src/main.cpp.o
  ../inc/FSM/FSM.h
  ../inc/FSM/FSMState.h
  ../inc/FSM/State_FixedStand.h
+ ../inc/FSM/State_Horizonal.h
  ../inc/FSM/State_Passive.h
  ../inc/FSM/State_Walking.h
  ../inc/Gait/FeetEndCal.h
@@ -1414,6 +1555,7 @@ CMakeFiles/MAINCONTROL.dir/src/main.cpp.o
  ../inc/SPI/spi.h
  ../inc/SPI/spi_node.h
  ../inc/SPI/sys_time.h
+ ../inc/UART/uart_communicate.h
  ../inc/common/HyLeg.h
  ../inc/common/HylegRobot.h
  ../inc/common/PyPlot.h
@@ -1434,6 +1576,8 @@ CMakeFiles/MAINCONTROL.dir/src/main.cpp.o
  ../inc/thirdParty/matplotlibcpp.h
  ../inc/thirdParty/quadProgpp/Array.hh
  ../inc/thirdParty/quadProgpp/QuadProg++.hh
+ ../serial/include/serial/serial.h
+ ../serial/include/serial/v8stdint.h
  /home/odroid/MainControl/src/main.cpp
  /usr/include/python3.8/Python.h
  /usr/include/python3.8/abstract.h

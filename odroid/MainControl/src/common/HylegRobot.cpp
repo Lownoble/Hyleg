@@ -86,14 +86,14 @@ HyRobot::HyRobot(){
                            -0.5400, -0.5400;
 
 
-    _robVelLimitX << -0.4, 0.4;
+    _robVelLimitX << -0.5, 0.5;
     _robVelLimitY << -0.3, 0.3;
     _robVelLimitYaw << -0.5, 0.5;
 
 #ifdef COMPILE_WITH_REAL_ROBOT
-    _mass = 12.5;
+    _mass = 15;
     _pcb << 0.0, 0.0, 0.0;
-    _Ib = Vec3(0.132, 0.3475, 0.3775).asDiagonal();
+    _Ib = Vec3(0.4625, 0.4040, 0.5065).asDiagonal();
 #endif  // COMPILE_WITH_REAL_ROBOT
 
 #ifdef COMPILE_WITH_SIMULATION
