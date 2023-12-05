@@ -1,7 +1,0 @@
-freertos.c:77:6:vApplicationGetIdleTaskMemory	1
-freertos.c:91:6:MX_FREERTOS_Init	1
-freertos.c:146:6:StartDefaultTask	1
-freertos.c:164:6:LED_Task	2
-freertos.c:190:6:CAN_Task	1
-freertos.c:210:6:UART_Task	11
-freertos.c:279:6:GAIT_Task	10
