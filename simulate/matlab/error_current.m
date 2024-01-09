@@ -19,11 +19,18 @@ end
 
 
 %% 
-i = 13;
-error = matrixData(:, 5+i)-matrixData(:, 6+i);
+i = 5;
+Q = matrixData(:, 5+i);
+Qd = matrixData(:, 6+i);
+error = Q-Qd;
 current = matrixData(:, 8+i);
-
-plot(error*345,"r");
+plot(Q,'r');
 hold on
-plot(current,"g");
-legend("error*345","current")
+plot(Qd,'b');
+hold on
+plot(matrixData(:, 3)/10);
+
+% plot(error*345,"r");
+% hold on
+% plot(current,"g");
+legend("目标角度","实际角度")

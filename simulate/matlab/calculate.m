@@ -3,19 +3,19 @@ clear
 
 %% FK
 theta1 = 45/180*pi;
-theta2 = 90/180*pi;
+theta2 = 0/180*pi;
 
-hip_x = -60 * sin(theta1-theta2);
-hip_y = -60 * cos(theta1-theta2);
+l1 = 250;
+l2 = 250;
 
-knee_x = -300 * sin(theta1);
-knee_y = -300 * cos(theta1);
+knee_x = -l1*cos(theta1);
+knee_y = -l1*sin(theta1);
 
-foot_x = knee_x + 5*hip_x;
-foot_y = knee_y + 5*hip_y;
+foot_x = -l1*sin(theta1) + l2*cos(theta1+theta2);
+foot_y = -l1*cos(theta1) - l2*sin(theta1+theta2);
 
 
-Cylinder_len = 2*60*cos(theta2) + 2*60*cos(pi/2-theta1);
+Cylinder_len = 2*60*cos(theta1) + 2*60*sin(theta1+theta2);
 
 axis equal
 plot([0,knee_x],[0,knee_y],'r','LineWidth',3);

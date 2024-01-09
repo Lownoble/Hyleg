@@ -1,0 +1,33 @@
+2.396591 0.997159 0.497159  0 1  0.994318 0.994318
+-0.000004 -0.517087 -1.570788 -0.536623	
+position:-0.296610 velocity:-0.000000
+vCmdGlobal:0.000000
+nextStep:-0.000000
+feetpos:0.000000 0.296610
+cmd:-0.000001 -1.570795 -0.517087 -0.536623	
+
+2.399664 0.999720 0.499720  0 1  0.999440 0.999440
+-0.000001 -0.517087 -1.570795 -0.536623	
+position:-0.296610 velocity:-0.000000
+vCmdGlobal:0.000000
+nextStep:-0.000000
+feetpos:0.000000 0.296610
+cmd:nan nan -0.517087 -0.536623		
+
+
+2.402759 0.002299 0.502299  1 0  0.004598 0.004598
+nan -0.517087 nan -0.536623		
+position:nan velocity:nan
+vCmdGlobal:0.000000
+nextStep:nan
+feetpos:nan nan
+cmd:-nan -nan -nan -nan			
+
+
+2.405878 0.004898 0.504898  1 0  0.009797 0.009797
+-nan -nan -nan -nan			
+position:-nan velocity:-nan
+vCmdGlobal:0.000000
+nextStep:-nan
+feetpos:-nan -nan
+cmd:nan nan nan nan
