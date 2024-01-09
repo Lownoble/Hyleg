@@ -36,8 +36,8 @@ extern "C" {
 extern UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN Private defines */
-#define BUFFER_SIZE 1000
-void UART_MyTask();
+#define BUFFER_SIZE 1200
+void UART_MyTask(int data);
 
 int fputc(int ch, FILE *f);
 int fgetc(FILE *f);

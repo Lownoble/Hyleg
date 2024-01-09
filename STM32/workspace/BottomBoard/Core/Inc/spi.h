@@ -65,6 +65,7 @@ void slave_tx(int sel);
 void slave_rx(uint8_t *data_buf,uint8_t num);
 void SPI_Communicate();
 void spi_recieve();
+void SPI_Task(int enable);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

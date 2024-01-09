@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<item key="LastUsedHeaderTemplate" value="默认的 C 头文件模板"/>
 	<item key="LastUsedSourceTemplate" value="默认的 C 源文件模板"/>
+	<item key="org.eclipse.cdt.utils.ui.controls.FileListControl" value="--library_type=microlib"/>
 	<section name="completion_proposal_size">
 	</section>
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
@@ -17,6 +18,7 @@
 		<item key="caseSensitive" value="false"/>
 		<item key="searchFlags" value="227191"/>
 		<list key="previousPatterns">
+			<item value="HAL_TIM_PeriodElapsedCallback"/>
 			<item value="HAL_SPI_ErrorCallback"/>
 			<item value="BOTH_RATIO"/>
 		</list>

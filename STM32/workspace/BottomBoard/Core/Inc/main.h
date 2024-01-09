@@ -46,7 +46,7 @@ extern uint8_t  USART1_RX_BUF[200];
 extern uint8_t  USART1_RX_FLAG;
 extern uint32_t USART1_RX_CNT;
 extern uint8_t  USART1_RX_TEMP[1];
-extern uint8_t  USART1_TX_BUF[1000];
+extern uint8_t  USART1_TX_BUF[1200];
 
 extern uint8_t CAN1_Rx_data[6];
 extern uint8_t CAN1_Tx_data[8];
@@ -85,7 +85,7 @@ void Error_Handler(void);
 #define LED1_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-void print_usart1(char *format, ...);
+void Myprintf(const char *format,...);
 void DmaPrintf(const char *format,...);
 /* USER CODE END Private defines */
 

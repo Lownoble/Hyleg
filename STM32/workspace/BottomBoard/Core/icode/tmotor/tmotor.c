@@ -7,6 +7,7 @@
 Tmotor motor[5];
 MotorCmd motorCmd[5];
 MotorState motorState[5];
+MotorState motorState_prev[5];
 int enable_flag = 0;
 
 
@@ -54,7 +55,7 @@ int motor_enable(int motor_address)
 	send_buf[5] = 0xFF;
 	send_buf[6] = 0xFF;
 	send_buf[7] = 0xFC;
-	//DmaPrintf("Motor enable\n");
+	DmaPrintf("Motor enable\n");
 	HAL_Delay(10);
 	if(can_send(motor_address,send_buf,8))
 	{
@@ -82,7 +83,7 @@ void motor_enable_all()
 		motor[4].kp = motor[4].kp+i;
 		DmaPrintf("%d\n",20-i);
 		HAL_Delay(100);
-		motor_control();
+		motor_control(1);
 	}
 }
 
@@ -110,7 +111,7 @@ int motor_disable(int motor_address)
 	send_buf[7] = 0xFD;
 	DmaPrintf("Motor disable\n");
 	HAL_Delay(10);
-	pack_TX(motor_address, 0, 0, 1, 1, 0);
+	pack_TX(motor_address, 0, 0, 0, 0, 0);
 	if(can_send(motor_address,send_buf,8))
 	{
 		return 1;
@@ -151,6 +152,17 @@ int motor_setzero(int motor_address)
 	{
 		return 0;
 	}
+}
+
+/**
+ * [电机扭矩控制]
+ * @param    motor_address     					  [驱动器地址]
+ * @return                          			  [命令发送结果,1 为发送成功,0 为发送失败]
+ */
+int motor_settau(int motor_address, float tau)
+{
+	pack_TX(motor_address, 0, 0, 0, 0, tau);
+
 }
 
 
@@ -249,8 +261,8 @@ void motor_setdata(unsigned char rx_buf[6])
 	motorState[reply.ID].current = reply.current;
 	if(reply.ID == 1) motorState[1].q = reply.position + INIT_ANGLE_1;
 	if(reply.ID == 2) motorState[2].q = reply.position + INIT_ANGLE_2;
-	if(reply.ID == 3) motorState[3].q = -reply.position + INIT_ANGLE_1;
-	if(reply.ID == 4) motorState[4].q = -reply.position + INIT_ANGLE_2;
+	if(reply.ID == 3) motorState[3].q = -reply.position + INIT_ANGLE_3;
+	if(reply.ID == 4) motorState[4].q = -reply.position + INIT_ANGLE_4;
 	if(reply.ID == 3 || reply.ID == 4){
 		motorState[reply.ID].dq = -reply.velocity;
 		motorState[reply.ID].current = -reply.current;
@@ -261,7 +273,7 @@ void motor_setCmd(){
 	for(int i=0; i<5; i++){
 		motor[i].position = motorCmd[i].q;
 		motor[i].velocity = motorCmd[i].dq;
-//		motor[i].velocity = 0;
+		//motor[i].velocity = 0;
 		motor[i].kp = motorCmd[i].Kp;
 		motor[i].kd = motorCmd[i].Kd;
 		motor[i].t_ff = motorCmd[i].tau;
@@ -272,17 +284,16 @@ void motor_setCmd(){
 	}
 	motor[1].position = motorCmd[1].q - INIT_ANGLE_1;
 	motor[2].position = motorCmd[2].q - INIT_ANGLE_2;
-	motor[3].position = -(motorCmd[3].q - INIT_ANGLE_1);
-	motor[4].position = -(motorCmd[4].q - INIT_ANGLE_2);
-
+	motor[3].position = -(motorCmd[3].q - INIT_ANGLE_3);
+	motor[4].position = -(motorCmd[4].q - INIT_ANGLE_4);
 }
 /**
  * [电机控制驱动]
  */
-void motor_control()
+void motor_control(int enable)
 {
-	if(ENABLE_MOTOR){
-		pack_TX(motor[0].ID, motor[0].position, motor[0].velocity, motor[0].kp, motor[0].kd, motor[0].t_ff);
+	if(enable){
+//		pack_TX(motor[0].ID, motor[0].position, motor[0].velocity, motor[0].kp, motor[0].kd, motor[0].t_ff);
 		pack_TX(motor[1].ID, motor[1].position, motor[1].velocity, motor[1].kp, motor[1].kd, motor[1].t_ff);
 		pack_TX(motor[2].ID, motor[2].position, motor[2].velocity, motor[2].kp, motor[2].kd, motor[2].t_ff);
 		pack_TX(motor[3].ID, motor[3].position, motor[3].velocity, motor[3].kp, motor[3].kd, motor[3].t_ff);
@@ -309,7 +320,21 @@ void motor_init()
 	DmaPrintf("Waiting set zero...(Z/N)\n");
 	while(USART1_RX_FLAG == 0){}
 	if(USART1_RX_BUF[0]=='Z'){
+		motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
+		float tau[4] = {0.0,0.0,0.0,0.0};
+		float tau_target[4] = {-6.0,0.0,5.0,0.0};
+		for(int i=0;i<100;i++){
+			for(int j=0;j<4;j++){
+				tau[j] = tau_target[j]*i/100.0;
+				motor_settau(j+1,tau[j]);
+			}
+
+			HAL_Delay(50);
+			DmaPrintf("%.2f %.2f %.2f %.2f\n",tau[0],tau[1],tau[2],tau[3]);
+		}
+		HAL_Delay(1000);
 		motor_setzero(0);motor_setzero(1);motor_setzero(2);motor_setzero(3);motor_setzero(4);
+		motor_disable(0);motor_disable(1);motor_disable(2);motor_disable(3);motor_disable(4);
 		DmaPrintf("Set zero success!\n");
 		HAL_Delay(100);
 	}
@@ -326,7 +351,8 @@ void motor_init()
 	USART1_RX_FLAG = 0;
 	USART1_RX_BUF[0] = 0;
 	HAL_Delay(100);
-//	motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
+	motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
+	state_passive();
 
 	DmaPrintf("BottomBoard Starting!\n");
 	HAL_Delay(100);
@@ -335,14 +361,23 @@ void motor_init()
 void state_passive()
 {
     for(int i=0; i<5; i++){
-    	motorCmd[i].mode = 10;
+    	motorCmd[i].ID = i;
         motorCmd[i].q = 0;
         motorCmd[i].dq = 0;
         motorCmd[i].Kp = 0;
-        motorCmd[i].Kd = 3;
+        motorCmd[i].Kd = 4;
         motorCmd[i].tau = 0;
     }
 }
 
+void motor_test(){
+	motor[0].ID = 0;
+	motor[0].kp = 0;
+	motor[0].kd = 0;
+	motor[0].position = 0;
+	motor[0].velocity = 0;
+	motor[0].t_ff = 0;
+	motor_disable(0);
+}
 
 

@@ -14,9 +14,9 @@
 		<item key="org.eclipse.debug.ui.DIALOG_SASH_WEIGHTS_1" value="249"/>
 		<item key="org.eclipse.debug.ui.DIALOG_SASH_WEIGHTS_2" value="751"/>
 		<item key="org.eclipse.debug.ui.EXPANDED_NODES" value=", com.st.stm32cube.ide.mcu.debug.launch.launchConfigurationType, ilg.gnumcueclipse.debug.gdbjtag.openocd.launchConfigurationType, "/>
-		<item key="DIALOG_WIDTH" value="1179"/>
-		<item key="DIALOG_HEIGHT" value="935"/>
-		<item key="DIALOG_FONT_NAME" value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|5|0|Microsoft YaHei UI"/>
+		<item key="DIALOG_WIDTH" value="1074"/>
+		<item key="DIALOG_HEIGHT" value="852"/>
+		<item key="DIALOG_FONT_NAME" value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-24|0|0|0|400|0|0|0|1|0|0|5|0|Microsoft YaHei UI"/>
 	</section>
 	<section name="org.eclipse.debug.ui.STRING_VARIABLE_SELECTION_DIALOG_SECTION">
 		<item key="DIALOG_X_ORIGIN" value="359"/>

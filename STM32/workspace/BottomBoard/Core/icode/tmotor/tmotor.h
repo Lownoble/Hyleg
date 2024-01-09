@@ -23,10 +23,20 @@
 #define KD_MIN 	0
 #define KD_MAX 	5
 
-#define INIT_ANGLE_1 45.0/180*M_PI
-#define INIT_ANGLE_2 6.7/180*M_PI
+//#define INIT_ANGLE_1 45.0/180*M_PI
+//#define INIT_ANGLE_2 6.7/180*M_PI
 
-#define ENABLE_MOTOR  0
+#define INIT_ANGLE_1 -0.500
+#define INIT_ANGLE_2 +1.087
+#define INIT_ANGLE_3 -0.507
+#define INIT_ANGLE_4 +1.106
+
+//#define INIT_ANGLE_1 0
+//#define INIT_ANGLE_2 0
+//#define INIT_ANGLE_3 0
+//#define INIT_ANGLE_4 0
+
+#define ENABLE_MOTOR  1
 
 typedef struct Tmotor
 {
@@ -77,7 +87,9 @@ int pack_TX(int motor_address, float p_des, float v_des, float kp, float kd, flo
 struct Tmotor unpack_RX(unsigned char rx_buf[6]);
 void motor_setdata(unsigned char rx_buf[6]);
 void motor_setCmd();
-void motor_control();
+int motor_settau(int motor_address, float tau);
+void motor_control(int enable);
 void motor_init();
 void state_passive();
+void motor_test();
 #endif /* ICODE_TMOTOR_TMOTOR_H_ */

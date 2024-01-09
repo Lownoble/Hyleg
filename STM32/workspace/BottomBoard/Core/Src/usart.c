@@ -25,7 +25,7 @@ uint8_t USART1_RX_BUF[200] = {0};
 uint8_t USART1_RX_FLAG = 0;
 uint32_t USART1_RX_CNT = 0;
 uint8_t USART1_RX_TEMP[1]={0};
-uint8_t USART1_TX_BUF[1000] = {0};
+uint8_t USART1_TX_BUF[1200] = {0};
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -193,9 +193,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) //中断回调函数
 
 }
 
-void UART_MyTask()
+void UART_MyTask(int data)
 {
-	if(0){
+	if(data){
 		//motorState
 //		HAL_Delay(1);
 //		DmaPrintf("%d,%.2f,%.2f,%.2f,",motorState[0].ID,motorState[0].q,motorState[0].dq,motorState[0].current);
@@ -228,48 +228,32 @@ void UART_MyTask()
 		float Pd_rx = Position[0];	float Pd_rz = Position[1];
 		Position = FK(motorState[3].q,motorState[4].q);
 		float Pf_rx = Position[0];	float Pf_rz = Position[1];
-//		HAL_Delay(1);
-//		DmaPrintf("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,",Pd_lx,Pd_lz,Pf_lx,Pf_lz,Pd_rx,Pd_rz,Pf_rx,Pf_rz);
-//		DmaPrintf("%.2f,%.2f,%.2f,%.2f\n",motorCmd[1].Kp,motorCmd[2].Kp,motorCmd[3].Kp,motorCmd[4].Kp);
 
+		//footVelocity
+//		float Velocity[2];
+//		calVelocity(motorCmd[1].q,motorCmd[2].q,motorCmd[1].dq,motorCmd[2].dq,Velocity);
+//		float Vd_lx = Velocity[0];	float Vd_lz = Velocity[1];
+//		calVelocity(motorState[1].q,motorState[2].q,motorState[1].dq,motorState[2].dq,Velocity);
+//		float Vf_lx = Velocity[0];	float Vf_lz = Velocity[1];
+//		calVelocity(motorCmd[3].q,motorCmd[4].q,motorCmd[3].dq,motorCmd[4].dq,Velocity);
+//		float Vd_rx = Velocity[0];	float Vd_rz = Velocity[1];
+//		calVelocity(motorState[3].q,motorState[4].q,motorState[3].dq,motorState[4].dq,Velocity);
+//		float Vf_rx = Velocity[0];	float Vf_rz = Velocity[1];
 
-		HAL_Delay(1);
-		DmaPrintf("%d,%.2f,%.2f,%.2f,%d,%.2f,%.2f,%.2f,%d,%.2f,%.2f,%.2f,%d,%.2f,%.2f,%.2f,%d,%.2f,%.2f,%.2f,\
-				%d,%.2f,%.2f,%.2f,%d,%.2f,%.2f,%.2f,%d,%.2f,%.2f,%.2f,%d,%.2f,%.2f,%.2f,\
-				%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n"\
-				,motorState[0].ID,motorState[0].q,motorState[0].dq,motorState[0].current\
-				,motorState[1].ID,motorState[1].q,motorState[1].dq,motorState[1].current\
-				,motorState[2].ID,motorState[2].q,motorState[2].dq,motorState[2].current\
-				,motorState[3].ID,motorState[3].q,motorState[3].dq,motorState[3].current\
-				,motorState[4].ID,motorState[4].q,motorState[4].dq,motorState[4].current\
-				,motorCmd[1].ID,motorCmd[1].q,motorCmd[1].dq,motorCmd[1].tau\
-				,motorCmd[2].ID,motorCmd[2].q,motorCmd[2].dq,motorCmd[2].tau\
-				,motorCmd[3].ID,motorCmd[3].q,motorCmd[3].dq,motorCmd[3].tau\
-				,motorCmd[4].ID,motorCmd[4].q,motorCmd[4].dq,motorCmd[4].tau\
-				,Pd_lx,Pd_lz,Pf_lx,Pf_lz,Pd_rx,Pd_rz,Pf_rx,Pf_rz);
+		DmaPrintf("%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n",
+				motorState[0].ID,motorState[0].q,motorState[0].dq,motorState[0].current,\
+				motorState[1].ID,motorState[1].q,motorState[1].dq,motorState[1].current,\
+				motorState[2].ID,motorState[2].q,motorState[2].dq,motorState[2].current,\
+				motorState[3].ID,motorState[3].q,motorState[3].dq,motorState[3].current,\
+				motorState[4].ID,motorState[4].q,motorState[4].dq,motorState[4].current,\
+				motorCmd[1].ID,motorCmd[1].q,motorCmd[1].dq,motorCmd[1].tau,\
+				motorCmd[2].ID,motorCmd[2].q,motorCmd[2].dq,motorCmd[2].tau,\
+				motorCmd[3].ID,motorCmd[3].q,motorCmd[3].dq,motorCmd[3].tau,\
+				motorCmd[4].ID,motorCmd[4].q,motorCmd[4].dq,motorCmd[4].tau,motorCmd[4].Kp,motorCmd[4].Kd,\
+				Pd_lx,Pd_lz,Pf_lx,Pf_lz,Pd_rx,Pd_rz,Pf_rx,Pf_rz);
 	}
 
-	static int cmd_FLAG = 0;
-	static int cmd_cnt = 0;
 	static int spi_FLAG = 0;
-
-	if(cmd_FLAG && cmd_cnt == 10){
-//		HAL_Delay(3);
-//		DmaPrintf("MOTOR CMD:\n");
-//		HAL_Delay(3);
-//		DmaPrintf("%d %.1f %.1f %.1f %.1f %.1f\n",motorCmd[0].ID,motorCmd[0].q,motorCmd[0].dq,motorCmd[0].tau,motorCmd[0].Kp,motorCmd[0].Kd);
-		HAL_Delay(3);
-		DmaPrintf("%d %.1f %.1f %.1f %.1f %.1f\n",motorCmd[1].ID,motorCmd[1].q,motorCmd[1].dq,motorCmd[1].tau,motorCmd[1].Kp,motorCmd[1].Kd);
-		HAL_Delay(3);
-		DmaPrintf("%d %.1f %.1f %.1f %.1f %.1f\n",motorCmd[2].ID,motorCmd[2].q,motorCmd[2].dq,motorCmd[2].tau,motorCmd[2].Kp,motorCmd[2].Kd);
-		HAL_Delay(3);
-		DmaPrintf("%d %.1f %.1f %.1f %.1f %.1f\n",motorCmd[3].ID,motorCmd[3].q,motorCmd[3].dq,motorCmd[3].tau,motorCmd[3].Kp,motorCmd[3].Kd);
-		HAL_Delay(3);
-		DmaPrintf("%d %.1f %.1f %.1f %.1f %.1f\n",motorCmd[4].ID,motorCmd[4].q,motorCmd[4].dq,motorCmd[4].tau,motorCmd[4].Kp,motorCmd[4].Kd);
-	}
-	if(cmd_cnt < 10) cmd_cnt++; else cmd_cnt = 0;
-
-
 	if(spi_FLAG){
 		HAL_Delay(1);
 		DmaPrintf("RX:  ");
@@ -286,7 +270,7 @@ void UART_MyTask()
 			motor_enable(0);motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
 		}
 		if(USART1_RX_BUF[0]=='D'){
-			motor_disable(1);motor_disable(2);motor_disable(3);motor_disable(4);
+			motor_disable(0);motor_disable(1);motor_disable(2);motor_disable(3);motor_disable(4);
 		}
 		if(USART1_RX_BUF[0]=='Z'){
 			motor_setzero(1);motor_setzero(2);motor_setzero(3);motor_setzero(4);
@@ -294,15 +278,23 @@ void UART_MyTask()
 		if(USART1_RX_BUF[0]=='H'){
 			DmaPrintf("hello world!\n");
 		}
-		if(USART1_RX_BUF[0]=='C'){
-			cmd_FLAG = !cmd_FLAG;
-		}
 		if(USART1_RX_BUF[0]=='P'){
 			state_passive();
 		}
 		if(USART1_RX_BUF[0]=='S'){
 			spi_FLAG = !spi_FLAG;
 		}
+		if(USART1_RX_BUF[0]=='+'){
+			motor[0].t_ff += 1;
+			motor_settau(0, motor[0].t_ff);
+			//DmaPrintf("%f\n",motor[0].t_ff);
+		}
+		if(USART1_RX_BUF[0]=='-'){
+			motor[0].t_ff -= 1;
+			motor_settau(0, motor[0].t_ff);
+			//DmaPrintf("%f\n",motor[0].t_ff);
+		}
+
 		for( int i = 0; i<USART1_RX_CNT; i ++){
 			USART1_RX_BUF[i] = 0;
 		}
