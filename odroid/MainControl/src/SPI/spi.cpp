@@ -156,6 +156,7 @@ void can_board_send(int sel)//发送到单片机
 			setDataFloat_spi(_spi.motorCmd[i].tau);
 			setDataFloat_spi(_spi.motorCmd[i].Kp);
 			setDataFloat_spi(_spi.motorCmd[i].Kd);
+			//printf("%d %f %f %f\n",i,_spi.motorCmd[i].q,_spi.motorCmd[i].dq,_spi.motorCmd[i].Kd);
 		}
 		break;
 
@@ -230,11 +231,11 @@ void slave_rx(uint8_t *data_buf, int num)//接收解码
 		_spi.motorState[ID].q = floatFromData_spi(data_buf,&anal_cnt);
 		_spi.motorState[ID].dq = floatFromData_spi(data_buf,&anal_cnt);
 		_spi.motorState[ID].ddq = floatFromData_spi(data_buf,&anal_cnt);
-		_spi.motorState[ID].current = floatFromData_spi(data_buf,&anal_cnt);
-		_spi.motorState[ID].none = floatFromData_spi(data_buf,&anal_cnt);
-		//printf("%d %f %f %f %f\n",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].current);
-		// if(ID==3) printf("%d %f %f %f %f  ",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].current);
-		// if(ID==4) printf("%d %f %f %f %f\n",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].current);
+		_spi.motorState[ID].tauEst = floatFromData_spi(data_buf,&anal_cnt);
+		_spi.motorState[ID].mode = floatFromData_spi(data_buf,&anal_cnt);
+		//printf("%d %f %f %f %f\n",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].tauEst);
+		// if(ID==3) printf("%d %f %f %f %f  ",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].tauEst);
+		// if(ID==4) printf("%d %f %f %f %f\n",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].tauEst);
 		break;
 
 	case 10:
@@ -243,9 +244,9 @@ void slave_rx(uint8_t *data_buf, int num)//接收解码
 			_spi.motorState[ID].q = floatFromData_spi(data_buf,&anal_cnt);
 			_spi.motorState[ID].dq = floatFromData_spi(data_buf,&anal_cnt);
 			_spi.motorState[ID].ddq = floatFromData_spi(data_buf,&anal_cnt);
-			_spi.motorState[ID].current = floatFromData_spi(data_buf,&anal_cnt);
-			_spi.motorState[ID].none = floatFromData_spi(data_buf,&anal_cnt);
-			// printf("%d %f %f %f %f  ",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].current);
+			_spi.motorState[ID].tauEst = floatFromData_spi(data_buf,&anal_cnt);
+			_spi.motorState[ID].mode = floatFromData_spi(data_buf,&anal_cnt);
+			// printf("%d %f %f %f %f  ",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].tauEst);
 		}
 		// printf("\n");
 		break;
@@ -301,11 +302,11 @@ void transfer(int fd, int sel)//发送
 		// }
 		// else rx_wrong = 0;
 
-		printf("RX:");
-		for (int i = 0; i < spi_tx_cnt; i++)	printf("%02x ",rx[i]);
-		printf("\nTX:");
-		for (int i = 0; i < spi_tx_cnt; i++) printf("%02x ",spi_tx_buf[i]);
-		printf("\n\n");
+		// printf("RX:");
+		// for (int i = 0; i < spi_tx_cnt; i++)	printf("%02x ",rx[i]);
+		// printf("\nTX:");
+		// for (int i = 0; i < spi_tx_cnt; i++) printf("%02x ",spi_tx_buf[i]);
+		// printf("\n\n");
 
 		for (int i = 0; i < spi_tx_cnt; i++)
 		{

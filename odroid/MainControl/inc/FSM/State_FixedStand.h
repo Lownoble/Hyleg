@@ -14,9 +14,9 @@ public:
     void exit();
     FSMStateName checkChange();
 private:
-    BipedalLeg* _Legs[2];
-    void getTargetPos(float x1, float z1, float x2, float z2);
-    float _targetPos[4] = {0.785, 0.0, 0.785, 0.0};
+    void getTargetPos(Vec32 _targetPos);
+    Vec4 _targetQ;
+    Vec32 _targetPos;
     float _startPos[4];
     float _duration = 1000;
     float _percent = 0;

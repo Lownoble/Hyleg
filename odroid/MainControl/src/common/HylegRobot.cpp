@@ -83,12 +83,13 @@ HyRobot::HyRobot(){
 
     _feetPosNormalStand <<  0.0000,  0.0000,
                             0.0000,  0.0000,
-                           -0.5400, -0.5400;
+                           -0.5500, -0.5500;
 
 
     _robVelLimitX << -0.5, 0.5;
     _robVelLimitY << -0.3, 0.3;
     _robVelLimitYaw << -0.5, 0.5;
+    _robVelLimitTau << -17.9, 17.9;
 
 #ifdef COMPILE_WITH_REAL_ROBOT
     _mass = 15;

@@ -10,6 +10,10 @@ public:
     void run();
     void exit();
     FSMStateName checkChange();
+private:
+    float _duration = 1000;
+    float _percent = 0;
+    float _startKp[4];
 };
 
 #endif //PASSIVE_H

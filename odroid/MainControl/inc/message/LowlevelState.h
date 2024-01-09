@@ -9,6 +9,7 @@
 
 struct MotorState
 {
+    int ID;
 	unsigned int mode;
     float q;
     float dq;

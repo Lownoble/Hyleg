@@ -27,6 +27,7 @@ public:
     Vec2 getRobVelLimitX(){return _robVelLimitX;}
     Vec2 getRobVelLimitY(){return _robVelLimitY;}
     Vec2 getRobVelLimitYaw(){return _robVelLimitYaw;}
+    Vec2 getRobTauLimit(){return _robVelLimitTau;}
     Vec32 getFeetPosIdeal(){return _feetPosNormalStand;}
     double getRobMass(){return _mass;}
     Vec3 getPcb(){return _pcb;}
@@ -37,6 +38,7 @@ protected:
     Vec2 _robVelLimitX;
     Vec2 _robVelLimitY;
     Vec2 _robVelLimitYaw;
+    Vec2 _robVelLimitTau;
     Vec32 _feetPosNormalStand;
     double _mass;
     Vec3 _pcb;

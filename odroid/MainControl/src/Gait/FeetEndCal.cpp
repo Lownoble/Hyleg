@@ -24,9 +24,9 @@ Vec3 FeetEndCal::calFootPos(int legID, float vGoalGlobal,  float phase){
     _nextStep(0) = _bodyVelGlobal(0)*(1-phase)*_Tswing + _bodyVelGlobal(0)*_Tstance/2 + _kx*(_bodyVelGlobal(0) - vGoalGlobal);
     _nextStep(1) = 0;
     _nextStep(2) = 0;
-   // printf("%f ",_nextStep(0));
+//    printf("nextStep:%f ",_nextStep(0));
 
-    _footPos = _est->getPosition() + _nextStep;
+    _footPos = _est->getPositionGoal() + _nextStep;
     _footPos(2) = 0.0;
 
     return _footPos;

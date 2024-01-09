@@ -21,25 +21,28 @@ void GaitGenerator::restart(){
 }
 
 void GaitGenerator::run(Vec32 &feetPos, Vec32 &feetVel){
-    if(_firstRun){
-        _startP = _est->getFeetPos();
-        _firstRun = false;
-        #ifdef COMPILE_DEBUG
-        _startT = getSystemTime();
-        std::vector<std::string> labels = {"Curve 1", "Curve 2"};
-        _testGaitPlot.addPlot("MyPlot", 2, labels);
-        #endif
-    }
+    // if(_firstRun){
+    //     _startP = _est->getFeetPos();
+    //     _firstRun = false;
+    //     #ifdef COMPILE_DEBUG
+    //     _startT = getSystemTime();
+    //     std::vector<std::string> labels = {"Curve 1", "Curve 2"};
+    //     _testGaitPlot.addPlot("MyPlot", 2, labels);
+    //     #endif
+    // }
     for(int i(0); i<2; ++i){
-        if((*_phase)(i) < 0.02){
-            _startP.col(i) = _est->getFootPos(i);
+        if((*_phase)(i) < 0.01){
             deltaX = _vGoal*_waveG->getTstance()/2;
-            if((*_contact)(i) == 1) _startP.col(i)(0) = (_est->getPosition())(0) + deltaX;
-            if((*_contact)(i) == 0) _startP.col(i)(0) = (_est->getPosition())(0) - deltaX;
+            if((*_contact)(i) == 1) _startP.col(i)(0) = (_est->getPositionGoal())(0) + deltaX;
+            if((*_contact)(i) == 0) _startP.col(i)(0) = (_est->getPositionGoal())(0) - deltaX;
             _startP.col(i)(2) = 0;
             // printf("SP:%f ",_startP.col(i)(0));
         }
         if((*_contact)(i) == 1){
+            // if((*_phase)(i) < 0.5){
+            //     _startP.col(i) = _est->getFootPos(i);
+            //     _startP.col(i)(2) = 0;
+            // }
             feetPos.col(i) = _startP.col(i);
             feetVel.col(i).setZero();
         }
@@ -48,6 +51,7 @@ void GaitGenerator::run(Vec32 &feetPos, Vec32 &feetVel){
             feetPos.col(i) = getFootPos(i);
             feetVel.col(i) = getFootVel(i);
         }
+        if(_contactPast(i)==1 && (*_contact)(i) == 0)   changeOrigin = true;
     }
     #ifdef COMPILE_DEBUG
     _passT = (double)(getSystemTime() - _startT) * 1e-6;
@@ -57,6 +61,7 @@ void GaitGenerator::run(Vec32 &feetPos, Vec32 &feetVel){
     #endif
     _pastP = feetPos;
     _phasePast = *_phase;
+    _contactPast = *_contact;
 }
 
 Vec3 GaitGenerator::getFootPos(int i){

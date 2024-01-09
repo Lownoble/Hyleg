@@ -39,27 +39,26 @@ Vec3 BipedalLeg::calcPEe2H(Vec2 q){
     return pEe2H;
 }
 
-// Forward Kinematics
 Vec3 BipedalLeg::calcPEe2B(Vec2 q){
     return _pHip2B + calcPEe2H(q);
 }
 
 // Inverse Kinematics
 Vec2 BipedalLeg::calcQ(Vec3 pEe){
+    float l = _hipLinkLength;
     Vec3 pEe2H = pEe;
     float q1, q2;
     Vec2 qResult;
     float x, y, z;
 
-    x = pEe2H(0)*1000;
-    y = pEe2H(2)*1000;
-    z = pEe2H(2)*1000;
-	q1 = 2*atan(((600*x*(600*y + sqrt(-(pow(x,2) + pow(y,2))*(pow(x,2) + pow(y,2) - 360000))))/(pow(x,2) + 600*x + pow(y,2)) - 600*y - 600*x + (pow(x,2)*(600*y + sqrt(-(pow(x,2) + pow(y,2))*(pow(x,2) + pow(y,2) - 360000))))/(pow(x,2) + 600*x + pow(y,2)) + (pow(y,2)*(600*y + sqrt(-(pow(x,2) + pow(y,2))*(pow(x,2) + pow(y,2) - 360000))))/(pow(x,2) + 600*x + pow(y,2)))/(pow(x,2) + pow(y,2) - 600*y));
-	q2 = -2*atan((600*y + sqrt(-(pow(x,2) + pow(y,2))*(pow(x,2) + pow(y,2) - 360000)))/(pow(x,2) + 600*x + pow(y,2)));
-
+    x = pEe2H(0);
+    y = pEe2H(1);
+    z = pEe2H(2);
+ 	q1 = 2*atan((2*pow(l,2) - 2*l*x - (2*pow(l,2)*(sqrt(-(pow(x,2) + pow(z,2))*(- 4*pow(l,2) + pow(x,2) + pow(z,2))) - 2*pow(l,2)))/(- 2*pow(l,2) + pow(x,2) + pow(z,2)) + (pow(x,2)*(sqrt(-(pow(x,2) + pow(z,2))*(- 4*pow(l,2) + pow(x,2) + pow(z,2))) - 2*pow(l,2)))/(- 2*pow(l,2) + pow(x,2) + pow(z,2)) + (pow(z,2)*(sqrt(-(pow(x,2) + pow(z,2))*(- 4*pow(l,2) + pow(x,2) + pow(z,2))) - 2*pow(l,2)))/(- 2*pow(l,2) + pow(x,2) + pow(z,2)))/(pow(x,2) + pow(z,2) - 2*l*z));
+    q2 = -2*atan((sqrt(-(pow(x,2) + pow(z,2))*(- 4*pow(l,2) + pow(x,2) + pow(z,2))) - 2*pow(l,2))/(- 2*pow(l,2) + pow(x,2) + pow(z,2)));
     
     qResult(0) = q1;
-    qResult(1) = q2-q1;
+    qResult(1) = q2;
 
     return qResult;
 }

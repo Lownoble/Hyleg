@@ -23,7 +23,7 @@ public:
     Vec32 getFeetVel();
     Vec32 getPosFeet2BGlobal();
     void run();
-    Vec3 getRealPosition();
+    Vec3 getPositionGoal();
 
 #ifdef COMPILE_DEBUG
     PyPlot *_testPlot;
@@ -34,16 +34,22 @@ private:
     int origin;
     Vec3 position;
     Vec3 velocity;
+    Vec3 _pcd;
 
     Vec32 _feetPosGlobalKine, _feetVelGlobalKine;
     LowlevelState* _lowState;
     BipedalRobot *_robModel;
     Vec2 *_phase;
-    VecInt2 *_contact;
+    VecInt2 *_contact,_contactPast;
     double _dt;
     Vec18 _Qdig;  
     std::string _estName;
     Vec3 _startP;
+    float stepLength;
+
+    UserValue _userValue;
+    Vec2 _vxLim;
+    float _vCmdBody;
 };
 
 #endif  // ESTIMATOR_H

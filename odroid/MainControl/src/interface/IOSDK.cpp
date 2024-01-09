@@ -37,8 +37,6 @@ void IOSDK::sendCmd(const LowlevelCmd *cmd){
         _lowCmd.motorCmd[i].Kp   = cmd->motorCmd[i].Kp;
         _lowCmd.motorCmd[i].Kd   = cmd->motorCmd[i].Kd;
         _lowCmd.motorCmd[i].tau  = cmd->motorCmd[i].tau;
-        // if(i==2||i==3)
-        // printf("%d %f %f %f ",i+1,_lowCmd.motorCmd[i].q,_lowCmd.motorCmd[i].dq,_lowCmd.motorCmd[i].tau);
     }
     _spi.SetSend(&_lowCmd);
 }
@@ -55,9 +53,7 @@ void IOSDK::recvState(LowlevelState *state){
         state->motorState[i].dq = _lowState.motorState[i].dq;
         state->motorState[i].ddq = _lowState.motorState[i].ddq;
         state->motorState[i].tauEst = _lowState.motorState[i].tauEst;
-        state->motorState[i].mode = _lowState.motorState[i].mode;   
-        // if(i==2||i==3)   
-        // printf("%d %f %f %f ",i+1,_lowState.motorState[i].q,_lowState.motorState[i].dq,_lowState.motorState[i].tauEst);  
+        state->motorState[i].mode = _lowState.motorState[i].mode;
     }
 }
 

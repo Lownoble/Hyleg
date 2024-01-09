@@ -23,8 +23,8 @@ int spi_init();
 void transfer(int fd, int sel);
 
 struct SPI{
-    LMotorCmd motorCmd[5];
-    LMotorState motorState[5];
+    MotorCmd motorCmd[5];
+    MotorState motorState[5];
     void SPIInit(){
     for(int i=0;i<5;i++){
         motorCmd[i].ID = i;
@@ -49,7 +49,7 @@ struct SPI{
             state->motorState[i].q = motorState[i+1].q;
             state->motorState[i].dq = motorState[i+1].dq;
             state->motorState[i].ddq = motorState[i+1].ddq;
-            state->motorState[i].tauEst = motorState[i+1].current;   
+            state->motorState[i].tauEst = motorState[i+1].tauEst;
         }
     }
 

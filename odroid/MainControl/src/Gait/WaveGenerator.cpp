@@ -128,4 +128,14 @@ void WaveGenerator::calcWave(Vec2 &phase, VecInt2 &contact, WaveStatus status)
         contact.setOnes();
         phase << 0.5, 0.5;
     }
+    else if (status == WaveStatus::STABLE_ALL)
+    {
+        contact.setOnes();
+        _passT = (double)(getSystemTime() - _startT) * 1e-6;
+        for (int i(0); i < 2; ++i)
+        {
+            _normalT(i) = fmod(_passT + _period, _period) / _period;
+            phase(i) = _normalT(i);
+        }
+    }
 }

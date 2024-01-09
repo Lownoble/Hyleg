@@ -32,9 +32,10 @@ private:
     float _gaitHeight;
     float _vGoal;
     Vec2 *_phase, _phasePast;
-    VecInt2 *_contact;
+    VecInt2 *_contact, _contactPast;
     Vec32 _startP, _endP, _idealP, _pastP;
     bool _firstRun;
+    bool changeOrigin;
     float deltaX;
 
     double _passT;                   // unit: second

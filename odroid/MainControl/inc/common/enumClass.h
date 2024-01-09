@@ -24,7 +24,7 @@ enum class UserCommand{
 #ifdef COMPILE_WITH_MOVE_BASE
     L2_Y,       // move_base
 #endif  // COMPILE_WITH_MOVE_BASE
-    L1_X,       // balanceTest      0
+    L1_X,       // HORIZONAL        0
     L1_A,       // swingTest        9
     L1_Y        // stepTest         8
 };
@@ -38,7 +38,8 @@ enum class FrameType{
 enum class WaveStatus{
     STANCE_ALL,
     SWING_ALL,
-    WAVE_ALL
+    WAVE_ALL,
+    STABLE_ALL
 };
 
 enum class FSMMode{
@@ -49,17 +50,16 @@ enum class FSMMode{
 enum class FSMStateName{
     //EXIT,
     INVALID,
-    PASSIVE,
-    FIXEDSTAND,
+    PASSIVE,        //0
+    FIXEDSTAND,     //1
     FREESTAND,
-    //TROTTING,
-    WALKING,
-    HORIZONAL,
+    WALKING,        //4
+    HORIZONAL,      //0
+    SWINGTEST,      //9
 #ifdef COMPILE_WITH_MOVE_BASE
     MOVE_BASE,
 #endif      //COMPILE_WITH_MOVE_BASE
-    BALANCETEST,
-    SWINGTEST,
+    
     STEPTEST
 };
 

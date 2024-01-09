@@ -8,8 +8,7 @@
 // #include "FSM/State_FreeStand.h"
 #include "FSM/State_Walking.h"
 #include "FSM/State_Horizonal.h"
-// #include "FSM/State_BalanceTest.h"
-// #include "FSM/State_SwingTest.h"
+#include "FSM/State_SwingTest.h"
 // #include "FSM/State_StepTest.h"
 #include "common/enumClass.h"
 #include "control/CtrlComponents.h"
@@ -21,8 +20,7 @@ struct FSMStateList{
     // State_FreeStand *freeStand;
     State_Walking *walking;
     State_Horizonal *horizonal;
-    // State_BalanceTest *balanceTest;
-    // State_SwingTest *swingTest;
+    State_SwingTest *swingTest;
     // State_StepTest *stepTest;
 
     void deletePtr(){
@@ -32,8 +30,7 @@ struct FSMStateList{
         // delete freeStand;
         delete walking;
         delete horizonal;
-        // delete balanceTest;
-        // delete swingTest;
+        delete swingTest;
         // delete stepTest;
     }
 };

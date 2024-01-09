@@ -5,6 +5,7 @@
 #include "common/mathTools.h"
 
 struct MotorCmd{
+    int ID;
     unsigned int mode;
     float q;
     float dq;
@@ -107,10 +108,10 @@ struct LowlevelCmd{
 
     void setStableGain(int legID){
         motorCmd[legID*2+0].mode = 10;
-        motorCmd[legID*2+0].Kp = 200;
+        motorCmd[legID*2+0].Kp = 50;
         motorCmd[legID*2+0].Kd = 0.8;
         motorCmd[legID*2+1].mode = 10;
-        motorCmd[legID*2+1].Kp = 100;
+        motorCmd[legID*2+1].Kp = 50;
         motorCmd[legID*2+1].Kd = 0.8;
     }
 
@@ -125,7 +126,7 @@ struct LowlevelCmd{
         motorCmd[legID*2+0].Kp = 200;
         motorCmd[legID*2+0].Kd = 0.8;
         motorCmd[legID*2+1].mode = 10;
-        motorCmd[legID*2+1].Kp = 100;
+        motorCmd[legID*2+1].Kp = 200;
         motorCmd[legID*2+1].Kd = 0.8;
     }
 };

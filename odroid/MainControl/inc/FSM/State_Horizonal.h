@@ -22,6 +22,7 @@ private:
 
     VecInt2 *_contact;
     Vec2 *_phase;
+    VecInt2 contact;
 
     Vec3 _pcd, _pcdInit;
     Vec3 _ddPcd, _dWbd;
@@ -32,6 +33,7 @@ private:
     RotMat _B2G_RotMat, _G2B_RotMat;
     Vec32 _posFeetGlobal, _velFeetGlobal;
     Vec32 _posFeet2BGlobal;
+    Vec32 _posFeet2B;
     
     Vec4 _qGoal, _qdGoal; 
     Vec32 _posFeetGlobalGoal, _velFeetGlobalGoal;
@@ -41,6 +43,8 @@ private:
     float _xMax, _xMin;
     float _yMax, _yMin;
     float _zMax, _zMin;
+
+    float _XD,_ZD;
 };
 
 #endif  // HORIZONAL_H

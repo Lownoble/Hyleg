@@ -56,6 +56,7 @@ public:
     double dt;
     bool *running;
     double H;
+    double Mass_x;
     CtrlPlatform ctrlPlatform;
 
     void sendRecv(){
@@ -76,6 +77,10 @@ public:
 
     void setStartWave(){
         _waveStatus = WaveStatus::WAVE_ALL;
+    }
+    
+    void setAllStable(){
+        _waveStatus = WaveStatus::STABLE_ALL;
     }
 
     void geneObj(){

@@ -9,8 +9,7 @@ FSM::FSM(CtrlComponents *ctrlComp)
         // _stateList.freeStand = new State_FreeStand(_ctrlComp);
         _stateList.walking = new State_Walking(_ctrlComp);
         _stateList.horizonal = new State_Horizonal(_ctrlComp);
-        // _stateList.balanceTest = new State_BalanceTest(_ctrlComp);
-        // _stateList.swingTest = new State_SwingTest(_ctrlComp);
+        _stateList.swingTest = new State_SwingTest(_ctrlComp);
         // _stateList.stepTest = new State_StepTest(_ctrlComp);       
         initialize();
     }
@@ -76,9 +75,9 @@ FSMState* FSM::getNextState(FSMStateName stateName){
     case FSMStateName::HORIZONAL:
         return _stateList.horizonal;
         break;
-    // case FSMStateName::SWINGTEST:
-    //     return _stateList.swingTest;
-    //     break;
+    case FSMStateName::SWINGTEST:
+        return _stateList.swingTest;
+        break;
     // case FSMStateName::STEPTEST:
     //     return _stateList.stepTest;
     //     break;

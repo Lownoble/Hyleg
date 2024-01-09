@@ -27,7 +27,7 @@ protected:
 class HyLeg : public BipedalLeg{
 public:
     HyLeg(const int legID, const Vec3 pHip2B):
-        BipedalLeg(legID, 0.300, 0.300, pHip2B){}
+        BipedalLeg(legID, 0.250, 0.250, pHip2B){}
     ~HyLeg(){}
 };
 

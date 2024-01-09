@@ -16,10 +16,9 @@
 #include <csignal>
 #include <sched.h>
 #include "SPI/spi_node.h"
-#include "SPI/sys_time.h"
 #include "SPI/spi.h"
 #include "UART/uart_communicate.h"
-#include "control/ControlFrame.h"
+#include "FSM/FSM.h"
 #include "control/CtrlComponents.h"
 #include "Gait/WaveGenerator.h"
 #include "interface/IOSDK.h"
@@ -63,18 +62,20 @@ void* Thread_Control(void*)//控制管理线程
 	CtrlComponents *ctrlComp = new CtrlComponents(ioInter);
     ctrlComp->ctrlPlatform = ctrlPlat;
     ctrlComp->dt = 0.002;   //run at 500Hz
-	ctrlComp->H = 0.54;		
+	ctrlComp->H = 0.450;
+	ctrlComp->Mass_x = 0.00;
     ctrlComp->running = &running;
 	ctrlComp->robotModel = new HyRobot();
 	ctrlComp->waveGen = new WaveGenerator(2.0,0.6, Vec2(0, 0.5));
 	ctrlComp->geneObj();
-    ControlFrame ctrlFrame(ctrlComp);
+    //ControlFrame ctrlFrame(ctrlComp);
+	FSM* _FSMController = new FSM(ctrlComp);
 	
 
     //signal(SIGINT, ShutDown); 
 	while (running)
 	{
-		ctrlFrame.run();
+		_FSMController->run();
 	}
 	delete ctrlComp;
 	return 0;
@@ -83,17 +84,14 @@ void* Thread_Control(void*)//控制管理线程
 void* Thread_SPI(void*)//SPI通讯线程
 {
 	long long startTime;
-	float cycleTime = 0.005; //250Hz
+	float cycleTime = 0.005; //200Hz
 	int fd = spi_init();
-  	Cycle_Time_Init();
+  	//Cycle_Time_Init();
     while (1)
 	{
 		//-------SPI CAN发送
 		startTime = getSystemTime();
-		for(int i=1;i<5;i++){
-			transfer(fd, i);
-			usleep(500);
-		}
+		transfer(fd, 10);
         
         absoluteWait(startTime, (long long)(cycleTime * 1000000));
 	}
@@ -107,7 +105,7 @@ void* Thread_UART(void*)//UART通讯线程
 	long long startTime;
 	float cycleTime = 0.002; //10Hz
 	int fd = uart_init();
-  	Cycle_Time_Init();
+  	//Cycle_Time_Init();
     while (1)
 	{
 		startTime = getSystemTime();

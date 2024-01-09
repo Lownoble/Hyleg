@@ -18,35 +18,4 @@
 #define KD_MAX 	5
 
 
-typedef struct LTmotor
-{
-	int ID;
-	float position;
-	float velocity;
-	float current;
-}LTmotor;
-
-
-typedef struct LMotorCmd
-{
-	int ID;
-    int mode;
-	float q;
-	float dq;
-	float tau;
-	float Kp;
-	float Kd;
-}LMotorCmd;
-
-typedef struct LMotorState
-{
-	int ID;
-    int mode;
-	float q;
-	float dq;
-	float ddq;
-	float current;
-	float none;
-}LMotorState;
-
 #endif

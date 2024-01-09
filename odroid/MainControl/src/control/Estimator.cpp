@@ -30,6 +30,8 @@ Estimator::Estimator(BipedalRobot *robotModel, LowlevelState* lowState,
 
     _estName = "current";
 
+    _vxLim = _robModel->getRobVelLimitX();
+
     _initSystem();
 
 }
@@ -40,31 +42,43 @@ void Estimator::_initSystem(){
     origin = 0;
     position.setZero();
     velocity.setZero();
+    _startP.setZero();
+    _pcd.setZero();
 }
 
 void Estimator::run(){
     _feetPosGlobalKine = _robModel->getFeet2BPositions(*_lowState);
     _feetVelGlobalKine = _robModel->getFeet2BVelocities(*_lowState);
-    if((*_contact)(0) == 1 && (*_contact)(1) == 0)  origin = 0;
-    else if((*_contact)(0) == 0 && (*_contact)(1) == 1) origin = 1;
-    else if((*_contact)(0) == 1 && (*_contact)(1) == 1) origin = origin;
-    //position = -_feetPosGlobalKine.col(origin); position(1) = 0;
-    velocity = -_feetVelGlobalKine.col(origin); velocity(1) = 0;
-    if((*_phase)(origin) < 0.02){
-        _startP = position;
+
+    _pcd(0) = _pcd(0) + _vCmdBody * _dt;
+    _pcd(1) = 0;
+    _pcd(2) = 0.54;
+    
+    for(int i=0;i<2;i++){
+        if(_contactPast(i)==1 && (*_contact)(i) == 0){
+            origin = !i;
+            _startP(0) = _pcd(0);
+            _startP(1) = 0;
+            _startP(2) = -_feetPosGlobalKine(2,origin);
+        }
     }
-    UserValue _userValue = _lowState->userValue;
-    float _vCmdBody = invNormalize(_userValue.lx, -0.4, 0.4);
-    velocity(0) = _vCmdBody;    velocity(2) = 0;
-    // position(0) = _startP(0) + _vCmdBody*(*_phase)(origin)*0.6;
-    position(0) = position(0) + _vCmdBody * _dt;
-    position(2) = 0.54;
-    Mat2 qLegs = _lowState->getQ();
-    Mat2 qdLegs = _lowState->getQd();
-    // printf("%f %f %f %f ",qLegs.col(0)(0),qLegs.col(0)(1),qLegs.col(1)(0),qLegs.col(1)(1));
-    // printf("%f %f %f %f ",qdLegs(0,0),qdLegs(1,0),qdLegs(0,1),qdLegs(1,1));
-    // printf("%f %f ",position(0),position(2));
-    // printf("%f %f \n",velocity(0),velocity(2));
+    _contactPast = *_contact;
+    stepLength = _feetPosGlobalKine(0,!origin) - _feetPosGlobalKine(0,origin);
+    
+    _userValue = _lowState->userValue;
+    _vCmdBody = invNormalize(_userValue.lx, _vxLim(0), _vxLim(1));
+
+
+    position(0) = -_feetPosGlobalKine(0,origin) + _startP(0);
+    position(1) = 0;
+    position(2) = -_feetPosGlobalKine(2,origin);
+    
+    velocity(0) = _vCmdBody;
+    velocity(1) = 0;
+    velocity(2) = -_feetVelGlobalKine(2,origin);
+
+    // printf("contact:%d %d origin:%d phase:%f ",(*_contact)(0),(*_contact)(1),origin,(*_phase)(0));
+    // printf("%f %f %f\n",stepLength,_startP(0),position(0));
 }
 
 Vec3 Estimator::getPosition(){
@@ -78,7 +92,7 @@ Vec3 Estimator::getVelocity(){
 }
 
 Vec3 Estimator::getFootPos(int i){
-    return getPosition() + _robModel->getFootPosition(*_lowState, i);
+    return getPositionGoal() + _robModel->getFootPosition(*_lowState, i);
 }
 
 Vec32 Estimator::getFeetPos(){
@@ -105,6 +119,6 @@ Vec32 Estimator::getPosFeet2BGlobal(){
     return feet2BPos;
 }
 
-Vec3 Estimator::getRealPosition(){
-    return -_feetPosGlobalKine.col(1);
+Vec3 Estimator::getPositionGoal(){
+    return _pcd;
 }
