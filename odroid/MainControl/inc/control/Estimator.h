@@ -24,6 +24,7 @@ public:
     Vec32 getPosFeet2BGlobal();
     void run();
     Vec3 getPositionGoal();
+    Vec3 getStartP(int i);
 
 #ifdef COMPILE_DEBUG
     PyPlot *_testPlot;
@@ -44,12 +45,14 @@ private:
     double _dt;
     Vec18 _Qdig;  
     std::string _estName;
-    Vec3 _startP;
+    Vec32 _startP;
     float stepLength;
 
     UserValue _userValue;
     Vec2 _vxLim;
     float _vCmdBody;
+
+    Treadmile _treadmile;
 };
 
 #endif  // ESTIMATOR_H

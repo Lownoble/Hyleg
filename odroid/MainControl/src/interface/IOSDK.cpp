@@ -1,6 +1,7 @@
 #include "interface/IOSDK.h"
 #include "interface/KeyBoard.h"
 #include "SPI/spi.h"
+#include "UART/uart_communicate.h"
 #include <stdio.h>
 
 #ifdef ROBOT_TYPE_Hyleg
@@ -55,5 +56,7 @@ void IOSDK::recvState(LowlevelState *state){
         state->motorState[i].tauEst = _lowState.motorState[i].tauEst;
         state->motorState[i].mode = _lowState.motorState[i].mode;
     }
+    state->footContact = _lowState.footContact;
+    sensor.GetRecv(&_lowState);
 }
 

@@ -49,6 +49,8 @@ void LEDRGB_BLUE(uint8_t on);
 
 void Cylinder_L(uint8_t on);
 void Cylinder_R(uint8_t on);
+
+void getFootContact(uint8_t* contact);
 /* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);

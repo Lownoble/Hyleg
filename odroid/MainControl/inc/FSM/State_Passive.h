@@ -11,7 +11,7 @@ public:
     void exit();
     FSMStateName checkChange();
 private:
-    float _duration = 1000;
+    float _duration = 2000;
     float _percent = 0;
     float _startKp[4];
 };

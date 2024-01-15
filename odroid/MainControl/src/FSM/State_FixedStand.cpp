@@ -35,9 +35,9 @@ void State_FixedStand::run(){
     for(int j=0; j<4; j++){
         _lowCmd->motorCmd[j].Kp = (1-_percent)*_startKp[j] +_percent*_targetKp;
         _lowCmd->motorCmd[j].q = (1-_percent)*_startPos[j] +_percent*_targetQ(j);
-        printf("%f ",_lowCmd->motorCmd[j].q);
+        // printf("%f ",_lowCmd->motorCmd[j].q);
     }
-    printf("\n");
+    // printf("\n");
 }
 
 void State_FixedStand::exit(){

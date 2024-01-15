@@ -4,7 +4,6 @@
 #include "FSM/FSMState.h"
 #include "Gait/GaitGenerator.h"
 #include "control/BalanceCtrl.h"
-#include "UART/uart_communicate.h"
 
 class State_Walking : public FSMState{
 public:
@@ -36,6 +35,7 @@ private:
     RotMat _B2G_RotMat, _G2B_RotMat;
     Vec4 _q;
     Vec32 _posFeet2B;
+    Treadmile treadmile;
 
     // Robot command
     Vec3 _pcd;

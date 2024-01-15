@@ -5,7 +5,7 @@ State_Walking::State_Walking(CtrlComponents *ctrlComp)
              :FSMState(ctrlComp, FSMStateName::WALKING, "walking"), 
               _est(ctrlComp->estimator), _phase(ctrlComp->phase), 
               _contact(ctrlComp->contact), _robModel(ctrlComp->robotModel),
-              _balCtrl(ctrlComp->balCtrl){
+              _balCtrl(ctrlComp->balCtrl),treadmile(ctrlComp->lowState->treadmile){
     _gait = new GaitGenerator(ctrlComp);
 
     _gaitHeight = 0.080;
@@ -13,9 +13,9 @@ State_Walking::State_Walking(CtrlComponents *ctrlComp)
 #ifdef ROBOT_TYPE_Hy
     _Kpp = Vec3(100, 0, 80).asDiagonal();
     _Kdp = Vec3(0, 0, 0).asDiagonal();
-    _kpw = 780; 
-    _Kdw = Vec3(70, 70, 70).asDiagonal();
-    _KpSwing = Vec3(100, 0, 100).asDiagonal();
+    _kpw = 0; 
+    _Kdw = Vec3(0, 0, 0).asDiagonal();
+    _KpSwing = Vec3(50, 0, 100).asDiagonal();
     _KdSwing = Vec3(2, 0, 2).asDiagonal();
 #endif
 
@@ -68,7 +68,7 @@ void State_Walking::run(){
 
     _userValue = _lowState->userValue;
     getUserCmd();
-    // getTreadmileVel();
+    getTreadmileVel();
     calcCmd();
 
     _gait->setGait(_vCmdGlobal(0), _gaitHeight);
@@ -78,15 +78,15 @@ void State_Walking::run(){
     calcQQd();
 
 
-    printf("%d %d ",(*_contact)(0),(*_contact)(1));
-    printf("%f %f ",_pcd(0),_pcd(2));
-    printf("%f %f ",_posBody(0),_posBody(2));
+    // printf("%d %d ",(*_contact)(0),(*_contact)(1));
+    // printf("%f %f ",_pcd(0),_pcd(2));
+    // printf("%f %f ",_posBody(0),_posBody(2));
     // printf("%f %f ",_velBody(0),_vCmdBody(0));
     // printf("%f %f ",_posFeetGlobalGoal(0,0),_posFeetGlobalGoal(2,0));
     // printf("%f %f ",_velFeetGlobalGoal(0,0),_velFeetGlobalGoal(2,0));
     // printf("%f %f ",_posFeetGlobalGoal(0,1),_posFeetGlobalGoal(2,1));
     // printf("%f %f %f %f ",_qdGoal(0),_qdGoal(1),_qdGoal(2),_qdGoal(3));
-    printf("%f %f %f %f ",_forceFeetBody(0,0),_forceFeetBody(2,0),_forceFeetBody(0,1),_forceFeetBody(2,1));
+    // printf("%f %f %f %f ",_forceFeetBody(0,0),_forceFeetBody(2,0),_forceFeetBody(0,1),_forceFeetBody(2,1));
     // printf("%f %f %f %f ",_tau(0),_tau(1),_tau(2),_tau(3));
 
     if(checkStepOrNot()){
@@ -106,7 +106,7 @@ void State_Walking::run(){
             _lowCmd->setStableGain(i);
         }
     }
-    printf("\n");
+    //printf("\n");
 }
 
 bool State_Walking::checkStepOrNot(){
@@ -136,7 +136,7 @@ void State_Walking::getUserCmd(){
 }
 
 void State_Walking::getTreadmileVel(){
-    _vCmdBody(0) = invNormalize(_userValue.lx, _vxLim(0), _vxLim(1)) + treadmile.Kd*treadmile.speed + treadmile.Kp*(treadmile.distance-treadmile.distance0);
+    _vCmdBody(0) = invNormalize(_userValue.lx, _vxLim(0), _vxLim(1)) + treadmile.speed;
     _vCmdBody(1) = 0;
     _vCmdBody(2) = 0;
 }
@@ -145,7 +145,7 @@ void State_Walking::calcCmd(){
     /* Movement */
     _vCmdGlobal =  _vCmdBody;
     _vCmdGlobal(0) = saturation(_vCmdGlobal(0), Vec2(_velBody(0)-0.2, _velBody(0)+0.2));
-    _pcd(0) = saturation(_pcd(0) + _vCmdGlobal(0) * _ctrlComp->dt, Vec2(_posBody(0) - 0.10, _posBody(0) + 0.10));
+    _pcd(0) = saturation(_pcd(0) + _vCmdGlobal(0) * _ctrlComp->dt + treadmile.distanceGoal, Vec2(_posBody(0) - 0.10, _posBody(0) + 0.10));
     
 }
 void State_Walking::calcQQd(){
@@ -182,7 +182,7 @@ void State_Walking::calcTau(){
             _forceFeetGlobal.col(i) = _KpSwing*(_posFeetGlobalGoal.col(i) - _posFeetGlobal.col(i)) + _KdSwing*(_velFeetGlobalGoal.col(i)-_velFeetGlobal.col(i));
         }
         if((*_contact)(i) == 1){//支撑腿偏置
-            _forceFeetGlobal(0,i) -= 5;
+            _forceFeetGlobal(0,i) -= 1;
         }
     }
 
@@ -197,6 +197,7 @@ void State_Walking::calcTau(){
 
     for(int i=0;i<4;i++){
         _tau(i) = saturation(_tau(i), _tauLim);
+        // _tau(i) = 0; //no tau output
     }
 
 }

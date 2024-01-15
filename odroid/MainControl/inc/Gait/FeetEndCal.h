@@ -18,6 +18,8 @@ private:
     Vec3 _bodyVelGlobal;        // linear velocity
     Vec3 _bodyAccGlobal;        // linear accelerator
     Vec3 _bodyWGlobal;          // angular velocity
+    Vec3 _bodyPosGlobal;        // actual position
+    Vec3 xGoalGlobal;           // desire position
 
     Vec4 _feetRadius, _feetInitAngle;
     float _Tstance, _Tswing;

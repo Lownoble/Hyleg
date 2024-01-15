@@ -297,7 +297,7 @@ void slave_tx(int sel)
 
 	switch(sel)
 	{
-	case 0://发�?�电�?????????????????0 ID,角度，�?��?�，电流
+	case 0://发�?�电�???????????????????0 ID,角度，�?��?�，电流
 		setDataInt_spi(motor[0].ID);
 		setDataFloat_spi(motor[0].position);
 		setDataFloat_spi(motor[0].velocity);
@@ -326,6 +326,8 @@ void slave_tx(int sel)
 			setDataFloat_spi(motorState[i].current);
 			setDataFloat_spi(motorState[i].none);
 		}
+		setDataInt_spi(contact[0]);
+		setDataInt_spi(contact[1]);
 		break;
 
 	case 98://FF FB 62 08 0F 01 00 00 9C 00 00 00 10 00 00 00
@@ -401,6 +403,7 @@ void slave_rx(uint8_t *data_buf, uint8_t num)
 			motorCmd[ID].Kp = floatFromData_spi(data_buf, &anal_cnt);
 			motorCmd[ID].Kd = floatFromData_spi(data_buf, &anal_cnt);
 		}
+		sensor.current = floatFromData_spi(data_buf, &anal_cnt);
 		break;
 	}
 }

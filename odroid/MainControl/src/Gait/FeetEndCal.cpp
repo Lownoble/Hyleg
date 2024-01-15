@@ -20,8 +20,11 @@ FeetEndCal::~FeetEndCal(){}
 
 Vec3 FeetEndCal::calFootPos(int legID, float vGoalGlobal,  float phase){
     _bodyVelGlobal = _est->getVelocity();
+    _bodyPosGlobal = _est->getPosition();
+    xGoalGlobal = _est->getPositionGoal();
     
     _nextStep(0) = _bodyVelGlobal(0)*(1-phase)*_Tswing + _bodyVelGlobal(0)*_Tstance/2 + _kx*(_bodyVelGlobal(0) - vGoalGlobal);
+    // _nextStep(0) = _bodyVelGlobal(0)*(1-phase)*_Tswing + _bodyVelGlobal(0)*_Tstance/2 + _kx*(_bodyPosGlobal(0) - xGoalGlobal(0));
     _nextStep(1) = 0;
     _nextStep(2) = 0;
 //    printf("nextStep:%f ",_nextStep(0));

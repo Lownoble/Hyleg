@@ -4,10 +4,11 @@
 
 #include "tmotor.h"
 
-Tmotor motor[5];
+Tmotor motor[5],motor_past[5];
 MotorCmd motorCmd[5];
 MotorState motorState[5];
 MotorState motorState_prev[5];
+Sensor sensor;
 int enable_flag = 0;
 
 
@@ -246,7 +247,7 @@ struct Tmotor unpack_RX(unsigned char rx_buf[6])
 
 
 /**
- * [设置数据]
+ * [读取电机状态数据]
  * @param    rx_buf                   [接收字符串]
  * @return                            [命令发送结果,1 为发送成功,0 为发送失败]
  */
@@ -269,6 +270,11 @@ void motor_setdata(unsigned char rx_buf[6])
 	}
 }
 
+/**
+ * [设置电机控制指令]
+ * @param    		                  [接收字符串]
+ * @return                            [命令发送结果,1 为发送成功,0 为发送失败]
+ */
 void motor_setCmd(){
 	for(int i=0; i<5; i++){
 		motor[i].position = motorCmd[i].q;
@@ -286,7 +292,29 @@ void motor_setCmd(){
 	motor[2].position = motorCmd[2].q - INIT_ANGLE_2;
 	motor[3].position = -(motorCmd[3].q - INIT_ANGLE_3);
 	motor[4].position = -(motorCmd[4].q - INIT_ANGLE_4);
+	motor_checkSafety();
 }
+
+/**
+ * [电机控制指令检查]
+ */
+void motor_checkSafety(){
+	//位置限位
+	motor[1].position = saturation(motor[1].position,  0.0,    1.558);
+	motor[2].position = saturation(motor[2].position, -1.083, -0.257);
+	motor[3].position = saturation(motor[3].position,  0.0,   -1.581);
+	motor[4].position = saturation(motor[4].position, 1.059,   0.166);
+
+	//速度限位
+	for(int i=0;i<5;i++){
+		motor[i].position = saturation(motor[i].position, motor_past[i].position-0.2, motor_past[i].position+0.2);
+		motor_past[i].position = motor[i].position;
+	}
+
+}
+
+
+
 /**
  * [电机控制驱动]
  */
@@ -320,9 +348,9 @@ void motor_init()
 	DmaPrintf("Waiting set zero...(Z/N)\n");
 	while(USART1_RX_FLAG == 0){}
 	if(USART1_RX_BUF[0]=='Z'){
-		motor_enable(1);motor_enable(2);motor_enable(3);motor_enable(4);
+		motor_enable(1);motor_enable(3);
 		float tau[4] = {0.0,0.0,0.0,0.0};
-		float tau_target[4] = {-6.0,0.0,5.0,0.0};
+		float tau_target[4] = {-6.0,0.0,4.0,0.0};
 		for(int i=0;i<100;i++){
 			for(int j=0;j<4;j++){
 				tau[j] = tau_target[j]*i/100.0;

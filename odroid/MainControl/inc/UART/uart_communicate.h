@@ -12,6 +12,7 @@
 #include <sys/time.h>
 #include <string.h>
 #include <unistd.h>
+#include "message/LowlevelState.h"
 
 #ifdef __RASPberyPI__  
   // 包含 wiringpi 库的代码  
@@ -19,21 +20,24 @@
 #endif
 
 #define RX_IN_USB 0
+#define POWER_DATA 1
 
-struct TREADMILE{
-  float speed;
-  float distance;
-  float distance0;
-  float Kp;
-  float Kd;
+struct Sensor{
+  Treadmile treadmile;
+  float pressure;
+  float current;
 
-  TREADMILE() : speed(0.0f), distance(0.0f), distance0(0.0f), Kp(0.0f), Kd(0.0f) {}
+    void GetRecv(LowlevelState *state){
+      // state->treadmile = treadmile;
+      // printf("speed:%f distance:%f pressure:%f current:%f \n",treadmile.speed,treadmile.distance,pressure,current);
+    }
 };
 
-extern TREADMILE treadmile;
+extern Sensor sensor;
 
 int uart_init();
 void uart_rx(uint8_t *data_buf, int data_length);
-void rx_anal(int fd);
-
+void rx_anal(uint8_t *rx_temp, int data_length);
+void mSerialRead();
+void powerSerialRead();
 #endif

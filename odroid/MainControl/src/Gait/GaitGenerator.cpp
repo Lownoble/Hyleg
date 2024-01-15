@@ -31,18 +31,18 @@ void GaitGenerator::run(Vec32 &feetPos, Vec32 &feetVel){
     //     #endif
     // }
     for(int i(0); i<2; ++i){
-        if((*_phase)(i) < 0.01){
-            deltaX = _vGoal*_waveG->getTstance()/2;
-            if((*_contact)(i) == 1) _startP.col(i)(0) = (_est->getPositionGoal())(0) + deltaX;
-            if((*_contact)(i) == 0) _startP.col(i)(0) = (_est->getPositionGoal())(0) - deltaX;
-            _startP.col(i)(2) = 0;
-            // printf("SP:%f ",_startP.col(i)(0));
-        }
+        // if((*_phase)(i) < 0.01){
+        //     deltaX = _vGoal*_waveG->getTstance()/2;
+        //     if((*_contact)(i) == 1) _startP.col(i)(0) = (_est->getPositionGoal())(0) + deltaX;
+        //     if((*_contact)(i) == 0) _startP.col(i)(0) = (_est->getPositionGoal())(0) - deltaX;
+        //     _startP.col(i)(2) = 0;
+        //     // printf("SP:%f ",_startP.col(i)(0));
+        // }
         if((*_contact)(i) == 1){
-            // if((*_phase)(i) < 0.5){
-            //     _startP.col(i) = _est->getFootPos(i);
-            //     _startP.col(i)(2) = 0;
-            // }
+            if((*_phase)(i) < 0.01){
+                _startP.col(i) = _est->getStartP(i);
+                _startP.col(i)(2) = 0;
+            }
             feetPos.col(i) = _startP.col(i);
             feetVel.col(i).setZero();
         }

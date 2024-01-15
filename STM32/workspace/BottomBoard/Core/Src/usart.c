@@ -240,7 +240,7 @@ void UART_MyTask(int data)
 //		calVelocity(motorState[3].q,motorState[4].q,motorState[3].dq,motorState[4].dq,Velocity);
 //		float Vf_rx = Velocity[0];	float Vf_rz = Velocity[1];
 
-		DmaPrintf("%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n",
+		DmaPrintf("%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.3f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%d,%.4f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.3f\n",
 				motorState[0].ID,motorState[0].q,motorState[0].dq,motorState[0].current,\
 				motorState[1].ID,motorState[1].q,motorState[1].dq,motorState[1].current,\
 				motorState[2].ID,motorState[2].q,motorState[2].dq,motorState[2].current,\
@@ -250,7 +250,7 @@ void UART_MyTask(int data)
 				motorCmd[2].ID,motorCmd[2].q,motorCmd[2].dq,motorCmd[2].tau,\
 				motorCmd[3].ID,motorCmd[3].q,motorCmd[3].dq,motorCmd[3].tau,\
 				motorCmd[4].ID,motorCmd[4].q,motorCmd[4].dq,motorCmd[4].tau,motorCmd[4].Kp,motorCmd[4].Kd,\
-				Pd_lx,Pd_lz,Pf_lx,Pf_lz,Pd_rx,Pd_rz,Pf_rx,Pf_rz);
+				Pd_lx,Pd_lz,Pf_lx,Pf_lz,Pd_rx,Pd_rz,Pf_rx,Pf_rz,sensor.current);
 	}
 
 	static int spi_FLAG = 0;

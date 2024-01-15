@@ -49,6 +49,7 @@
 
 /* USER CODE BEGIN PV */
 uint32_t sys_time;
+uint8_t contact[2] = {0,0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -151,6 +152,7 @@ int main(void)
 	}
 	LEDRGB_RED(led_flag);
 	LEDRGB_BLUE(!led_flag);
+	getFootContact(contact);
 
 	//SPI_Task
 	SPI_Task(1);

@@ -24,11 +24,29 @@ struct MotorState
     }
 };
 
+struct Treadmile{
+    float speed;      //跑步机速度
+    float distance;   //超声测得距离
+    float distanceGoal;  //理想位置
+    float Kp;
+    float Kd;
+
+    Treadmile(){
+        speed = 0;
+        distance = 0;
+        distanceGoal = 0;
+        Kp = 0;
+        Kd = 0;
+    }
+};
+
 struct LowlevelState
 {
     MotorState motorState[4];
     UserCommand userCmd;
     UserValue userValue;
+    VecInt2 footContact;
+    Treadmile treadmile;
 
     Mat2 getQ(){
         Mat2 qLegs;

@@ -2,7 +2,6 @@
 #define IOSDK_H
 
 #include "interface/IOInterface.h"
-#include "SPI/hyleg_sdk.h"
 
 class IOSDK : public IOInterface{
 public:

@@ -92,7 +92,7 @@ HyRobot::HyRobot(){
     _robVelLimitTau << -17.9, 17.9;
 
 #ifdef COMPILE_WITH_REAL_ROBOT
-    _mass = 15;
+    _mass = 17.5;
     _pcb << 0.0, 0.0, 0.0;
     _Ib = Vec3(0.4625, 0.4040, 0.5065).asDiagonal();
 #endif  // COMPILE_WITH_REAL_ROBOT

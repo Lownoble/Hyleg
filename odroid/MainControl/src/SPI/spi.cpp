@@ -158,6 +158,8 @@ void can_board_send(int sel)//发送到单片机
 			setDataFloat_spi(_spi.motorCmd[i].Kd);
 			//printf("%d %f %f %f\n",i,_spi.motorCmd[i].q,_spi.motorCmd[i].dq,_spi.motorCmd[i].Kd);
 		}
+		setDataFloat_spi(sensor.current);
+		setDataInt_spi(0);
 		break;
 
 	case 98:// FA FF 62 08 0F 01 00 00 9C 00 00 00 0F 00 00
@@ -248,7 +250,9 @@ void slave_rx(uint8_t *data_buf, int num)//接收解码
 			_spi.motorState[ID].mode = floatFromData_spi(data_buf,&anal_cnt);
 			// printf("%d %f %f %f %f  ",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].tauEst);
 		}
-		// printf("\n");
+		_spi.footContact(0) = intFromData_spi(data_buf,&anal_cnt);
+		_spi.footContact(1) = intFromData_spi(data_buf,&anal_cnt);
+		//printf("%d %d\n",_spi.footContact(0),_spi.footContact(1));
 		break;
 	case 98:
 		rx_test[0] = intFromData_spi(spi_rx_buf, &anal_cnt);

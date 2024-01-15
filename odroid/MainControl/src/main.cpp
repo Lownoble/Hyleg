@@ -15,7 +15,6 @@
 #include <time.h>
 #include <csignal>
 #include <sched.h>
-#include "SPI/spi_node.h"
 #include "SPI/spi.h"
 #include "UART/uart_communicate.h"
 #include "FSM/FSM.h"
@@ -66,7 +65,7 @@ void* Thread_Control(void*)//控制管理线程
 	ctrlComp->Mass_x = 0.00;
     ctrlComp->running = &running;
 	ctrlComp->robotModel = new HyRobot();
-	ctrlComp->waveGen = new WaveGenerator(2.0,0.6, Vec2(0, 0.5));
+	ctrlComp->waveGen = new WaveGenerator(1.0,0.6, Vec2(0, 0.5));
 	ctrlComp->geneObj();
     //ControlFrame ctrlFrame(ctrlComp);
 	FSM* _FSMController = new FSM(ctrlComp);
@@ -103,14 +102,13 @@ void* Thread_SPI(void*)//SPI通讯线程
 void* Thread_UART(void*)//UART通讯线程
 {
 	long long startTime;
-	float cycleTime = 0.002; //10Hz
+	float cycleTime = 0.002; //500Hz
 	int fd = uart_init();
-  	//Cycle_Time_Init();
     while (1)
 	{
 		startTime = getSystemTime();
-	    rx_anal(fd);
-        
+	    mSerialRead();
+        powerSerialRead();
         absoluteWait(startTime, (long long)(cycleTime * 1000000));
 	}
     close(fd);
@@ -124,9 +122,9 @@ int main(int argc, char *argv[])//目前仅能保证上下通讯频率1ms
 	pthread_mutex_init(&lock, NULL);
 	pthread_create(&tidb, NULL, Thread_Control, NULL);
 	pthread_create(&tidc, NULL, Thread_SPI, NULL);
-	// pthread_create(&tidd, NULL, Thread_UART, NULL);
+	pthread_create(&tidd, NULL, Thread_UART, NULL);
 	pthread_join(tidb, NULL);
 	pthread_join(tidc, NULL);
-	// pthread_join(tidd, NULL);
+	pthread_join(tidd, NULL);
 	return 0;
 }

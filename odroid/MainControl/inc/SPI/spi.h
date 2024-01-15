@@ -13,10 +13,13 @@
 #include <linux/spi/spidev.h>
 #include <sstream>
 #include <math.h>
-#include "SPI/spi_node.h"
 #include "SPI/Tmotor.h"
 #include "message/LowlevelCmd.h"
 #include "message/LowlevelState.h"
+#include "UART/uart_communicate.h"
+
+#define SPI_BUF_SIZE 256 
+
 
 static void pabort(const char *s);
 int spi_init();
@@ -25,10 +28,13 @@ void transfer(int fd, int sel);
 struct SPI{
     MotorCmd motorCmd[5];
     MotorState motorState[5];
+    VecInt2 footContact;
+
     void SPIInit(){
     for(int i=0;i<5;i++){
         motorCmd[i].ID = i;
         motorState[i].ID = i;
+        footContact.setZero();
     }
     }
 
@@ -51,6 +57,7 @@ struct SPI{
             state->motorState[i].ddq = motorState[i+1].ddq;
             state->motorState[i].tauEst = motorState[i+1].tauEst;
         }
+        state->footContact = footContact;
     }
 
 };

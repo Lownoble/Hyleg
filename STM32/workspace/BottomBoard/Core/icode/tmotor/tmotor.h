@@ -11,6 +11,7 @@
 #include <math.h>
 #include "usart.h"
 #include "can.h"
+#include "../icode/common/mathTools.h"
 
 #define P_MIN  	-12.5
 #define P_MAX  	12.5
@@ -30,11 +31,6 @@
 #define INIT_ANGLE_2 +1.087
 #define INIT_ANGLE_3 -0.507
 #define INIT_ANGLE_4 +1.106
-
-//#define INIT_ANGLE_1 0
-//#define INIT_ANGLE_2 0
-//#define INIT_ANGLE_3 0
-//#define INIT_ANGLE_4 0
 
 #define ENABLE_MOTOR  1
 
@@ -70,11 +66,16 @@ typedef struct MotorState{
     float none;
 }MotorState;
 
+typedef struct Sensor{
+    float current;
+}Sensor;
+
 
 extern Tmotor motor[5];
 extern MotorCmd motorCmd[5];
 extern MotorState motorState[5];
 extern int enable_flag;
+extern Sensor sensor;
 
 int can_send(int motor_address,unsigned char* send_buf,int send_len);
 int motor_enable(int motor_address);

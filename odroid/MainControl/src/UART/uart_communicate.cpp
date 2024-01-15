@@ -1,13 +1,18 @@
 #include "UART/uart_communicate.h"
 
-TREADMILE treadmile;
+Sensor sensor;
 
 using namespace std;
 
 #if !RX_IN_USB
 serial::Serial m_serial("/dev/ttyS0",115200 , serial::Timeout::simpleTimeout(5));
 #else
-serial::Serial m_serial("/dev/ttyUSB0",115200 , serial::Timeout::simpleTimeout(5));
+serial::Serial m_serial("/dev/Sensor",115200 , serial::Timeout::simpleTimeout(5));
+
+#endif
+
+#if POWER_DATA
+	serial::Serial power_serial("/dev/Lower",576000 , serial::Timeout::simpleTimeout(5));
 #endif
 
 #define UART_BUF_SIZE 200
@@ -19,12 +24,23 @@ int uart_init()
 	int fd;
 	m_serial.open ();
 	if (m_serial.isOpen () < 0){
-		cout<<"serial err"<<endl;
+		cout<<"my serial err"<<endl;
 		usleep(2000*1000);
 	}
 	else	
-		cout<<"serial Open!"<<endl;
-		
+		cout<<"my serial Open!"<<endl;
+
+	#if POWER_DATA
+	power_serial.close();
+	power_serial.open ();
+	if (power_serial.isOpen () < 0){
+		cout<<"power serial err"<<endl;
+		usleep(2000*1000);
+	}
+	else	
+		cout<<"power serial Open!"<<endl;
+	#endif
+
 	return fd;
 }
 
@@ -132,69 +148,85 @@ int intFromDataf(unsigned char *data,int* anal_cnt)
 	return (i);
 }
 
+void mSerialRead(){
+	int data_length = 0;
+	uint8_t rx_temp[UART_BUF_SIZE]={0};
+	data_length = m_serial.available();
+	if (data_length>0)
+    {
+		m_serial.read(rx_temp, data_length);
+		rx_anal(rx_temp,data_length);
+	}
+}
 
-void rx_anal(int fd)//Rx interupt
+#if POWER_DATA
+void powerSerialRead(){
+	int data_length = 0;
+	uint8_t rx_temp[UART_BUF_SIZE]={0};
+	data_length = power_serial.available();
+	if (data_length>0)
+    {
+		power_serial.read(rx_temp, data_length);
+		rx_anal(rx_temp,data_length);
+	}
+}
+#endif
+
+
+void rx_anal(uint8_t *rx_temp, int data_length)//Rx interupt
 {
 	static int RxState = 0;
 	static int _data_len1 = 0;
 	static int _data_cnt1 = 0;
-	int data_length = 0;
-	uint8_t rx_temp[UART_BUF_SIZE]={0};
 	uint8_t data;
-	data_length = m_serial.available();
-        if (data_length>0)
-        {
-            // cout<<"RX::data_length: "<<data_length<<endl;
-            m_serial.read(rx_temp, data_length);
-			// for(int i = 0; i < data_length; i++)
-			// {
-			// 	printf("%02x ",rx_temp[i]);
-			// }
-			// printf("\n");
-            for(int i = 0; i < data_length; i++)
-			{
-				data = rx_temp[i];
-				if(RxState == 0 && data == 0xFF)
-				{
-					RxState = 1;
-					uart_rx_buf[0] = data;
-				}
-				else if(RxState == 1 && data == 0xFC)
-				{
-					RxState = 2;
-					uart_rx_buf[1] = data;
-				}
-				else if (RxState == 2 && data >= 0 && data < 0XF1)
-				{
-					RxState = 3;
-					uart_rx_buf[2] = data;
-					_data_len1 = 128 - 2;
-					_data_cnt1 = 0;
-				}
-				else if(RxState == 3 && data < UART_BUF_SIZE)
-				{
-					RxState= 4;
-					uart_rx_buf[3] = data;
-					_data_len1 = data;
-					_data_cnt1 = 0; 
-				}
-				else if (RxState == 4 && _data_len1 > 0)
-				{
-					_data_len1--;
-					uart_rx_buf[4 + _data_cnt1++] = data;
-					if (_data_len1 == 0)
-						RxState = 5;
-				}
-				else if(RxState == 5)
-				{
-					RxState = 0;
-					uart_rx_buf[4 + _data_cnt1] = data;
-					if (_data_cnt1>0)
-						uart_rx(uart_rx_buf, _data_cnt1+5);
-				}
-				else
-					RxState = 0;
-        }
+	// for(int i = 0; i < data_length; i++)
+	// {
+	// 	printf("%02x ",rx_temp[i]);
+	// }
+	// printf("\n");
+	for(int i = 0; i < data_length; i++)
+	{
+		data = rx_temp[i];
+		if(RxState == 0 && data == 0xFF)
+		{
+			RxState = 1;
+			uart_rx_buf[0] = data;
+		}
+		else if(RxState == 1 && data == 0xFC)
+		{
+			RxState = 2;
+			uart_rx_buf[1] = data;
+		}
+		else if (RxState == 2 && data >= 0 && data < 0XF1)
+		{
+			RxState = 3;
+			uart_rx_buf[2] = data;
+			_data_len1 = 128 - 2;
+			_data_cnt1 = 0;
+		}
+		else if(RxState == 3 && data < UART_BUF_SIZE)
+		{
+			RxState= 4;
+			uart_rx_buf[3] = data;
+			_data_len1 = data;
+			_data_cnt1 = 0; 
+		}
+		else if (RxState == 4 && _data_len1 > 0)
+		{
+			_data_len1--;
+			uart_rx_buf[4 + _data_cnt1++] = data;
+			if (_data_len1 == 0)
+				RxState = 5;
+		}
+		else if(RxState == 5)
+		{
+			RxState = 0;
+			uart_rx_buf[4 + _data_cnt1] = data;
+			if (_data_cnt1>0)
+				uart_rx(uart_rx_buf, _data_cnt1+5);
+		}
+		else
+			RxState = 0;
 	}
 }
 
@@ -221,16 +253,29 @@ void uart_rx(uint8_t *data_buf, int data_length)
 	switch(sel)
 	{
 	case 0:
-
 		printf("000 ");
 		break;
 	case 5:
-		treadmile.speed = floatFromData(data_buf, &anal_cnt);
-		// printf("speed: %f\n",treadmile.speed);
+		sensor.treadmile.speed = floatFromData(data_buf, &anal_cnt);
+		// printf("speed: %f\n",sensor.treadmile.speed);
 		break;
 	case 6:
-		treadmile.distance = floatFromData(data_buf, &anal_cnt);
-		// printf("distance: %f\n",treadmile.distance);
+		sensor.treadmile.distance = floatFromData(data_buf, &anal_cnt);
+		// printf("distance: %f\n",sensor.treadmile.distance);
+		break;
+	case 7:
+		sensor.pressure = floatFromData(data_buf, &anal_cnt);
+		// printf("pressure: %f\n",sensor.pressure);
+		break;	
+	case 8:
+		sensor.treadmile.speed = floatFromData(data_buf, &anal_cnt);
+		sensor.treadmile.distance = floatFromData(data_buf, &anal_cnt);
+		sensor.pressure = floatFromData(data_buf, &anal_cnt);
+		// printf("pressure: %f\n",sensor.pressure);
+		break;		
+	case 9:
+		sensor.current = floatFromData(data_buf, &anal_cnt);
+		// printf("current: %f\n",sensor.current);
 		break;
 
 	default:
