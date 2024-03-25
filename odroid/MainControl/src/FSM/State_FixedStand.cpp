@@ -17,15 +17,22 @@ void State_FixedStand::enter(){
         _lowCmd -> setZeroDq(i);
         _lowCmd -> setZeroTau(i);
     }
+    //获取当前状态
     for(int i=0; i<4; i++){
         _lowCmd -> motorCmd[i].q = _lowState -> motorState[i].q;
         _startPos[i] = _lowState->motorState[i].q;
         _startKp[i] = _lowCmd->motorCmd[i].Kp;
     }
-    _targetPos <<   -_ctrlComp->Mass_x, -_ctrlComp->Mass_x,
-                    0,                  0,
-                    -_ctrlComp->H,      -_ctrlComp->H;
-    getTargetPos(_targetPos);
+    //计算目标位置
+    // _targetPos <<   -_ctrlComp->Mass_x, -_ctrlComp->Mass_x,
+    //                 0,                  0,
+    //                 -_ctrlComp->H,      -_ctrlComp->H;
+    _pcd << 0, 0, _ctrlComp->H;
+    _posFeetGlobalGoal.setZero();
+    _B2G_RotMat = _lowState->getRotMat();               //机身旋转矩阵
+    _G2B_RotMat = _B2G_RotMat.transpose();
+    
+    getTargetPos();
     _ctrlComp -> setAllStance();
 }
 
@@ -68,6 +75,9 @@ FSMStateName State_FixedStand::checkChange(){
     }
 }
 
-void State_FixedStand::getTargetPos(Vec32 _targetPos){
-    _targetQ = _ctrlComp -> robotModel ->getQ(_targetPos);
+void State_FixedStand::getTargetPos(){
+    for(int i=0; i<2; i++){
+        _posFeet2BGoal.col(i) = _G2B_RotMat * (_posFeetGlobalGoal.col(i) - _pcd);
+    }
+    _targetQ = _ctrlComp -> robotModel ->getQ(_posFeet2BGoal);
 }

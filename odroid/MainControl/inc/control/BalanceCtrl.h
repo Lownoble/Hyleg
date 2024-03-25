@@ -13,7 +13,7 @@ class BalanceCtrl{
 public:
     BalanceCtrl(double mass, Mat3 Ib, Mat6 S, double alpha, double beta);
     BalanceCtrl(BipedalRobot *robModel);
-    Vec32 calF(Vec3 ddPcd, Vec3 dWbd, RotMat rotM, Vec32 feetPos2B, VecInt2 contact);
+    Vec32 calF(Vec3 ddPcd, Vec3 dWbd, RotMat rotM, Vec32 feetPos2B, VecInt2 contact, double loadMass);
 #ifdef COMPILE_DEBUG
     void setPyPlot(PyPlot *plot){_testPlot = plot;}
 #endif  // COMPILE_DEBUG
@@ -31,6 +31,7 @@ private:
     Vec3 _pcb;
     Vec6 _F, _Fprev, _g0T;
     double _mass, _alpha, _beta, _fricRatio;
+    double _massRobot;
     Eigen::MatrixXd _CE, _CI;
     Eigen::VectorXd _ce0, _ci0;
     Eigen::Matrix<double, 6 , 6> _A;

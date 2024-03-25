@@ -4,6 +4,8 @@
 #include "FSM/FSMState.h"
 #include "Gait/GaitGenerator.h"
 #include "control/BalanceCtrl.h"
+#include "dataProcess/DataRecord.h"
+#include "control/ErrorCtrl.h"
 
 class State_Walking : public FSMState{
 public:
@@ -18,6 +20,7 @@ private:
     void calcTau();
     void calcQQd();
     void calcCmd();
+    void calcPcd();
     virtual void getUserCmd();
     void getTreadmileVel();
     void calcBalanceKp();
@@ -27,9 +30,11 @@ private:
     Estimator *_est;
     BipedalRobot *_robModel;
     BalanceCtrl *_balCtrl;
+    ValveCtrl *_valveCtrl;
 
     // Rob State
     Vec3  _posBody, _velBody;
+    double _bodyPhase;
     Vec32 _posFeetGlobal, _velFeetGlobal;
     Vec32 _posFeet2BGlobal;
     RotMat _B2G_RotMat, _G2B_RotMat;
@@ -47,6 +52,7 @@ private:
     Vec4 _tau;
     Vec3 _ddPcd, _dWbd;
     int origin;
+    Vec4 _qCompensate;
 
     // Control Parameters
     double _gaitHeight;
@@ -54,9 +60,17 @@ private:
     Mat3 _Kpp, _Kdp, _Kdw;
     double _kpw;
     Mat3 _KpSwing, _KdSwing;
+    Mat3 _KpStable, _KdStable;
     Vec2 _vxLim, _vyLim, _wyawLim, _tauLim;
     Vec2 *_phase;
     VecInt2 *_contact;
+
+    // Valve Parameters
+    float valveForce = 0;
+    float loadMass = 0;
+
+    DataRecord* dataRecord;
+    ErrorCtrl* errorCtrl;
 };
 
 #endif

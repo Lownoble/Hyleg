@@ -1,6 +1,5 @@
 #include "interface/IOSDK.h"
 #include "interface/KeyBoard.h"
-#include "SPI/spi.h"
 #include "UART/uart_communicate.h"
 #include <stdio.h>
 
@@ -12,7 +11,7 @@ IOSDK::IOSDK():_safe(HYLEG_SDK::LeggedType::Hyleg), _udp(HYLEG_SDK::LOWLEVEL){
 }
 #endif
 IOSDK::IOSDK():IOInterface(){
-    std::cout << "The control interface for real robot: Hyleg" << std::endl;
+    std::cout << "The control interface for real robot: Hyleg\n" << std::endl;
     cmdPanel = new KeyBoard();
 }
 
@@ -22,12 +21,11 @@ IOSDK::~IOSDK(){
 
 
 void IOSDK::sendRecv(const LowlevelCmd *cmd, LowlevelState *state){
-    sendCmd(cmd);
-    recvState(state);
+    // sendCmd(cmd);
+    // recvState(state);
 
     state->userCmd = cmdPanel->getUserCmd();
     state->userValue = cmdPanel->getUserValue();
-    // printf("\n");
 }
 
 void IOSDK::sendCmd(const LowlevelCmd *cmd){
@@ -39,11 +37,14 @@ void IOSDK::sendCmd(const LowlevelCmd *cmd){
         _lowCmd.motorCmd[i].Kd   = cmd->motorCmd[i].Kd;
         _lowCmd.motorCmd[i].tau  = cmd->motorCmd[i].tau;
     }
-    _spi.SetSend(&_lowCmd);
+    _lowCmd.valveSignal = cmd->valveSignal;
+    // spi->SetSend(&_lowCmd);
+    // valve.SetSend(&_lowCmd);
 }
 
 void IOSDK::recvState(LowlevelState *state){
-    _spi.GetRecv(&_lowState);
+    // spi->GetRecv(&_lowState);
+    // sensor.GetRecv(&_lowState);
     // for(int i=0; i<4; i++){
     //     _lowState.motorState[i].q = _lowCmd.motorCmd[i].q;
     //     _lowState.motorState[i].dq = _lowCmd.motorCmd[i].dq;
@@ -57,6 +58,9 @@ void IOSDK::recvState(LowlevelState *state){
         state->motorState[i].mode = _lowState.motorState[i].mode;
     }
     state->footContact = _lowState.footContact;
-    sensor.GetRecv(&_lowState);
+    state->treadmile.speed = _lowState.treadmile.speed;
+    state->treadmile.distance = _lowState.treadmile.distance;
+    state->pressure = _lowState.pressure;
+    state->current = _lowState.current;
+    // printf("speed:%f distance:%f\n",_lowState.treadmile.speed,_lowState.treadmile.distance);
 }
-

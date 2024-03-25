@@ -1,13 +1,14 @@
 #include "UART/uart_communicate.h"
-
-Sensor sensor;
-
 using namespace std;
 
+#define RX_IN_USB 1
+#define POWER_DATA 1
+
+//ls -l /dev/tty*
 #if !RX_IN_USB
 serial::Serial m_serial("/dev/ttyS0",115200 , serial::Timeout::simpleTimeout(5));
 #else
-serial::Serial m_serial("/dev/Sensor",115200 , serial::Timeout::simpleTimeout(5));
+serial::Serial m_serial("/dev/Sensor",460800 , serial::Timeout::simpleTimeout(5));
 
 #endif
 
@@ -15,10 +16,15 @@ serial::Serial m_serial("/dev/Sensor",115200 , serial::Timeout::simpleTimeout(5)
 	serial::Serial power_serial("/dev/Lower",576000 , serial::Timeout::simpleTimeout(5));
 #endif
 
-#define UART_BUF_SIZE 200
-uint8_t uart_rx_buf[UART_BUF_SIZE] = {0};
+UART::UART(){
+	_fd = uart_init();
+}
 
-int uart_init()
+UART::~UART(){
+	close(_fd);
+}
+
+int UART::uart_init()
 {
 	m_serial.close();
 	int fd;
@@ -45,32 +51,60 @@ int uart_init()
 }
 
 
-void uartSent()
-{  
+void UART::uartValveCtrl(){
+	VecInt2 valveSignal = valve.valveSignal;
+	static VecInt2 valveSignalPast;
 	unsigned char data_to_send[50];
-    int _cnt = 0, i = 0, sum = 0;
-    int tx_test[2]={1,2};
-    data_to_send[_cnt++] = 0xAA;
-    data_to_send[_cnt++] = 0xAF;
-    data_to_send[_cnt++] = 0x01;
-    data_to_send[_cnt++] = 0;
-
-    data_to_send[_cnt++] = tx_test[0];
-
-    data_to_send[_cnt++] = int(tx_test[1])>>8;
-    data_to_send[_cnt++] = int(tx_test[1])%256;
-  
-    data_to_send[3] = _cnt - 4;
-
-    for (i = 0; i < _cnt; i++)
-        sum += data_to_send[i];
-    data_to_send[_cnt++] = sum;
-    int Length = _cnt;
-    m_serial.write(data_to_send, Length);
+    int _cnt = 0;
+	if(valveSignal(0)&&valveSignal(1)){ 			// 左右都高压
+		for(int i=0; i<1; i++){
+		data_to_send[_cnt++] = 0x0A;
+		data_to_send[_cnt++] = 0x0B;
+		data_to_send[_cnt++] = 0x00;
+		data_to_send[_cnt++] = 0x00;
+		data_to_send[_cnt++] = 0x15;
+		}
+	}
+	else if(!valveSignal(0)&&!valveSignal(1)){		// 左右都低压
+		for(int i=0; i<1; i++){
+		data_to_send[_cnt++] = 0x0A;
+		data_to_send[_cnt++] = 0x0B;
+		data_to_send[_cnt++] = 0xFF;
+		data_to_send[_cnt++] = 0xFF;
+		data_to_send[_cnt++] = 0x13;
+		}
+	}
+	else if(valveSignal(0)&&!valveSignal(1)){		// 左高压，右低压
+		for(int i=0; i<1; i++){
+		data_to_send[_cnt++] = 0x0A;
+		data_to_send[_cnt++] = 0x0B;
+		data_to_send[_cnt++] = 0xFF;
+		data_to_send[_cnt++] = 0x00;
+		data_to_send[_cnt++] = 0x14;
+		}
+	}
+	else if(!valveSignal(0)&&valveSignal(1)){		// 右高压，左低压
+		for(int i=0; i<1; i++){
+		data_to_send[_cnt++] = 0x0A;
+		data_to_send[_cnt++] = 0x0B;
+		data_to_send[_cnt++] = 0x00;
+		data_to_send[_cnt++] = 0xFF;
+		data_to_send[_cnt++] = 0x14;
+		}
+	}
+	// if(valveSignal!=valveSignalPast){
+		m_serial.write(data_to_send, _cnt);
+		// printf("%d %d\n",valveSignal(0),valveSignal(1));
+		// for(int i=0;i<_cnt;i++){
+		// 	printf("%02x ",data_to_send[i]);
+		// }
+		// cout <<endl;
+	// }
+	valveSignalPast = valveSignal;
 }
 
 
-uint32_t intFromData(unsigned char *data,int* anal_cnt)
+uint32_t UART::intFromData(unsigned char *data,int* anal_cnt)
 {
 	uint32_t i = 0x00;
 	i |= (*(data+*anal_cnt+3) << 24);
@@ -82,7 +116,7 @@ uint32_t intFromData(unsigned char *data,int* anal_cnt)
 	return i;
 }
 
-uint16_t uint16FromDataf(unsigned char *data,int* anal_cnt)
+uint16_t UART::uint16FromDataf(unsigned char *data,int* anal_cnt)
 {
 	uint16_t i = 0x00;
 	i |= (*(data+*anal_cnt+1) << 8);
@@ -92,7 +126,7 @@ uint16_t uint16FromDataf(unsigned char *data,int* anal_cnt)
 	return i;
 }
 
-float floatFromData(unsigned char *data,int* anal_cnt)
+float UART::floatFromData(unsigned char *data,int* anal_cnt)
 {
 	int i = 0x00;
 	float out=0;
@@ -107,7 +141,7 @@ float floatFromData(unsigned char *data,int* anal_cnt)
 	return out;
 }
 
-float int16FromDataf(unsigned char *data,int* anal_cnt)
+float UART::int16FromDataf(unsigned char *data,int* anal_cnt)
 {
 	int16_t temp = (int16_t)((*(data+*anal_cnt+0)) | (*(data+*anal_cnt+1))<< 8 ); 
 	float result = temp;
@@ -115,7 +149,7 @@ float int16FromDataf(unsigned char *data,int* anal_cnt)
 	return result;
 }
 
-int32_t int24FromDataf(unsigned char *data,int* anal_cnt)
+int32_t UART::int24FromDataf(unsigned char *data,int* anal_cnt)
 {
 	int32_t temp = (int32_t)((*(data+*anal_cnt+0)) << 8 | (*(data+*anal_cnt+1))<< 16 | (*(data+*anal_cnt+2))<< 24) / 256; 
 	int32_t result = temp;
@@ -123,7 +157,7 @@ int32_t int24FromDataf(unsigned char *data,int* anal_cnt)
 	return result;
 }
 
-char charFromDataf(unsigned char *data,int* anal_cnt)
+char UART::charFromDataf(unsigned char *data,int* anal_cnt)
 {
 	char out=0;
 	 out=(*(data+*anal_cnt));
@@ -131,13 +165,13 @@ char charFromDataf(unsigned char *data,int* anal_cnt)
 	return (out);
 }
 
-char reverseFromDataf(unsigned char *data,int* anal_cnt,int r_num)
+char UART::reverseFromDataf(unsigned char *data,int* anal_cnt,int r_num)
 {
 	*anal_cnt +=r_num;
 	return (0);
 }
 
-int intFromDataf(unsigned char *data,int* anal_cnt)
+int UART::intFromDataf(unsigned char *data,int* anal_cnt)
 {
 	int i = 0x00;
 	i |= (*(data+*anal_cnt+3) << 24);
@@ -148,7 +182,7 @@ int intFromDataf(unsigned char *data,int* anal_cnt)
 	return (i);
 }
 
-void mSerialRead(){
+void UART::mSerialRead(){
 	int data_length = 0;
 	uint8_t rx_temp[UART_BUF_SIZE]={0};
 	data_length = m_serial.available();
@@ -159,8 +193,9 @@ void mSerialRead(){
 	}
 }
 
+
+void UART::powerSerialRead(){
 #if POWER_DATA
-void powerSerialRead(){
 	int data_length = 0;
 	uint8_t rx_temp[UART_BUF_SIZE]={0};
 	data_length = power_serial.available();
@@ -169,11 +204,12 @@ void powerSerialRead(){
 		power_serial.read(rx_temp, data_length);
 		rx_anal(rx_temp,data_length);
 	}
-}
 #endif
+}
 
 
-void rx_anal(uint8_t *rx_temp, int data_length)//Rx interupt
+
+void UART::rx_anal(uint8_t *rx_temp, int data_length)//Rx interupt
 {
 	static int RxState = 0;
 	static int _data_len1 = 0;
@@ -230,7 +266,7 @@ void rx_anal(uint8_t *rx_temp, int data_length)//Rx interupt
 	}
 }
 
-void uart_rx(uint8_t *data_buf, int data_length)
+void UART::uart_rx(uint8_t *data_buf, int data_length)
 {
 	uint8_t sum=0;
 	uint8_t sel = *(data_buf + 2);
@@ -247,6 +283,11 @@ void uart_rx(uint8_t *data_buf, int data_length)
 	if (*(data_buf + data_length - 1) != sum)
 	{
 		cout<<"Sum Check Fail!"<<endl;
+		// for(int i = 0; i < data_length; i++)
+		// {
+		// 	printf("%02x ",*(data_buf+i));
+		// }
+		printf("\n");
 		return;
 	}
 
@@ -265,17 +306,17 @@ void uart_rx(uint8_t *data_buf, int data_length)
 		break;
 	case 7:
 		sensor.pressure = floatFromData(data_buf, &anal_cnt);
-		// printf("pressure: %f\n",sensor.pressure);
+		printf("pressure: %f\n",sensor.pressure);
 		break;	
 	case 8:
 		sensor.treadmile.speed = floatFromData(data_buf, &anal_cnt);
-		sensor.treadmile.distance = floatFromData(data_buf, &anal_cnt);
-		sensor.pressure = floatFromData(data_buf, &anal_cnt);
-		// printf("pressure: %f\n",sensor.pressure);
-		break;		
+		sensor.treadmile.distance = floatFromData(data_buf, &anal_cnt)/100;
+		// printf("speed: %f distance: %f\n",sensor.treadmile.speed,sensor.treadmile.distance);
+		break;
 	case 9:
 		sensor.current = floatFromData(data_buf, &anal_cnt);
-		// printf("current: %f\n",sensor.current);
+		sensor.pressure = floatFromData(data_buf, &anal_cnt);
+		// printf("current: %f pressure: %f\n",sensor.current,sensor.pressure);
 		break;
 
 	default:

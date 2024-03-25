@@ -19,6 +19,7 @@ struct UserValue{
     float rx;
     float ry;
     float L2;
+    float ml;
     UserValue(){
         setZero();
     }
@@ -28,6 +29,7 @@ struct UserValue{
         rx = 0;
         ry = 0;
         L2 = 0;
+        ml = 0;
     }
 };
 

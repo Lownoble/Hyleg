@@ -11,7 +11,6 @@ public:
 private:
     void sendCmd(const LowlevelCmd *lowCmd);
     void recvState(LowlevelState *state);
-
     LowlevelCmd   _lowCmd;
     LowlevelState _lowState;
 };

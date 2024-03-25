@@ -26,14 +26,13 @@ void FSM::initialize(){
 }
 
 void FSM::run(){
-    _startTime = getSystemTime();
     _ctrlComp -> sendRecv();
     _ctrlComp -> runWaveGen();
+    _ctrlComp -> runValveCtrl();
     _ctrlComp -> estimator -> run();
     if(!checkSafty()){
         _ctrlComp->ioInter->setPassive();
     }
-
     if(_mode == FSMMode::NORMAL){
         _currentState->run();
         _nextStateName = _currentState->checkChange();
@@ -51,7 +50,6 @@ void FSM::run(){
         _mode = FSMMode::NORMAL;
         _currentState -> run();
     }
-    absoluteWait(_startTime, (long long)(_ctrlComp->dt * 1000000));
 }
 
 FSMState* FSM::getNextState(FSMStateName stateName){

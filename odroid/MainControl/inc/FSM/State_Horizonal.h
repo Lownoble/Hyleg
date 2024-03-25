@@ -45,6 +45,8 @@ private:
     float _zMax, _zMin;
 
     float _XD,_ZD;
+    double _massLoad;
+    float _massMax, _massMin;
 };
 
 #endif  // HORIZONAL_H

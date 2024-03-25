@@ -7,6 +7,8 @@ State_Horizonal::State_Horizonal(CtrlComponents *ctrlComp)
 
     _xMax = 0.3;
     _xMin = -_xMax;
+    _massMax = 10;
+    _massMin = 0;
 
     _Kpp = Vec3(200, 0, 300).asDiagonal();
     _Kdp = Vec3(0, 0, 25).asDiagonal();
@@ -19,6 +21,7 @@ void State_Horizonal::enter(){
     _posFeetGlobalGoal.setZero();
     _velFeetGlobalGoal.setZero();
     _XD=0; _ZD=0;
+    _massLoad = 0;
 
     _ctrlComp->setAllStance();
     _ctrlComp->ioInter->zeroCmdPanel();
@@ -37,7 +40,9 @@ void State_Horizonal::run(){
 
     // _XD = invNormalize(_userValue.lx, _xMin, _xMax);     //W S
     _XD = invNormalize(_userValue.ry, _xMin, _xMax);        //I K
+    _massLoad = invNormalize(_userValue.ml, _massMin, _massMax, 0, 1);
 
+    printf("%f ",_userValue.ml);
 
     runGait();
 
@@ -49,7 +54,7 @@ void State_Horizonal::run(){
     _lowCmd->setStableGain();
     _lowCmd->setTau(_tau);
     _lowCmd->setQ(_qGoal);
-    printf("%d %f %f %f %f %f %f %f\n",(*_contact)(0),(*_phase)(0),_pcd(2),_posBody(2),_forceFeetBody(0,0),_forceFeetBody(0,1),_forceFeetBody(2,0),_forceFeetBody(2,1));
+    printf("%f %d %f %f %f %f %f %f %f\n",_massLoad,(*_contact)(0),(*_phase)(0),_pcd(2),_posBody(2),_forceFeetBody(0,0),_forceFeetBody(0,1),_forceFeetBody(2,0),_forceFeetBody(2,1));
 }
 
 void State_Horizonal::exit(){
@@ -86,7 +91,7 @@ void State_Horizonal::calcTau(){
 
     _posFeet2BGlobal = _est->getPosFeet2BGlobal();
 
-    _forceFeetGlobal = - _balCtrl->calF(_ddPcd, _dWbd, _B2G_RotMat, _posFeet2BGlobal, contact);
+    _forceFeetGlobal = - _balCtrl->calF(_ddPcd, _dWbd, _B2G_RotMat, _posFeet2BGlobal, contact, _massLoad);
     _forceFeetBody = _G2B_RotMat * _forceFeetGlobal;
 
     _q = Mat2ToVec4(_lowState->getQ());

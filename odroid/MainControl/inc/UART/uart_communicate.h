@@ -1,8 +1,6 @@
 #ifndef UART_H
 #define UART_H
 
-
-
 #include <serial/serial.h>
 #include <iostream>
 #include <sstream>
@@ -13,31 +11,62 @@
 #include <string.h>
 #include <unistd.h>
 #include "message/LowlevelState.h"
+#include "message/LowlevelCmd.h"
 
 #ifdef __RASPberyPI__  
   // 包含 wiringpi 库的代码  
   #include <wiringpi2/wiringSerial.h> 
 #endif
 
-#define RX_IN_USB 0
-#define POWER_DATA 1
+#define UART_BUF_SIZE 1024
 
 struct Sensor{
   Treadmile treadmile;
   float pressure;
   float current;
 
-    void GetRecv(LowlevelState *state){
-      // state->treadmile = treadmile;
-      // printf("speed:%f distance:%f pressure:%f current:%f \n",treadmile.speed,treadmile.distance,pressure,current);
-    }
+  void GetRecv(LowlevelState *state){
+    state->treadmile = treadmile;
+  }
 };
 
-extern Sensor sensor;
+struct Valve{
+  VecInt2 valveSignal;
+  void SetSend(const LowlevelCmd *cmd){
+    valveSignal = cmd->valveSignal;
+  }
+};
 
-int uart_init();
-void uart_rx(uint8_t *data_buf, int data_length);
-void rx_anal(uint8_t *rx_temp, int data_length);
-void mSerialRead();
-void powerSerialRead();
+class UART{
+public:
+  UART();
+  ~UART();
+
+  Sensor sensor;
+  Valve valve;
+
+  void mSerialRead();
+  void powerSerialRead();
+  void uartValveCtrl();
+private:
+  int _fd;
+  uint8_t uart_rx_buf[UART_BUF_SIZE] = {0};
+  uint8_t uart_tx_buf[UART_BUF_SIZE] = {0};
+
+  int uart_init();
+  void uart_rx(uint8_t *data_buf, int data_length);
+  void rx_anal(uint8_t *rx_temp, int data_length);
+
+  uint32_t intFromData(unsigned char *data,int* anal_cnt);
+  uint16_t uint16FromDataf(unsigned char *data,int* anal_cnt);
+  float floatFromData(unsigned char *data,int* anal_cnt);
+  float int16FromDataf(unsigned char *data,int* anal_cnt);
+  int32_t int24FromDataf(unsigned char *data,int* anal_cnt);
+  char charFromDataf(unsigned char *data,int* anal_cnt);
+  char reverseFromDataf(unsigned char *data,int* anal_cnt,int r_num);
+  int intFromDataf(unsigned char *data,int* anal_cnt);
+  
+};
+
+
 #endif

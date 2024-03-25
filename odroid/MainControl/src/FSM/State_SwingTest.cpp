@@ -70,7 +70,8 @@ void State_SwingTest::run(){
     // _gait->run(_posFeetGlobalGoal, _velFeetGlobalGoal);
 
     // gaitCircle(0.05);
-    gaitSquare(0.08,0.08);
+    // gaitSquare(0.08,0.08);
+    gaitPoint(0,0);
 
 
     calcTau();
@@ -78,19 +79,16 @@ void State_SwingTest::run(){
 
 
     // printf("%d %d ",(*_contact)(0),(*_contact)(1));
-    printf("%f  ",phase);
-    printf("%f %f ",_pcd(0),_pcd(2));
-    // printf("%f %f ",_posBody(0),_posBody(2));
-    // printf("%f %f ",_velBody(0),_vCmdBody(0));
-    printf("%f %f ",_posFeetGlobalGoal(0,1),_posFeetGlobalGoal(2,1));
-    printf("%f %f ",_posFeetGlobal(0,1),_posFeetGlobal(2,1));
-    printf("%f %f ",_posFeet2BGoal(0,1),_posFeet2BGoal(2,1));
+    // printf("%f  ",phase);
+    printf("pcd:%f %f ",_pcd(0),_pcd(2));
+    printf("posbody:%f %f ",_posBody(0),_posBody(2));
+    printf("footPosition:%f %f ",_posFeet2BGoal(0,1),_posFeet2BGoal(2,1));
     // printf("%f %f ",_velFeetGlobalGoal(0,0),_velFeetGlobalGoal(2,0));
     // printf("%f %f ",_velFeetGlobal(0,0),_velFeetGlobal(2,0));
     // printf("%f %f ",_posFeetGlobalGoal(0,1),_posFeetGlobalGoal(2,1));
     // printf("%f %f %f %f ",_qdGoal(0),_qdGoal(1),_qdGoal(2),_qdGoal(3));
-    printf("%f %f %f %f ",_forceFeetBody(0,0),_forceFeetBody(2,0),_forceFeetBody(0,1),_forceFeetBody(2,1));
-    // printf("%f %f %f %f ",_tau(0),_tau(1),_tau(2),_tau(3));
+    printf("forceFeetBody:%.1f %.1f %.1f %.1f ",_forceFeetBody(0,0),_forceFeetBody(2,0),_forceFeetBody(0,1),_forceFeetBody(2,1));
+    printf("tau:%f %f %f %f ",_tau(0),_tau(1),_tau(2),_tau(3));
 
     if(checkStepOrNot()){
         _ctrlComp->setStartWave();
@@ -211,4 +209,13 @@ void State_SwingTest::gaitSquare(float length, float width){
         }
     }
 
+}
+
+void State_SwingTest::gaitPoint(float pointX, float pointZ){
+    for(int i=0; i<2; i++){
+        _posFeetGlobalGoal(0,i) = pointX;
+        _posFeetGlobalGoal(2,i) = pointZ;
+        _velFeetGlobalGoal(0,i) = 0;
+        _velFeetGlobalGoal(2,i) = 0;
+    }
 }

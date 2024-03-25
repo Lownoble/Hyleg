@@ -17,7 +17,7 @@ enum class RobotType{
 enum class UserCommand{
     // EXIT,
     NONE,
-    START,      // trotting         4
+    START,      // walking          4
     L2_A,       // fixedStand       2
     L2_B,       // passive          1
     L2_X,       // freeStand        3

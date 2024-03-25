@@ -9,6 +9,7 @@
 #include "Gait/WaveGenerator.h"
 #include "control/Estimator.h"
 #include "control/BalanceCtrl.h"
+#include "control/ValveCtrl.h"
 #include <string>
 #include <iostream>
 
@@ -34,6 +35,7 @@ public:
         delete waveGen;
         delete estimator;
         delete balCtrl;
+        delete valveCtrl;
 #ifdef COMPILE_DEBUG
         delete plot;
 #endif  // COMPILE_DEBUG
@@ -45,6 +47,7 @@ public:
     WaveGenerator *waveGen;
     Estimator *estimator;
     BalanceCtrl *balCtrl;
+    ValveCtrl *valveCtrl;
 
 #ifdef COMPILE_DEBUG
     PyPlot *plot;
@@ -57,6 +60,8 @@ public:
     bool *running;
     double H;
     double Mass_x;
+    double period;
+    double stancePhaseRatio;
     CtrlPlatform ctrlPlatform;
 
     void sendRecv(){
@@ -65,6 +70,10 @@ public:
 
     void runWaveGen(){
         waveGen->calcContactPhase(*phase, *contact, _waveStatus);
+    }
+
+    void runValveCtrl(){
+        lowCmd->valveSignal = valveCtrl->runValveCtrl(_waveStatus, lowState->pressure, estimator->getPosition());
     }
 
     void setAllStance(){
@@ -84,8 +93,9 @@ public:
     }
 
     void geneObj(){
-        estimator = new Estimator(robotModel, lowState, contact, phase, dt);
+        estimator = new Estimator(robotModel, lowState, waveGen, contact, phase, dt);
         balCtrl = new BalanceCtrl(robotModel);
+        valveCtrl = new ValveCtrl(contact, phase, stancePhaseRatio);
 
 #ifdef COMPILE_DEBUG
         plot = new PyPlot();

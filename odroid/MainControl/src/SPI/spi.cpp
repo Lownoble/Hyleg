@@ -1,60 +1,50 @@
 #include "SPI/spi.h"
-
-SPI _spi;
-
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-
-static uint8_t mode = 0;
-static uint8_t bits = 8;
-static uint32_t speed = 1000000;
-static uint16_t delay = 0;
-static uint8_t cs = 0;
-
 using namespace std;
 
-uint8_t spi_tx_buf[SPI_BUF_SIZE] = {0};
-uint8_t spi_rx_buf[SPI_BUF_SIZE] = {0};
-int spi_tx_cnt = 0;
-int spi_rx_cnt = 0;
-int extra_len[2] = {3,3};
-int rx_wrong = 0;
 
-
-static void pabort(const char *s)
-{
-	perror(s);
-	abort();
+SPI::SPI(){
+	for(int i=0;i<5;i++){
+        motorCmd[i].ID = i;
+        motorState[i].ID = i;
+    }
+	footContact.setZero();
+	_fd = spi_init();
 }
 
-int spi_init()
+SPI::~SPI(){
+	close(_fd);
+}
+
+
+int SPI::spi_init()
 {
 	static const char *device = "/dev/spidev0.0";
 	int ret = 0;
 	int fd;
 	fd = open(device, O_RDWR);
 	if (fd < 0)
-		pabort("can't open device");
+		cout << "can't open device" <<endl;
 	//设置模式
 	ret = ioctl(fd, SPI_IOC_WR_MODE, &mode); 
 	if (ret == -1)
-		pabort("can't set spi mode");
+		cout << "can't set spi mode" <<endl;
 	ret = ioctl(fd, SPI_IOC_RD_MODE, &mode); 
 	if (ret == -1)
-		pabort("can't get spi mode");
+		cout << "can't get spi mode" <<endl;
 	//设置一次多少位
 	ret = ioctl(fd, SPI_IOC_WR_BITS_PER_WORD, &bits); 
 	if (ret == -1)
-		pabort("can't set bits per word");
+		cout << "can't set bits per word" <<endl;
 	ret = ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &bits); 
 	if (ret == -1)
-		pabort("can't get bits per word");
+		cout << "can't get bits per word" <<endl;
 	//设置最大速度
 	ret = ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &speed); 
 	if (ret == -1)
-		pabort("can't set max speed hz");
+		cout << "can't set max speed hz" <<endl;
 	ret = ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &speed); 
 	if (ret == -1)
-		pabort("can't get max speed hz");
+		cout << "can't get max speed hz" <<endl;
 
     printf("spi fd:%d\n", fd);
 	printf("spi mode: %d\n", mode);
@@ -64,7 +54,7 @@ int spi_init()
 	return fd;
 }
 
-static void setDataInt_spi(int i)
+void SPI::setDataInt_spi(int i)
 {
 	spi_tx_buf[spi_tx_cnt++] = ((i << 24) >> 24);
 	spi_tx_buf[spi_tx_cnt++] = ((i << 16) >> 24);
@@ -72,7 +62,7 @@ static void setDataInt_spi(int i)
 	spi_tx_buf[spi_tx_cnt++] = (i >> 24);
 }
 
-static void setDataFloat_spi(float f)
+void SPI::setDataFloat_spi(float f)
 {
 	int i = *(int *)&f;
 	spi_tx_buf[spi_tx_cnt++] = ((i << 24) >> 24);
@@ -81,7 +71,7 @@ static void setDataFloat_spi(float f)
 	spi_tx_buf[spi_tx_cnt++] = (i >> 24);
 }
 
-static float floatFromData_spi(unsigned char *data, int *anal_cnt)
+float SPI::floatFromData_spi(unsigned char *data, int *anal_cnt)
 {
 	int i = 0x00;
 	i |= (*(data + *anal_cnt + 3) << 24);
@@ -93,14 +83,14 @@ static float floatFromData_spi(unsigned char *data, int *anal_cnt)
 	return *(float *)&i;
 }
 
-static char charFromData_spi(unsigned char *data, int *anal_cnt)
+char SPI::charFromData_spi(unsigned char *data, int *anal_cnt)
 {
 	int temp = *anal_cnt;
 	*anal_cnt += 1;
 	return *(data + temp);
 }
 
-static int intFromData_spi(unsigned char *data, int *anal_cnt)
+int SPI::intFromData_spi(unsigned char *data, int *anal_cnt)
 {
 	int i = 0x00;
 	i |= (*(data + *anal_cnt + 3) << 24);
@@ -112,7 +102,7 @@ static int intFromData_spi(unsigned char *data, int *anal_cnt)
 }
 
 
-void can_board_send(int sel)//发送到单片机
+void SPI::can_board_send(int sel)//发送到单片机
 {
 	int i;
 	static float t_temp = 0;
@@ -139,27 +129,31 @@ void can_board_send(int sel)//发送到单片机
 	case 2:
 	case 3:
 	case 4://发送电流力矩  
-		setDataInt_spi(_spi.motorCmd[sel].ID);
-		setDataFloat_spi(_spi.motorCmd[sel].q);
-		setDataFloat_spi(_spi.motorCmd[sel].dq);
-		setDataFloat_spi(_spi.motorCmd[sel].tau);
-		setDataFloat_spi(_spi.motorCmd[sel].Kp);
-		setDataFloat_spi(_spi.motorCmd[sel].Kd);
-		// printf("%f ",_spi.motorCmd[sel].q);
+		setDataInt_spi(motorCmd[sel].ID);
+		setDataFloat_spi(motorCmd[sel].q);
+		setDataFloat_spi(motorCmd[sel].dq);
+		setDataFloat_spi(motorCmd[sel].tau);
+		setDataFloat_spi(motorCmd[sel].Kp);
+		setDataFloat_spi(motorCmd[sel].Kd);
+		// printf("%f ",motorCmd[sel].q);
 		break;
 
 	case 10:
 		for(int i=1; i<5; i++){
-			setDataInt_spi(_spi.motorCmd[i].ID);
-			setDataFloat_spi(_spi.motorCmd[i].q);
-			setDataFloat_spi(_spi.motorCmd[i].dq);
-			setDataFloat_spi(_spi.motorCmd[i].tau);
-			setDataFloat_spi(_spi.motorCmd[i].Kp);
-			setDataFloat_spi(_spi.motorCmd[i].Kd);
-			//printf("%d %f %f %f\n",i,_spi.motorCmd[i].q,_spi.motorCmd[i].dq,_spi.motorCmd[i].Kd);
+			setDataInt_spi(motorCmd[i].ID);
+			setDataInt_spi(motorCmd[i].mode);
+			setDataFloat_spi(motorCmd[i].q);
+			setDataFloat_spi(motorCmd[i].dq);
+			setDataFloat_spi(motorCmd[i].tau);
+			setDataFloat_spi(motorCmd[i].Kp);
+			setDataFloat_spi(motorCmd[i].Kd);
+			// printf("%f ",motorCmd[i].q);
 		}
-		setDataFloat_spi(sensor.current);
-		setDataInt_spi(0);
+		setDataFloat_spi(current);
+		setDataFloat_spi(pressure);
+		setDataFloat_spi(velocity);
+		// printf("%f %f \n",current,pressure);
+		// printf("\n");
 		break;
 
 	case 98:// FA FF 62 08 0F 01 00 00 9C 00 00 00 0F 00 00
@@ -194,7 +188,7 @@ void can_board_send(int sel)//发送到单片机
 }
 
 
-void slave_rx(uint8_t *data_buf, int num)//接收解码
+void SPI::slave_rx(uint8_t *data_buf, int num)//接收解码
 {
 	static int cnt_p = 0;
 	uint8_t id;
@@ -230,29 +224,30 @@ void slave_rx(uint8_t *data_buf, int num)//接收解码
 	case 3:
 	case 4:
 		ID = intFromData_spi(data_buf,&anal_cnt);
-		_spi.motorState[ID].q = floatFromData_spi(data_buf,&anal_cnt);
-		_spi.motorState[ID].dq = floatFromData_spi(data_buf,&anal_cnt);
-		_spi.motorState[ID].ddq = floatFromData_spi(data_buf,&anal_cnt);
-		_spi.motorState[ID].tauEst = floatFromData_spi(data_buf,&anal_cnt);
-		_spi.motorState[ID].mode = floatFromData_spi(data_buf,&anal_cnt);
-		//printf("%d %f %f %f %f\n",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].tauEst);
-		// if(ID==3) printf("%d %f %f %f %f  ",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].tauEst);
-		// if(ID==4) printf("%d %f %f %f %f\n",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].tauEst);
+		motorState[ID].q = floatFromData_spi(data_buf,&anal_cnt);
+		motorState[ID].dq = floatFromData_spi(data_buf,&anal_cnt);
+		motorState[ID].ddq = floatFromData_spi(data_buf,&anal_cnt);
+		motorState[ID].tauEst = floatFromData_spi(data_buf,&anal_cnt);
+		motorState[ID].mode = floatFromData_spi(data_buf,&anal_cnt);
+		//printf("%d %f %f %f %f\n",ID,motorState[ID].q,motorState[ID].dq,motorState[ID].ddq,motorState[ID].tauEst);
+		// if(ID==3) printf("%d %f %f %f %f  ",ID,motorState[ID].q,motorState[ID].dq,motorState[ID].ddq,motorState[ID].tauEst);
+		// if(ID==4) printf("%d %f %f %f %f\n",ID,motorState[ID].q,motorState[ID].dq,motorState[ID].ddq,motorState[ID].tauEst);
 		break;
 
 	case 10:
 		for(int i=1;i<5;i++){
 			ID = intFromData_spi(data_buf,&anal_cnt);
-			_spi.motorState[ID].q = floatFromData_spi(data_buf,&anal_cnt);
-			_spi.motorState[ID].dq = floatFromData_spi(data_buf,&anal_cnt);
-			_spi.motorState[ID].ddq = floatFromData_spi(data_buf,&anal_cnt);
-			_spi.motorState[ID].tauEst = floatFromData_spi(data_buf,&anal_cnt);
-			_spi.motorState[ID].mode = floatFromData_spi(data_buf,&anal_cnt);
-			// printf("%d %f %f %f %f  ",ID,_spi.motorState[ID].q,_spi.motorState[ID].dq,_spi.motorState[ID].ddq,_spi.motorState[ID].tauEst);
+			motorState[ID].q = floatFromData_spi(data_buf,&anal_cnt);
+			motorState[ID].dq = floatFromData_spi(data_buf,&anal_cnt);
+			motorState[ID].ddq = floatFromData_spi(data_buf,&anal_cnt);
+			motorState[ID].tauEst = floatFromData_spi(data_buf,&anal_cnt);
+			motorState[ID].mode = floatFromData_spi(data_buf,&anal_cnt);
+			motorState[ID].mode = floatFromData_spi(data_buf,&anal_cnt);
+			// printf("%d %f %f %f %f  ",ID,motorState[ID].q,motorState[ID].dq,motorState[ID].ddq,motorState[ID].tauEst);
 		}
-		_spi.footContact(0) = intFromData_spi(data_buf,&anal_cnt);
-		_spi.footContact(1) = intFromData_spi(data_buf,&anal_cnt);
-		//printf("%d %d\n",_spi.footContact(0),_spi.footContact(1));
+		footContact(0) = intFromData_spi(data_buf,&anal_cnt);
+		footContact(1) = intFromData_spi(data_buf,&anal_cnt);
+		//printf("%d %d\n",footContact(0),footContact(1));
 		break;
 	case 98:
 		rx_test[0] = intFromData_spi(spi_rx_buf, &anal_cnt);
@@ -266,7 +261,7 @@ void slave_rx(uint8_t *data_buf, int num)//接收解码
 
 }
 
-void transfer(int fd, int sel)//发送
+void SPI::transfer(int sel)//发送
 {
 	static uint8_t state, rx_cnt;
 	static uint8_t _data_len2 = 0, _data_cnt2 = 0;
@@ -274,7 +269,6 @@ void transfer(int fd, int sel)//发送
 	uint8_t data = 0;
 
 	can_board_send(sel);
-
 	char rx[ARRAY_SIZE(spi_tx_buf)] = {};
 
 	struct spi_ioc_transfer tr;
@@ -288,30 +282,11 @@ void transfer(int fd, int sel)//发送
 		.bits_per_word = bits,
 		.cs_change = cs,
 	};
-
-	ret = ioctl(fd, SPI_IOC_MESSAGE(1), &tr); 
-
+	ret = ioctl(_fd, SPI_IOC_MESSAGE(1), &tr); 
 	if (ret < 1)
-		pabort("can't send spi message");
+		cout << "can't send spi message" <<endl;
 	else
 	{
-		// if(rx[0]!=0xff && rx_wrong==0){
-		// 	int i = 0;
-		// 	rx_wrong = 1;
-		// 	while(rx[i] != 0xff)
-		// 	{
-		// 		i++;
-		// 	}
-		// 	extra_len[1] = 3+i;
-		// }
-		// else rx_wrong = 0;
-
-		// printf("RX:");
-		// for (int i = 0; i < spi_tx_cnt; i++)	printf("%02x ",rx[i]);
-		// printf("\nTX:");
-		// for (int i = 0; i < spi_tx_cnt; i++) printf("%02x ",spi_tx_buf[i]);
-		// printf("\n\n");
-
 		for (int i = 0; i < spi_tx_cnt; i++)
 		{
 			data = rx[i];

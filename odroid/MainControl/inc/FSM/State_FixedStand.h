@@ -14,9 +14,11 @@ public:
     void exit();
     FSMStateName checkChange();
 private:
-    void getTargetPos(Vec32 _targetPos);
+    void getTargetPos();
     Vec4 _targetQ;
-    Vec32 _targetPos;
+    Vec32 _targetPos,_posFeetGlobalGoal,_posFeet2BGoal;
+    Vec3 _pcd;
+    RotMat _B2G_RotMat, _G2B_RotMat;
     float _startPos[4];
     float _duration = 1000;
     float _percent = 0;

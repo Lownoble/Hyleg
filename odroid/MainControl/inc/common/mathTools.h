@@ -6,7 +6,10 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <cmath>
 #include "common/mathTypes.h"
+
+// #define M_PI acos(-1)
 
 template<typename T1, typename T2>
 inline T1 max(const T1 a, const T2 b){

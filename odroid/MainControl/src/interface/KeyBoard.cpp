@@ -24,19 +24,19 @@ KeyBoard::~KeyBoard(){
 
 UserCommand KeyBoard::checkCmd(){
     switch (_c){
-    case '1':
+    case '1'://passive
         return UserCommand::L2_B;
-    case '2':
+    case '2'://fixstand
         return UserCommand::L2_A;
     case '3':
         return UserCommand::L2_X;
-    case '4':
+    case '4'://walk
         return UserCommand::START;
 #ifdef COMPILE_WITH_MOVE_BASE
     case '5':
         return UserCommand::L2_Y;
 #endif  // COMPILE_WITH_MOVE_BASE
-    case '0':
+    case '0'://horizon
         return UserCommand::L1_X;
     case '9':
         return UserCommand::L1_A;
@@ -52,10 +52,10 @@ UserCommand KeyBoard::checkCmd(){
 
 void KeyBoard::changeValue(){
     switch (_c){
-    case 'w':case 'W':
+    case 'w':case 'W'://加速
         userValue.lx = min<float>(userValue.lx+sensitivityLeft, 1.0);
         break;
-    case 's':case 'S':
+    case 's':case 'S'://减速
         userValue.lx = max<float>(userValue.lx-sensitivityLeft, -1.0);
         break;
     case 'd':case 'D':
@@ -77,6 +77,14 @@ void KeyBoard::changeValue(){
     case 'j':case 'J':
         userValue.rx = max<float>(userValue.rx-sensitivityRight, -1.0);
         break;
+    case 'm':case 'M'://增加负载
+        userValue.ml = min<float>(userValue.ml+0.25, 2.0);
+        break;
+    case 'n':case 'N'://减少负载
+        userValue.ml = max<float>(userValue.ml-0.25, 0);
+        break;
+
+
     default:
         break;
     }

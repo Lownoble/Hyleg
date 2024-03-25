@@ -21,22 +21,11 @@
 #define SPI_BUF_SIZE 256 
 
 
-static void pabort(const char *s);
-int spi_init();
-void transfer(int fd, int sel);
-
-struct SPI{
-    MotorCmd motorCmd[5];
-    MotorState motorState[5];
-    VecInt2 footContact;
-
-    void SPIInit(){
-    for(int i=0;i<5;i++){
-        motorCmd[i].ID = i;
-        motorState[i].ID = i;
-        footContact.setZero();
-    }
-    }
+class SPI{
+public:
+    SPI();
+    ~SPI();
+    void transfer(int sel);
 
     void SetSend(const LowlevelCmd *cmd){
         for(int i=0;i<4;i++){
@@ -49,6 +38,7 @@ struct SPI{
             motorCmd[i+1].tau  = cmd->motorCmd[i].tau;
         }
     }
+
     void GetRecv(LowlevelState *state){
         for(int i=0; i<4; i++){
             state->motorState[i].mode = motorState[i+1].mode;
@@ -58,10 +48,47 @@ struct SPI{
             state->motorState[i].tauEst = motorState[i+1].tauEst;
         }
         state->footContact = footContact;
+        current = state->current;
+        pressure = state->pressure;
+        velocity = state->treadmile.speed;
     }
 
+private:
+    MotorCmd motorCmd[5];
+    MotorState motorState[5];
+    VecInt2 footContact;
+    float current;
+    float pressure;
+    float velocity;
+    #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
+
+    //SPI setting
+    uint8_t mode = 0;
+    uint8_t bits = 8;
+    uint32_t speed = 1000000;
+    // uint32_t speed = 20000000;
+    uint16_t delay = 0;
+    uint8_t cs = 0;
+
+    //spi buf
+    uint8_t spi_tx_buf[SPI_BUF_SIZE] = {0};
+    uint8_t spi_rx_buf[SPI_BUF_SIZE] = {0};
+    int spi_tx_cnt = 0;
+    int spi_rx_cnt = 0;
+    int _fd;
+
+    int spi_init();
+
+    void setDataInt_spi(int i);
+    void setDataFloat_spi(float f);
+    float floatFromData_spi(unsigned char *data, int *anal_cnt);
+    char charFromData_spi(unsigned char *data, int *anal_cnt);
+    int intFromData_spi(unsigned char *data, int *anal_cnt);
+    void can_board_send(int sel);
+    void slave_rx(uint8_t *data_buf, int num);
+
 };
-extern SPI _spi;
+
 #endif
 
 

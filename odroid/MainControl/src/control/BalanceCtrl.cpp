@@ -18,7 +18,7 @@ BalanceCtrl::BalanceCtrl(BipedalRobot *robModel){
     Vec6 s;
     Vec6 w, u;
 
-    _mass = robModel->getRobMass();
+    _massRobot = robModel->getRobMass();
     _pcb = robModel->getPcb();
     _Ib = robModel->getRobInertial();
     _g << 0, 0, -9.81;
@@ -43,7 +43,8 @@ BalanceCtrl::BalanceCtrl(BipedalRobot *robModel){
                  0,  0, 1;
 }
 
-Vec32 BalanceCtrl::calF(Vec3 ddPcd, Vec3 dWbd, RotMat rotM, Vec32 feetPos2B, VecInt2 contact){
+Vec32 BalanceCtrl::calF(Vec3 ddPcd, Vec3 dWbd, RotMat rotM, Vec32 feetPos2B, VecInt2 contact, double _massLoad){
+    _mass = _massRobot + _massLoad;
     calMatrixA(feetPos2B, rotM, contact);
     calVectorBd(ddPcd, dWbd, rotM);
     calConstraints(contact);

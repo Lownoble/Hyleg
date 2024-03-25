@@ -21,6 +21,7 @@ private:
     bool checkStepOrNot();
     void gaitCircle(float radius);
     void gaitSquare(float length, float width);
+    void gaitPoint(float pointX, float pointZ);
 
     GaitGenerator *_gait;
     Estimator *_est;

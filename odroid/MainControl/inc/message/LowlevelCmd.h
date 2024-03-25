@@ -25,6 +25,7 @@ struct MotorCmd{
 
 struct LowlevelCmd{
     MotorCmd motorCmd[4];
+    VecInt2 valveSignal;
 
     void setQ(Vec4 q){
         for(int i(0); i<4; ++i){
@@ -74,61 +75,22 @@ struct LowlevelCmd{
         }
     }
 
-    void setSimStanceGain(int legID){
-        motorCmd[legID*2+0].mode = 10;
-        motorCmd[legID*2+0].Kp = 180;
-        motorCmd[legID*2+0].Kd = 8;
-        motorCmd[legID*2+1].mode = 10;
-        motorCmd[legID*2+1].Kp = 180;
-        motorCmd[legID*2+1].Kd = 8;
-    }
+    void setSimStanceGain(int legID);
 
-    void setRealStanceGain(int legID){
-        motorCmd[legID*2+0].mode = 10;
-        //motorCmd[legID*2+0].Kp = 30;
-        motorCmd[legID*2+0].Kd = 2;
-        motorCmd[legID*2+1].mode = 10;
-        //motorCmd[legID*2+1].Kp = 30;
-        motorCmd[legID*2+1].Kd = 2;
-    }
+    void setRealStanceGain(int legID);
 
-    void setZeroGain(int legID){
-        motorCmd[legID*2+0].mode = 10;
-        motorCmd[legID*2+0].Kp = 0;
-        motorCmd[legID*2+0].Kd = 0;
-        motorCmd[legID*2+1].mode = 10;
-        motorCmd[legID*2+1].Kp = 0;
-        motorCmd[legID*2+1].Kd = 0;
-    }
-    void setZeroGain(){
-        for(int i(0); i<2; ++i){
-            setZeroGain(i);
-        }
-    }
+    void setZeroGain(int legID);
+    void setZeroGain();
 
-    void setStableGain(int legID){
-        motorCmd[legID*2+0].mode = 10;
-        motorCmd[legID*2+0].Kp = 50;
-        motorCmd[legID*2+0].Kd = 0.8;
-        motorCmd[legID*2+1].mode = 10;
-        motorCmd[legID*2+1].Kp = 50;
-        motorCmd[legID*2+1].Kd = 0.8;
-    }
+    void setStableGain(int legID);
 
-    void setStableGain(){
-        for(int i(0); i<2; ++i){
-            setStableGain(i);
-        }
-    }
+    void setStableGain();
 
-    void setSwingGain(int legID){
-        motorCmd[legID*2+0].mode = 10;
-        motorCmd[legID*2+0].Kp = 200;
-        motorCmd[legID*2+0].Kd = 0.8;
-        motorCmd[legID*2+1].mode = 10;
-        motorCmd[legID*2+1].Kp = 200;
-        motorCmd[legID*2+1].Kd = 0.8;
-    }
+    void setSwingGain(int legID);
+
+    void setValveCtrlGain(int legID);
+
+    void setDoubleStableGain(int legID);
 };
 
 

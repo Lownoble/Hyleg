@@ -11,10 +11,12 @@
     #include "common/PyPlot.h"
 #endif  // COMPILE_DEBUG
 
+#define TREADMILE 1
+
 class Estimator{
 public:
-    Estimator(BipedalRobot *robotModel, LowlevelState* lowState, VecInt2 *contact, Vec2 *phase, double dt);
-    Estimator(BipedalRobot *robotModel, LowlevelState* lowState, VecInt2 *contact, Vec2 *phase, double dt, Vec18 Qdig, std::string testName);
+    Estimator(BipedalRobot *robotModel, LowlevelState* lowState, WaveGenerator *waveG, VecInt2 *contact, Vec2 *phase, double dt);
+    Estimator(BipedalRobot *robotModel, LowlevelState* lowState, WaveGenerator *waveG, VecInt2 *contact, Vec2 *phase, double dt, Vec18 Qdig, std::string testName);
     ~Estimator();
     Vec3  getPosition();
     Vec3  getVelocity();
@@ -25,6 +27,7 @@ public:
     void run();
     Vec3 getPositionGoal();
     Vec3 getStartP(int i);
+    void restart();
 
 #ifdef COMPILE_DEBUG
     PyPlot *_testPlot;
@@ -40,6 +43,7 @@ private:
     Vec32 _feetPosGlobalKine, _feetVelGlobalKine;
     LowlevelState* _lowState;
     BipedalRobot *_robModel;
+    WaveGenerator *_waveG;
     Vec2 *_phase;
     VecInt2 *_contact,_contactPast;
     double _dt;

@@ -22,8 +22,9 @@
 #include "Gait/WaveGenerator.h"
 #include "interface/IOSDK.h"
 #include "interface/KeyBoard.h"
+#include "dataProcess/ShareData.h"
 
-pthread_mutex_t lock;
+using namespace std;
 
 bool running = true;
 //over watch the ctrl+c command
@@ -45,13 +46,12 @@ void setProcessScheduler()
 }
 
 
-void* Thread_Control(void*)//控制管理线程
+void* Thread_Control(void* arg)//控制管理线程
 {
-	float sys_dt = 0;
-    float timer[5]={0};
-
+	ShareData* shareData = static_cast<ShareData*>(arg);
+	long long startTime;
 	/* set real-time process */
-    setProcessScheduler();
+    // setProcessScheduler();
     /* set the print format */
 	IOInterface *ioInter;
     CtrlPlatform ctrlPlat;
@@ -61,70 +61,83 @@ void* Thread_Control(void*)//控制管理线程
 	CtrlComponents *ctrlComp = new CtrlComponents(ioInter);
     ctrlComp->ctrlPlatform = ctrlPlat;
     ctrlComp->dt = 0.002;   //run at 500Hz
-	ctrlComp->H = 0.450;
+	ctrlComp->H = 0.45;
 	ctrlComp->Mass_x = 0.00;
     ctrlComp->running = &running;
+	ctrlComp->period = 2;
+	ctrlComp->stancePhaseRatio = 0.55;
 	ctrlComp->robotModel = new HyRobot();
-	ctrlComp->waveGen = new WaveGenerator(1.0,0.6, Vec2(0, 0.5));
+	ctrlComp->waveGen = new WaveGenerator(ctrlComp->period,ctrlComp->stancePhaseRatio, Vec2(0, 0.5));
 	ctrlComp->geneObj();
     //ControlFrame ctrlFrame(ctrlComp);
 	FSM* _FSMController = new FSM(ctrlComp);
 	
-
     //signal(SIGINT, ShutDown); 
 	while (running)
 	{
+		startTime = getSystemTime();
+		shareData->getState(ctrlComp->lowState);
 		_FSMController->run();
+		shareData->setCmd(ctrlComp->lowCmd);
+		absoluteWait(startTime, (long long)(ctrlComp->dt * 1000000));
 	}
 	delete ctrlComp;
 	return 0;
 }
 
-void* Thread_SPI(void*)//SPI通讯线程
+void* Thread_SPI(void* arg)//SPI通讯线程
 {
+	ShareData* shareData = static_cast<ShareData*>(arg);
 	long long startTime;
 	float cycleTime = 0.005; //200Hz
-	int fd = spi_init();
-  	//Cycle_Time_Init();
+	SPI* spi = new SPI();
     while (1)
 	{
 		//-------SPI CAN发送
 		startTime = getSystemTime();
-		transfer(fd, 10);
-        
+		shareData->getCmd(spi);
+		spi->transfer(10);
+		shareData->setState(spi);
         absoluteWait(startTime, (long long)(cycleTime * 1000000));
 	}
-    close(fd);
+    delete spi;
 
 	return 0;
 }
 
-void* Thread_UART(void*)//UART通讯线程
+void* Thread_UART(void* arg)//UART通讯线程
 {
+	ShareData* shareData = static_cast<ShareData*>(arg);
 	long long startTime;
-	float cycleTime = 0.002; //500Hz
-	int fd = uart_init();
+	float cycleTime = 0.005; //200Hz
+	UART* uart = new UART();
     while (1)
 	{
 		startTime = getSystemTime();
-	    mSerialRead();
-        powerSerialRead();
+		shareData->getValveCtrl(&(uart->valve));
+	    uart->mSerialRead();
+        uart->powerSerialRead();
+		uart->uartValveCtrl();
+		shareData->setSensor(&(uart->sensor));
         absoluteWait(startTime, (long long)(cycleTime * 1000000));
 	}
-    close(fd);
+    delete uart;
 
 	return 0;
 }
 
+
+
 int main(int argc, char *argv[])//目前仅能保证上下通讯频率1ms
 {
+	ShareData shareData;
     pthread_t tida, tidb, tidc, tidd;
-	pthread_mutex_init(&lock, NULL);
-	pthread_create(&tidb, NULL, Thread_Control, NULL);
-	pthread_create(&tidc, NULL, Thread_SPI, NULL);
-	pthread_create(&tidd, NULL, Thread_UART, NULL);
+	pthread_create(&tidb, NULL, Thread_Control, &shareData);
+	pthread_create(&tidc, NULL, Thread_SPI, &shareData);
+	pthread_create(&tidd, NULL, Thread_UART, &shareData);
 	pthread_join(tidb, NULL);
 	pthread_join(tidc, NULL);
 	pthread_join(tidd, NULL);
 	return 0;
 }
+

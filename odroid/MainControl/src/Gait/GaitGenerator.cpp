@@ -39,7 +39,7 @@ void GaitGenerator::run(Vec32 &feetPos, Vec32 &feetVel){
         //     // printf("SP:%f ",_startP.col(i)(0));
         // }
         if((*_contact)(i) == 1){
-            if((*_phase)(i) < 0.01){
+            if((*_phase)(i) < 0.1){
                 _startP.col(i) = _est->getStartP(i);
                 _startP.col(i)(2) = 0;
             }
@@ -62,6 +62,7 @@ void GaitGenerator::run(Vec32 &feetPos, Vec32 &feetVel){
     _pastP = feetPos;
     _phasePast = *_phase;
     _contactPast = *_contact;
+    // printf(" startP:%f %f endP:%f %f  ",_startP.col(0)(0),_startP.col(1)(0),_endP.col(0)(0),_endP.col(1)(0));
 }
 
 Vec3 GaitGenerator::getFootPos(int i){
