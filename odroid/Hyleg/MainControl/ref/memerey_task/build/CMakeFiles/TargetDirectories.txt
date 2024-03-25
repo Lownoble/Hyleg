@@ -1,3 +1,0 @@
-/home/odroid/MainControl/ref/memerey_task/build/CMakeFiles/rebuild_cache.dir
-/home/odroid/MainControl/ref/memerey_task/build/CMakeFiles/edit_cache.dir
-/home/odroid/MainControl/ref/memerey_task/build/CMakeFiles/memery_task.dir

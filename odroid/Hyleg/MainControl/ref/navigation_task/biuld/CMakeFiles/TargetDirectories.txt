@@ -1,3 +1,0 @@
-/home/odroid/MainControl/ref/navigation_task/biuld/CMakeFiles/rebuild_cache.dir
-/home/odroid/MainControl/ref/navigation_task/biuld/CMakeFiles/edit_cache.dir
-/home/odroid/MainControl/ref/navigation_task/biuld/CMakeFiles/navigation_task.dir

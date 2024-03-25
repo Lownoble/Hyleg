@@ -1,3 +1,0 @@
-/home/odroid/MainControl/build/CMakeFiles/edit_cache.dir
-/home/odroid/MainControl/build/CMakeFiles/rebuild_cache.dir
-/home/odroid/MainControl/build/CMakeFiles/MAINCONTROL.dir
